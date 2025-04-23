@@ -273,7 +273,7 @@
             <div class="lg:text-center">
                 <h2 class="text-base text-blue-600 font-semibold tracking-wide uppercase">Resources</h2>
                 <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                    Python Code Examples
+                    Python Code Playground
                 </p>
                 <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
                     Practical Python code snippets for robotics applications.
@@ -281,185 +281,81 @@
             </div>
 
             <div class="mt-10">
-                <!-- Tabs -->
-                <div class="border-b border-gray-200">
-                    <nav class="-mb-px flex space-x-8" id="python-tabs">
-                        <button class="py-4 px-1 border-b-2 font-medium text-sm tab-button active" data-tab="sensors">
-                            Sensors
+                <!-- Interactive Code Editor Section -->
+                <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+                    <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
+                        <div>
+                            <h3 class="text-lg leading-6 font-medium text-gray-900">
+                                Interactive Python Code Editor
+                            </h3>
+                            <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                                Test your Python code for sensors, LCDs, and wheels directly in the browser.
+                            </p>
+                        </div>
+                        <button id="showMore" class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 focus:outline-none">
+                            Show More Examples
                         </button>
-                        <button class="py-4 px-1 border-b-2 font-medium text-sm tab-button" data-tab="motors">
-                            Motor Control
-                        </button>
-                        <button class="py-4 px-1 border-b-2 font-medium text-sm tab-button" data-tab="algorithms">
-                            Algorithms
-                        </button>
-                    </nav>
-                </div>
-
-                <!-- Tab Content -->
-                <div class="mt-6">
-                    <!-- Sensors Tab -->
-                    <div id="sensors" class="tab-content active">
-                        <div class="bg-white shadow overflow-hidden sm:rounded-lg">
-                            <div class="px-4 py-5 sm:px-6">
-                                <h3 class="text-lg leading-6 font-medium text-gray-900">
-                                    Reading Sensor Data with Python
-                                </h3>
-                                <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                                    Code examples for interfacing with various sensors.
-                                </p>
-                            </div>
-                            <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
-                                <div class="sm:divide-y sm:divide-gray-200">
-                                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                        <dt class="text-sm font-medium text-gray-500">
-                                            Ultrasonic Sensor
-                                        </dt>
-                                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                            <pre class="bg-gray-100 p-4 rounded-md overflow-x-auto"><code class="text-sm">import RPi.GPIO as GPIO
-import time
-
-GPIO.setmode(GPIO.BCM)
-TRIG = 23
-ECHO = 24
-
-GPIO.setup(TRIG, GPIO.OUT)
-GPIO.setup(ECHO, GPIO.IN)
-
-def get_distance():
-    GPIO.output(TRIG, True)
-    time.sleep(0.00001)
-    GPIO.output(TRIG, False)
-    
-    while GPIO.input(ECHO) == 0:
-        pulse_start = time.time()
-    
-    while GPIO.input(ECHO) == 1:
-        pulse_end = time.time()
-    
-    pulse_duration = pulse_end - pulse_start
-    distance = pulse_duration * 17150
-    distance = round(distance, 2)
-    
-    return distance
-
-try:
-    while True:
-        dist = get_distance()
-        print(f"Distance: {dist} cm")
-        time.sleep(1)
-except KeyboardInterrupt:
-    GPIO.cleanup()</code></pre>
-                                        </dd>
+                    </div>
+                    <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
+                        <div class="sm:divide-y sm:divide-gray-200">
+                            <div class="py-4 sm:py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
+                                <div class="flex flex-col md:flex-row gap-4">
+                                    <!-- Code Editor -->
+                                    <div id="code-editor" class="bg-gray-100 p-4 rounded-md overflow-x-auto flex-1 h-[30rem]">
+                                        <textarea id="pythonCode" class="w-full h-full p-2 border border-gray-300 rounded-md" placeholder="Write your Python code here...">print("Hello Botronix Labs!")</textarea>
                                     </div>
+
+                                    <!-- Terminal Output -->
+                                    <div id="output" class="bg-gray-800 text-white p-4 rounded-md overflow-y-auto flex-1 h-[30rem]">
+                                        <p>Output will appear here...</p>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 flex justify-between">
+                                    <button id="runCode" class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 focus:outline-none">
+                                        Run Code
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- Motors Tab -->
-                    <div id="motors" class="tab-content">
-                        <div class="bg-white shadow overflow-hidden sm:rounded-lg">
-                            <div class="px-4 py-5 sm:px-6">
-                                <h3 class="text-lg leading-6 font-medium text-gray-900">
-                                    Controlling Motors with Python
-                                </h3>
-                                <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                                    Code examples for DC motor and servo control.
-                                </p>
-                            </div>
-                            <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
-                                <div class="sm:divide-y sm:divide-gray-200">
-                                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                        <dt class="text-sm font-medium text-gray-500">
-                                            DC Motor Control
-                                        </dt>
-                                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                            <pre class="bg-gray-100 p-4 rounded-md overflow-x-auto"><code class="text-sm">from gpiozero import Motor
-from time import sleep
-
-motor = Motor(forward=17, backward=18)
-
-def motor_control(speed, duration):
-    if speed > 0:
-        motor.forward(speed)
-    elif speed < 0:
-        motor.backward(abs(speed))
-    else:
-        motor.stop()
-    
-    sleep(duration)
-    motor.stop()
-
-# Example usage
-motor_control(0.5, 2)  # Forward at 50% speed for 2 seconds
-motor_control(-0.3, 1) # Backward at 30% speed for 1 second</code></pre>
-                                        </dd>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Algorithms Tab -->
-                    <div id="algorithms" class="tab-content">
-                        <div class="bg-white shadow overflow-hidden sm:rounded-lg">
-                            <div class="px-4 py-5 sm:px-6">
-                                <h3 class="text-lg leading-6 font-medium text-gray-900">
-                                    Robotics Algorithms
-                                </h3>
-                                <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                                    Common robotics algorithms implemented in Python.
-                                </p>
-                            </div>
-                            <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
-                                <div class="sm:divide-y sm:divide-gray-200">
-                                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                        <dt class="text-sm font-medium text-gray-500">
-                                            PID Controller
-                                        </dt>
-                                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                            <pre class="bg-gray-100 p-4 rounded-md overflow-x-auto"><code class="text-sm">class PIDController:
-    def __init__(self, Kp, Ki, Kd):
-        self.Kp = Kp
-        self.Ki = Ki
-        self.Kd = Kd
-        self.prev_error = 0
-        self.integral = 0
-    
-    def compute(self, setpoint, measured_value, dt):
-        error = setpoint - measured_value
-        self.integral += error * dt
-        derivative = (error - self.prev_error) / dt
-        output = self.Kp * error + self.Ki * self.integral + self.Kd * derivative
-        self.prev_error = error
-        return output
-
-# Example usage
-pid = PIDController(Kp=1.0, Ki=0.1, Kd=0.01)
-setpoint = 10  # Target value
-measured_value = 5  # Current sensor reading
-dt = 0.1  # Time step
-
-control_signal = pid.compute(setpoint, measured_value, dt)
-print(f"Control signal: {control_signal}")</code></pre>
-                                        </dd>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-10 text-center">
-                    <a href="#" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
-                        View More Code Examples
-                        <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
                 </div>
             </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"></script>
+    <script>
+        function runPythonCode() {
+            const code = document.getElementById('pythonCode').value;
+            const output = document.getElementById('output');
+            output.innerHTML = '<p>Running your code...</p>';
+
+            // Clear previous output
+            Sk.configure({
+                output: function (text) {
+                    output.innerHTML += `<p>${text}</p>`;
+                },
+                read: function (x) {
+                    if (Sk.builtinFiles === undefined || Sk.builtinFiles['files'][x] === undefined) {
+                        throw `File not found: '${x}'`;
+                    }
+                    return Sk.builtinFiles['files'][x];
+                }
+            });
+
+            Sk.misceval.asyncToPromise(function () {
+                return Sk.importMainWithBody('<stdin>', false, code, true);
+            }).then(function () {
+                output.innerHTML += '<p>Execution complete.</p>';
+            }).catch(function (err) {
+                output.innerHTML += `<p style="color: red;">Error: ${err.toString()}</p>`;
+            });
+        }
+
+        document.getElementById('runCode').addEventListener('click', runPythonCode);
+    </script>
 
     <!-- 3D Prints Section -->
     <div id="3dprints" class="py-12 bg-white">
