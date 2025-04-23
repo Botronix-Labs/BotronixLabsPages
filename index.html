@@ -3,44 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Botronix Labs - Robotic Programming Learning Platform</title>
+    <title>Botronix Labs - Robotics Education</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome for robot icons -->
+    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
+            scroll-behavior: smooth;
         }
         .hero-gradient {
             background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
         }
-        .course-card:hover {
+        .course-card:hover, .project-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
-        .code-block {
-            background-color: #2d3748;
+        .contact-form {
+            background-color: #f8fafc;
             border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
-        .download-card:hover {
-            transform: scale(1.03);
+        .contact-info-card {
+            transition: all 0.3s ease;
         }
-         .robot-logo {
+        .contact-info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .robot-logo {
             color: #3b82f6;
             font-size: 1.75rem;
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .nav-link.active {
+            border-bottom: 2px solid #3b82f6;
+            color: #1d4ed8;
         }
     </style>
 </head>
 <body class="bg-gray-50">
     <!-- Navigation -->
-    <nav class="bg-white shadow-lg">
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex">
                     <div class="flex-shrink-0 flex items-center">
                         <div class="flex items-center">
-                             <!-- Updated Robot Logo -->
                             <div class="robot-logo">
                                 <i class="fas fa-robot"></i>
                             </div>
@@ -48,10 +81,11 @@
                         </div>
                     </div>
                     <div class="hidden md:ml-8 md:flex md:space-x-8">
-                        <a href="#courses" class="border-blue-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Courses</a>
-                        <a href="#python" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Python Code</a>
-                        <a href="#3dprints" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">3D Prints</a>
-                        <a href="#videos" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Videos</a>
+                        <a href="#courses" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Courses</a>
+                        <a href="#python" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Python Code</a>
+                        <a href="#3dprints" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">3D Prints</a>
+                        <a href="#videos" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Videos</a>
+                        <a href="#contact" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Contact</a>
                     </div>
                 </div>
                 <div class="hidden md:ml-6 md:flex md:items-center">
@@ -71,10 +105,11 @@
         <!-- Mobile menu -->
         <div class="hidden md:hidden" id="mobile-menu">
             <div class="pt-2 pb-3 space-y-1">
-                <a href="#courses" class="bg-blue-50 border-blue-500 text-blue-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Courses</a>
-                <a href="#python" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Python Code</a>
-                <a href="#3dprints" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">3D Prints</a>
-                <a href="#videos" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Videos</a>
+                <a href="#courses" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50 hover:border-gray-300">Courses</a>
+                <a href="#python" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50 hover:border-gray-300">Python Code</a>
+                <a href="#3dprints" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50 hover:border-gray-300">3D Prints</a>
+                <a href="#videos" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50 hover:border-gray-300">Videos</a>
+                <a href="#contact" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50 hover:border-gray-300">Contact</a>
                 <div class="mt-4 pl-3 pr-4">
                     <button class="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-base font-medium transition duration-150 ease-in-out">Sign In</button>
                 </div>
@@ -87,20 +122,20 @@
         <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
             <div class="text-center">
                 <h1 class="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl">
-                    <span class="block">Master Robotic Programming</span>
-                    <span class="block">With Botronix Labs</span>
+                    <span class="block">Learn Robotics with</span>
+                    <span class="block">Botronix Labs</span>
                 </h1>
                 <p class="mt-3 max-w-md mx-auto text-base text-blue-100 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
-                    Learn to program robots with Python through our comprehensive courses, hands-on projects, and community support.
+                    Master robotics through our comprehensive courses, Python code examples, 3D printing projects, and instructional videos.
                 </p>
-                <div class="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
-                    <div class="rounded-md shadow">
-                        <a href="#courses" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-blue-700 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10">
+                <div class="mt-8 flex justify-center">
+                    <div class="inline-flex rounded-md shadow">
+                        <a href="#courses" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-blue-600 bg-white hover:bg-gray-50">
                             Explore Courses
                         </a>
                     </div>
-                    <div class="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
-                        <a href="#videos" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-500 hover:bg-blue-600 md:py-4 md:text-lg md:px-10">
+                    <div class="ml-3 inline-flex">
+                        <a href="#videos" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-500 bg-opacity-60 hover:bg-opacity-70">
                             Watch Videos
                         </a>
                     </div>
@@ -113,12 +148,12 @@
     <div id="courses" class="py-12 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="lg:text-center">
-                <h2 class="text-base text-blue-600 font-semibold tracking-wide uppercase">Courses</h2>
+                <h2 class="text-base text-blue-600 font-semibold tracking-wide uppercase">Education</h2>
                 <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                    Start Your Robotics Journey
+                    Our Robotics Courses
                 </p>
                 <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-                    Our courses are designed to take you from beginner to advanced robotic programmer.
+                    From beginner to advanced levels, we have courses to suit every learning stage.
                 </p>
             </div>
 
@@ -128,10 +163,8 @@
                     <div class="course-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
                         <div class="px-4 py-5 sm:p-6">
                             <div class="flex items-center">
-                                <div class="flex-shrink-0 bg-blue-500 rounded-md p-3">
-                                    <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
-                                    </svg>
+                                <div class="flex-shrink-0 bg-blue-100 rounded-md p-3">
+                                    <i class="fas fa-baby text-blue-600 text-xl"></i>
                                 </div>
                                 <div class="ml-5 w-0 flex-1">
                                     <h3 class="text-lg font-medium text-gray-900">Robotics Fundamentals</h3>
@@ -140,30 +173,13 @@
                             </div>
                             <div class="mt-4">
                                 <p class="text-sm text-gray-600">
-                                    Learn the basics of robotics including kinematics, sensors, and actuators. Perfect for absolute beginners.
+                                    Learn the basics of robotics, including components, simple circuits, and introductory programming concepts.
                                 </p>
-                                <div class="mt-4">
-                                    <h4 class="text-sm font-medium text-gray-900">Course Outline:</h4>
-                                    <ul class="mt-2 text-sm text-gray-500 list-disc pl-5 space-y-1">
-                                        <li>Introduction to Robotics</li>
-                                        <li>Basic Electronics for Robotics</li>
-                                        <li>Motor Control Fundamentals</li>
-                                        <li>Simple Sensor Integration</li>
-                                    </ul>
-                                </div>
-                                <div class="mt-4 flex items-center">
-                                    <div class="flex-shrink-0">
-                                        <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60" alt="">
-                                    </div>
-                                    <div class="ml-3">
-                                        <p class="text-sm font-medium text-gray-900">Dr. Sarah Johnson</p>
-                                        <p class="text-sm text-gray-500">Robotics Professor</p>
-                                    </div>
-                                </div>
                             </div>
-                            <div class="mt-5">
-                                <button class="w-full inline-flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                    Enroll Now
+                            <div class="mt-5 flex items-center justify-between">
+                                <span class="text-sm font-medium text-blue-600">8 Weeks</span>
+                                <button class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                    Enroll
                                 </button>
                             </div>
                         </div>
@@ -173,42 +189,23 @@
                     <div class="course-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
                         <div class="px-4 py-5 sm:p-6">
                             <div class="flex items-center">
-                                <div class="flex-shrink-0 bg-blue-500 rounded-md p-3">
-                                    <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                                    </svg>
+                                <div class="flex-shrink-0 bg-blue-100 rounded-md p-3">
+                                    <i class="fas fa-microchip text-blue-600 text-xl"></i>
                                 </div>
                                 <div class="ml-5 w-0 flex-1">
-                                    <h3 class="text-lg font-medium text-gray-900">Python for Robotics</h3>
+                                    <h3 class="text-lg font-medium text-gray-900">Python Robotics</h3>
                                     <p class="mt-1 text-sm text-gray-500">Intermediate Level</p>
                                 </div>
                             </div>
                             <div class="mt-4">
                                 <p class="text-sm text-gray-600">
-                                    Master Python programming specifically for robotics applications including ROS integration.
+                                    Build and program RPI Pico-based robots with sensors, motors, and wireless communication modules.
                                 </p>
-                                <div class="mt-4">
-                                    <h4 class="text-sm font-medium text-gray-900">Course Outline:</h4>
-                                    <ul class="mt-2 text-sm text-gray-500 list-disc pl-5 space-y-1">
-                                        <li>Python Basics for Robotics</li>
-                                        <li>ROS (Robot Operating System)</li>
-                                        <li>Computer Vision with OpenCV</li>
-                                        <li>Path Planning Algorithms</li>
-                                    </ul>
-                                </div>
-                                <div class="mt-4 flex items-center">
-                                    <div class="flex-shrink-0">
-                                        <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60" alt="">
-                                    </div>
-                                    <div class="ml-3">
-                                        <p class="text-sm font-medium text-gray-900">Mark Williams</p>
-                                        <p class="text-sm text-gray-500">Senior Robotics Engineer</p>
-                                    </div>
-                                </div>
                             </div>
-                            <div class="mt-5">
-                                <button class="w-full inline-flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                    Enroll Now
+                            <div class="mt-5 flex items-center justify-between">
+                                <span class="text-sm font-medium text-blue-600">12 Weeks</span>
+                                <button class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                    Enroll
                                 </button>
                             </div>
                         </div>
@@ -218,46 +215,34 @@
                     <div class="course-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
                         <div class="px-4 py-5 sm:p-6">
                             <div class="flex items-center">
-                                <div class="flex-shrink-0 bg-blue-500 rounded-md p-3">
-                                    <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
-                                    </svg>
+                                <div class="flex-shrink-0 bg-blue-100 rounded-md p-3">
+                                    <i class="fas fa-robot text-blue-600 text-xl"></i>
                                 </div>
                                 <div class="ml-5 w-0 flex-1">
-                                    <h3 class="text-lg font-medium text-gray-900">Advanced Robotics AI</h3>
+                                    <h3 class="text-lg font-medium text-gray-900">AI Robotics</h3>
                                     <p class="mt-1 text-sm text-gray-500">Advanced Level</p>
                                 </div>
                             </div>
                             <div class="mt-4">
                                 <p class="text-sm text-gray-600">
-                                    Implement AI and machine learning techniques for autonomous robotic systems.
+                                    Implement machine learning and computer vision in robotics using Python and Raspberry Pi.
                                 </p>
-                                <div class="mt-4">
-                                    <h4 class="text-sm font-medium text-gray-900">Course Outline:</h4>
-                                    <ul class="mt-2 text-sm text-gray-500 list-disc pl-5 space-y-1">
-                                        <li>Machine Learning for Robotics</li>
-                                        <li>Neural Networks Implementation</li>
-                                        <li>Reinforcement Learning</li>
-                                        <li>Autonomous Navigation</li>
-                                    </ul>
-                                </div>
-                                <div class="mt-4 flex items-center">
-                                    <div class="flex-shrink-0">
-                                        <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60" alt="">
-                                    </div>
-                                    <div class="ml-3">
-                                        <p class="text-sm font-medium text-gray-900">Dr. Alex Chen</p>
-                                        <p class="text-sm text-gray-500">AI Research Scientist</p>
-                                    </div>
-                                </div>
                             </div>
-                            <div class="mt-5">
-                                <button class="w-full inline-flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                    Enroll Now
+                            <div class="mt-5 flex items-center justify-between">
+                                <span class="text-sm font-medium text-blue-600">16 Weeks</span>
+                                <button class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                    Enroll
                                 </button>
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="mt-10 text-center">
+                    <a href="#" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                        View All Courses
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -272,249 +257,321 @@
                     Python Code Examples
                 </p>
                 <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-                    Download and experiment with our open-source Python code for various robotic applications.
+                    Practical Python code snippets for robotics applications.
                 </p>
             </div>
 
             <div class="mt-10">
-                <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
-                    <!-- Code Example 1 -->
-                    <div class="bg-white overflow-hidden shadow rounded-lg">
-                        <div class="px-4 py-5 sm:p-6">
-                            <div class="flex items-center">
-                                <div class="flex-shrink-0 bg-blue-500 rounded-md p-3">
-                                    <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-                                    </svg>
-                                </div>
-                                <div class="ml-5 w-0 flex-1">
-                                    <h3 class="text-lg font-medium text-gray-900">Motor Control</h3>
-                                    <p class="mt-1 text-sm text-gray-500">Basic DC motor control with PWM</p>
-                                </div>
+                <!-- Tabs -->
+                <div class="border-b border-gray-200">
+                    <nav class="-mb-px flex space-x-8" id="python-tabs">
+                        <button class="py-4 px-1 border-b-2 font-medium text-sm tab-button active" data-tab="sensors">
+                            Sensors
+                        </button>
+                        <button class="py-4 px-1 border-b-2 font-medium text-sm tab-button" data-tab="motors">
+                            Motor Control
+                        </button>
+                        <button class="py-4 px-1 border-b-2 font-medium text-sm tab-button" data-tab="algorithms">
+                            Algorithms
+                        </button>
+                    </nav>
+                </div>
+
+                <!-- Tab Content -->
+                <div class="mt-6">
+                    <!-- Sensors Tab -->
+                    <div id="sensors" class="tab-content active">
+                        <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+                            <div class="px-4 py-5 sm:px-6">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">
+                                    Reading Sensor Data with Python
+                                </h3>
+                                <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                                    Code examples for interfacing with various sensors.
+                                </p>
                             </div>
-                            <div class="mt-4">
-                                <div class="code-block p-4 rounded-md">
-                                    <pre class="text-sm text-gray-300 overflow-x-auto"><code>import RPi.GPIO as GPIO
+                            <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
+                                <div class="sm:divide-y sm:divide-gray-200">
+                                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                        <dt class="text-sm font-medium text-gray-500">
+                                            Ultrasonic Sensor
+                                        </dt>
+                                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                            <pre class="bg-gray-100 p-4 rounded-md overflow-x-auto"><code class="text-sm">import RPi.GPIO as GPIO
 import time
 
-# Set up GPIO
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(18, GPIO.OUT)
+TRIG = 23
+ECHO = 24
 
-# Create PWM instance
-pwm = GPIO.PWM(18, 100)  # 100Hz frequency
-pwm.start(0)  # Start with 0% duty cycle
+GPIO.setup(TRIG, GPIO.OUT)
+GPIO.setup(ECHO, GPIO.IN)
+
+def get_distance():
+    GPIO.output(TRIG, True)
+    time.sleep(0.00001)
+    GPIO.output(TRIG, False)
+    
+    while GPIO.input(ECHO) == 0:
+        pulse_start = time.time()
+    
+    while GPIO.input(ECHO) == 1:
+        pulse_end = time.time()
+    
+    pulse_duration = pulse_end - pulse_start
+    distance = pulse_duration * 17150
+    distance = round(distance, 2)
+    
+    return distance
 
 try:
     while True:
-        for duty in range(0, 101, 5):
-            pwm.ChangeDutyCycle(duty)
-            time.sleep(0.1)
-        for duty in range(100, -1, -5):
-            pwm.ChangeDutyCycle(duty)
-            time.sleep(0.1)
+        dist = get_distance()
+        print(f"Distance: {dist} cm")
+        time.sleep(1)
 except KeyboardInterrupt:
-    pwm.stop()
     GPIO.cleanup()</code></pre>
-                                </div>
-                                <div class="mt-4 flex justify-between items-center">
-                                    <span class="text-sm text-gray-500">Last updated: 3 days ago</span>
-                                    <button class="inline-flex items-center px-3 py-1 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition duration-150 ease-in-out">
-                                        Download Code
-                                    </button>
+                                        </dd>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Code Example 2 -->
-                    <div class="bg-white overflow-hidden shadow rounded-lg">
-                        <div class="px-4 py-5 sm:p-6">
-                            <div class="flex items-center">
-                                <div class="flex-shrink-0 bg-blue-500 rounded-md p-3">
-                                    <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                    </svg>
-                                </div>
-                                <div class="ml-5 w-0 flex-1">
-                                    <h3 class="text-lg font-medium text-gray-900">Object Detection</h3>
-                                    <p class="mt-1 text-sm text-gray-500">Simple OpenCV object detection</p>
+                    <!-- Motors Tab -->
+                    <div id="motors" class="tab-content">
+                        <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+                            <div class="px-4 py-5 sm:px-6">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">
+                                    Controlling Motors with Python
+                                </h3>
+                                <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                                    Code examples for DC motor and servo control.
+                                </p>
+                            </div>
+                            <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
+                                <div class="sm:divide-y sm:divide-gray-200">
+                                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                        <dt class="text-sm font-medium text-gray-500">
+                                            DC Motor Control
+                                        </dt>
+                                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                            <pre class="bg-gray-100 p-4 rounded-md overflow-x-auto"><code class="text-sm">from gpiozero import Motor
+from time import sleep
+
+motor = Motor(forward=17, backward=18)
+
+def motor_control(speed, duration):
+    if speed > 0:
+        motor.forward(speed)
+    elif speed < 0:
+        motor.backward(abs(speed))
+    else:
+        motor.stop()
+    
+    sleep(duration)
+    motor.stop()
+
+# Example usage
+motor_control(0.5, 2)  # Forward at 50% speed for 2 seconds
+motor_control(-0.3, 1) # Backward at 30% speed for 1 second</code></pre>
+                                        </dd>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="mt-4">
-                                <div class="code-block p-4 rounded-md">
-                                    <pre class="text-sm text-gray-300 overflow-x-auto"><code>import cv2
-import numpy as np
+                        </div>
+                    </div>
 
-# Initialize webcam
-cap = cv2.VideoCapture(0)
+                    <!-- Algorithms Tab -->
+                    <div id="algorithms" class="tab-content">
+                        <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+                            <div class="px-4 py-5 sm:px-6">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">
+                                    Robotics Algorithms
+                                </h3>
+                                <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                                    Common robotics algorithms implemented in Python.
+                                </p>
+                            </div>
+                            <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
+                                <div class="sm:divide-y sm:divide-gray-200">
+                                    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                        <dt class="text-sm font-medium text-gray-500">
+                                            PID Controller
+                                        </dt>
+                                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                            <pre class="bg-gray-100 p-4 rounded-md overflow-x-auto"><code class="text-sm">class PIDController:
+    def __init__(self, Kp, Ki, Kd):
+        self.Kp = Kp
+        self.Ki = Ki
+        self.Kd = Kd
+        self.prev_error = 0
+        self.integral = 0
+    
+    def compute(self, setpoint, measured_value, dt):
+        error = setpoint - measured_value
+        self.integral += error * dt
+        derivative = (error - self.prev_error) / dt
+        output = self.Kp * error + self.Ki * self.integral + self.Kd * derivative
+        self.prev_error = error
+        return output
 
-while True:
-    # Capture frame-by-frame
-    ret, frame = cap.read()
-    
-    # Convert to HSV color space
-    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-    
-    # Define range for red color
-    lower_red = np.array([0,120,70])
-    upper_red = np.array([10,255,255])
-    
-    # Threshold the HSV image
-    mask = cv2.inRange(hsv, lower_red, upper_red)
-    
-    # Bitwise-AND mask and original image
-    res = cv2.bitwise_and(frame, frame, mask=mask)
-    
-    # Display results
-    cv2.imshow('Original', frame)
-    cv2.imshow('Red Objects', res)
-    
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+# Example usage
+pid = PIDController(Kp=1.0, Ki=0.1, Kd=0.01)
+setpoint = 10  # Target value
+measured_value = 5  # Current sensor reading
+dt = 0.1  # Time step
 
-# Release capture
-cap.release()
-cv2.destroyAllWindows()</code></pre>
-                                </div>
-                                <div class="mt-4 flex justify-between items-center">
-                                    <span class="text-sm text-gray-500">Last updated: 1 week ago</span>
-                                    <button class="inline-flex items-center px-3 py-1 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-700 transition duration-150 ease-in-out">
-                                        Download Code
-                                    </button>
+control_signal = pid.compute(setpoint, measured_value, dt)
+print(f"Control signal: {control_signal}")</code></pre>
+                                        </dd>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="mt-10 text-center">
+                    <a href="#" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                        View More Code Examples
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- 3D Print Files Section -->
+    <!-- 3D Prints Section -->
     <div id="3dprints" class="py-12 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="lg:text-center">
-                <h2 class="text-base text-blue-600 font-semibold tracking-wide uppercase">Resources</h2>
+                <h2 class="text-base text-blue-600 font-semibold tracking-wide uppercase">Projects</h2>
                 <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                    3D Printable Robot Models
+                    3D Printing for Robotics
                 </p>
                 <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-                    Download and print these robot models to complement your learning experience.
+                    Custom parts and enclosures for your robotics projects.
                 </p>
             </div>
 
             <div class="mt-10">
                 <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                    <!-- Model 1 -->
-                    <div class="download-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
+                    <!-- Project 1 -->
+                    <div class="project-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
                         <div class="px-4 py-5 sm:p-6">
-                            <div class="flex justify-center">
-                                <img class="h-40 w-auto" src="https://cdn.thingiverse.com/assets/9b/a6/1d/3e/7e/featured_preview_6DOF_Robot_Arm.png" alt="6DOF Robot Arm">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 bg-blue-100 rounded-md p-3">
+                                    <i class="fas fa-print text-blue-600 text-xl"></i>
+                                </div>
+                                <div class="ml-5 w-0 flex-1">
+                                    <h3 class="text-lg font-medium text-gray-900">Robot Chassis</h3>
+                                    <p class="mt-1 text-sm text-gray-500">STL File</p>
+                                </div>
                             </div>
                             <div class="mt-4">
-                                <h3 class="text-lg font-medium text-gray-900 text-center">6DOF Robot Arm</h3>
-                                <p class="mt-2 text-sm text-gray-500">
-                                    A fully articulated 6 degree-of-freedom robotic arm perfect for learning inverse kinematics.
-                                </p>
-                                <div class="mt-4 flex justify-between items-center">
-                                    <span class="text-xs text-gray-500">STL, OBJ formats</span>
-                                    <span class="text-xs text-gray-500">~250g filament</span>
-                                </div>
-                                <div class="mt-4">
-                                    <button class="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                        Download Files
-                                    </button>
-                                </div>
+                                <img src="https://via.placeholder.com/400x300?text=Robot+Chassis" alt="Robot Chassis" class="w-full h-48 object-cover rounded-md">
+                            </div>
+                            <div class="mt-5 flex items-center justify-between">
+                                <span class="text-sm font-medium text-gray-500">Download: 1.2MB</span>
+                                <button class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                    Download
+                                </button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Model 2 -->
-                    <div class="download-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
+                    <!-- Project 2 -->
+                    <div class="project-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
                         <div class="px-4 py-5 sm:p-6">
-                            <div class="flex justify-center">
-                                <img class="h-40 w-auto" src="https://cdn.thingiverse.com/assets/7a/3c/2b/4e/4f/featured_preview_Robot_Dog_V4.png" alt="Quadruped Robot">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 bg-blue-100 rounded-md p-3">
+                                    <i class="fas fa-microchip text-blue-600 text-xl"></i>
+                                </div>
+                                <div class="ml-5 w-0 flex-1">
+                                    <h3 class="text-lg font-medium text-gray-900">Arduino Case</h3>
+                                    <p class="mt-1 text-sm text-gray-500">STL File</p>
+                                </div>
                             </div>
                             <div class="mt-4">
-                                <h3 class="text-lg font-medium text-gray-900 text-center">Quadruped Robot</h3>
-                                <p class="mt-2 text-sm text-gray-500">
-                                    A four-legged walking robot that demonstrates advanced gait algorithms and balance.
-                                </p>
-                                <div class="mt-4 flex justify-between items-center">
-                                    <span class="text-xs text-gray-500">STL, STEP formats</span>
-                                    <span class="text-xs text-gray-500">~400g filament</span>
-                                </div>
-                                <div class="mt-4">
-                                    <button class="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                        Download Files
-                                    </button>
-                                </div>
+                                <img src="https://via.placeholder.com/400x300?text=Arduino+Case" alt="Arduino Case" class="w-full h-48 object-cover rounded-md">
+                            </div>
+                            <div class="mt-5 flex items-center justify-between">
+                                <span class="text-sm font-medium text-gray-500">Download: 0.8MB</span>
+                                <button class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                    Download
+                                </button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Model 3 -->
-                    <div class="download-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
+                    <!-- Project 3 -->
+                    <div class="project-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
                         <div class="px-4 py-5 sm:p-6">
-                            <div class="flex justify-center">
-                                <img class="h-40 w-auto" src="https://cdn.thingiverse.com/assets/9e/3e/0a/7e/5b/featured_preview_Robot_Wheel.png" alt="Differential Drive Robot">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 bg-blue-100 rounded-md p-3">
+                                    <i class="fas fa-robot text-blue-600 text-xl"></i>
+                                </div>
+                                <div class="ml-5 w-0 flex-1">
+                                    <h3 class="text-lg font-medium text-gray-900">Gripper Mechanism</h3>
+                                    <p class="mt-1 text-sm text-gray-500">STL File</p>
+                                </div>
                             </div>
                             <div class="mt-4">
-                                <h3 class="text-lg font-medium text-gray-900 text-center">Differential Drive Robot</h3>
-                                <p class="mt-2 text-sm text-gray-500">
-                                    A simple two-wheeled robot base with caster for learning basic mobility and navigation.
-                                </p>
-                                <div class="mt-4 flex justify-between items-center">
-                                    <span class="text-xs text-gray-500">STL, 3MF formats</span>
-                                    <span class="text-xs text-gray-500">~180g filament</span>
-                                </div>
-                                <div class="mt-4">
-                                    <button class="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                        Download Files
-                                    </button>
-                                </div>
+                                <img src="https://via.placeholder.com/400x300?text=Gripper+Mechanism" alt="Gripper Mechanism" class="w-full h-48 object-cover rounded-md">
+                            </div>
+                            <div class="mt-5 flex items-center justify-between">
+                                <span class="text-sm font-medium text-gray-500">Download: 1.5MB</span>
+                                <button class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                    Download
+                                </button>
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="mt-10 text-center">
+                    <a href="#" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                        View More 3D Models
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- YouTube Videos Section -->
+    <!-- Videos Section -->
     <div id="videos" class="py-12 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="lg:text-center">
-                <h2 class="text-base text-blue-600 font-semibold tracking-wide uppercase">Learning</h2>
+                <h2 class="text-base text-blue-600 font-semibold tracking-wide uppercase">Tutorials</h2>
                 <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                    Video Tutorials
+                    Instructional Videos
                 </p>
                 <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-                    Watch our free video tutorials to supplement your learning experience.
+                    Learn robotics concepts through our video tutorials.
                 </p>
             </div>
 
             <div class="mt-10">
-                <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
+                <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
                     <!-- Video 1 -->
                     <div class="bg-white overflow-hidden shadow rounded-lg">
+                        <div class="video-container">
+                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
                         <div class="px-4 py-5 sm:p-6">
-                            <div class="aspect-w-16 aspect-h-9">
-                                <iframe class="w-full h-64 sm:h-80" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                            </div>
-                            <div class="mt-4">
-                                <h3 class="text-lg font-medium text-gray-900">Introduction to Robotics Programming</h3>
-                                <p class="mt-1 text-sm text-gray-500">Learn the fundamentals of programming robots with Python in this beginner-friendly tutorial.</p>
-                                <div class="mt-4 flex items-center">
-                                    <div class="flex-shrink-0">
-                                        <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60" alt="">
-                                    </div>
-                                    <div class="ml-3">
-                                        <p class="text-sm font-medium text-gray-900">Dr. Sarah Johnson</p>
-                                        <p class="text-sm text-gray-500">Posted 2 weeks ago</p>
-                                    </div>
+                            <h3 class="text-lg font-medium text-gray-900">Getting Started with Robotics</h3>
+                            <p class="mt-1 text-sm text-gray-500">
+                                Learn the basics of robotics in this introductory tutorial.
+                            </p>
+                            <div class="mt-4 flex items-center">
+                                <div class="flex-shrink-0">
+                                    <img class="h-10 w-10 rounded-full" src="https://via.placeholder.com/40?text=Instructor" alt="Instructor">
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm font-medium text-gray-900">Dr. Sarah Johnson</p>
+                                    <p class="text-sm text-gray-500">Robotics Engineer</p>
                                 </div>
                             </div>
                         </div>
@@ -522,63 +579,246 @@ cv2.destroyAllWindows()</code></pre>
 
                     <!-- Video 2 -->
                     <div class="bg-white overflow-hidden shadow rounded-lg">
+                        <div class="video-container">
+                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
                         <div class="px-4 py-5 sm:p-6">
-                            <div class="aspect-w-16 aspect-h-9">
-                                <iframe class="w-full h-64 sm:h-80" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                            </div>
-                            <div class="mt-4">
-                                <h3 class="text-lg font-medium text-gray-900">Building Your First Robot Arm</h3>
-                                <p class="mt-1 text-sm text-gray-500">Step-by-step guide to assembling and programming a simple robotic arm using Arduino and Python.</p>
-                                <div class="mt-4 flex items-center">
-                                    <div class="flex-shrink-0">
-                                        <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60" alt="">
-                                    </div>
-                                    <div class="ml-3">
-                                        <p class="text-sm font-medium text-gray-900">Mark Williams</p>
-                                        <p class="text-sm text-gray-500">Posted 1 month ago</p>
-                                    </div>
+                            <h3 class="text-lg font-medium text-gray-900">Building Your First Robot</h3>
+                            <p class="mt-1 text-sm text-gray-500">
+                                Step-by-step guide to assembling a simple robot.
+                            </p>
+                            <div class="mt-4 flex items-center">
+                                <div class="flex-shrink-0">
+                                    <img class="h-10 w-10 rounded-full" src="https://via.placeholder.com/40?text=Instructor" alt="Instructor">
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm font-medium text-gray-900">Mark Williams</p>
+                                    <p class="text-sm text-gray-500">Robotics Instructor</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="mt-8 text-center">
-                    <a href="#" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                        View All Videos
-                        <svg class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                        </svg>
+
+                <div class="mt-10 text-center">
+                    <a href="#" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                        View More Videos
+                        <i class="fas fa-arrow-right ml-2"></i>
                     </a>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Newsletter Section -->
-    <div class="bg-blue-700">
-        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center">
-            <div class="lg:w-0 lg:flex-1">
-                <h2 class="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-                    Stay updated with our courses
-                </h2>
-                <p class="mt-3 max-w-3xl text-lg leading-6 text-blue-200">
-                    Sign up for our newsletter to receive updates on new courses, tutorials, and resources.
+    <!-- Contact Section -->
+    <div id="contact" class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center mb-12">
+                <h2 class="text-base text-blue-600 font-semibold tracking-wide uppercase">Support</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    We'd Love to Hear From You
+                </p>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                    Whether you have questions about our courses or need technical support, our team is here to help.
                 </p>
             </div>
-            <div class="mt-8 lg:mt-0 lg:ml-8">
-                <form class="sm:flex">
-                    <label for="email-address" class="sr-only">Email address</label>
-                    <input id="email-address" name="email" type="email" autocomplete="email" required class="w-full px-5 py-3 border border-transparent placeholder-gray-500 focus:ring-2 focus:ring-offset-2 focus:ring-offset-blue-700 focus:ring-white focus:border-white sm:max-w-xs rounded-md" placeholder="Enter your email">
-                    <div class="mt-3 rounded-md shadow sm:mt-0 sm:ml-3 sm:flex-shrink-0">
-                        <button type="submit" class="w-full flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-blue-600 bg-white hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-blue-700 focus:ring-white">
-                            Subscribe
-                        </button>
+
+            <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
+                <!-- Contact Form -->
+                <div class="contact-form p-6 sm:p-8">
+                    <h3 class="text-lg font-medium text-gray-900 mb-6">Send us a message</h3>
+                    <form id="contactForm" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                            <div class="mt-1">
+                                <input type="text" name="name" id="name" autocomplete="name" required class="py-3 px-4 block w-full shadow-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                            <div class="mt-1">
+                                <input type="email" name="email" id="email" autocomplete="email" required class="py-3 px-4 block w-full shadow-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-700">Subject</label>
+                            <div class="mt-1">
+                                <select id="subject" name="subject" class="py-3 px-4 block w-full shadow-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md">
+                                    <option>Course Information</option>
+                                    <option>Technical Support</option>
+                                    <option>Feedback</option>
+                                    <option>Partnership</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+                            <div class="mt-1">
+                                <textarea id="message" name="message" rows="4" required class="py-3 px-4 block w-full shadow-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center">
+                            <input id="agree" name="agree" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                            <label for="agree" class="ml-2 block text-sm text-gray-700">
+                                I agree to the <a href="#" class="text-blue-600 hover:text-blue-500">privacy policy</a>
+                            </label>
+                        </div>
+
+                        <div>
+                            <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out">
+                                Send Message
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="space-y-6">
+                    <div class="contact-info-card bg-white p-6 rounded-lg shadow">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-blue-100 p-3 rounded-full">
+                                <i class="fas fa-map-marker-alt text-blue-600 text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-medium text-gray-900">Our Location</h3>
+                                <p class="mt-1 text-sm text-gray-500">
+                                    123 Robotics Way<br>
+                                    Tech City, TC 12345<br>
+                                    United States
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                </form>
-                <p class="mt-3 text-sm text-blue-200">
-                    We care about your data. Read our <a href="#" class="text-white font-medium underline">Privacy Policy</a>.
+
+                    <div class="contact-info-card bg-white p-6 rounded-lg shadow">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-blue-100 p-3 rounded-full">
+                                <i class="fas fa-phone-alt text-blue-600 text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-medium text-gray-900">Phone & Email</h3>
+                                <p class="mt-1 text-sm text-gray-500">
+                                    <span class="block">+1 (555) 123-4567</span>
+                                    <span class="block">support@botronixlabs.com</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-card bg-white p-6 rounded-lg shadow">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-blue-100 p-3 rounded-full">
+                                <i class="fas fa-clock text-blue-600 text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-medium text-gray-900">Support Hours</h3>
+                                <p class="mt-1 text-sm text-gray-500">
+                                    <span class="block">Monday - Friday: 9am - 6pm EST</span>
+                                    <span class="block">Saturday: 10am - 2pm EST</span>
+                                    <span class="block">Sunday: Closed</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-card bg-white p-6 rounded-lg shadow">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Connect With Us</h3>
+                        <div class="flex space-x-4">
+                            <a href="#" class="bg-gray-100 hover:bg-gray-200 p-3 rounded-full text-gray-700 transition duration-150 ease-in-out">
+                                <i class="fab fa-twitter text-lg"></i>
+                            </a>
+                            <a href="#" class="bg-gray-100 hover:bg-gray-200 p-3 rounded-full text-gray-700 transition duration-150 ease-in-out">
+                                <i class="fab fa-facebook-f text-lg"></i>
+                            </a>
+                            <a href="#" class="bg-gray-100 hover:bg-gray-200 p-3 rounded-full text-gray-700 transition duration-150 ease-in-out">
+                                <i class="fab fa-linkedin-in text-lg"></i>
+                            </a>
+                            <a href="#" class="bg-gray-100 hover:bg-gray-200 p-3 rounded-full text-gray-700 transition duration-150 ease-in-out">
+                                <i class="fab fa-youtube text-lg"></i>
+                            </a>
+                            <a href="#" class="bg-gray-100 hover:bg-gray-200 p-3 rounded-full text-gray-700 transition duration-150 ease-in-out">
+                                <i class="fab fa-github text-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="bg-gray-50 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center mb-12">
+                <h2 class="text-base text-blue-600 font-semibold tracking-wide uppercase">Support</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    Frequently Asked Questions
                 </p>
+            </div>
+
+            <div class="max-w-3xl mx-auto">
+                <div class="space-y-4">
+                    <div class="bg-white shadow overflow-hidden rounded-lg">
+                        <div class="px-4 py-5 sm:p-6">
+                            <button class="w-full flex justify-between items-center text-left focus:outline-none" id="faq1">
+                                <span class="text-lg font-medium text-gray-900">How do I enroll in a course?</span>
+                                <i class="fas fa-chevron-down text-blue-500 transition-transform duration-200 transform"></i>
+                            </button>
+                            <div class="mt-4 hidden" id="faq1-content">
+                                <p class="text-gray-600">
+                                    To enroll in any of our courses, simply click the "Enroll Now" button on the course page. You'll be guided through the registration process where you can create an account or sign in if you already have one.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white shadow overflow-hidden rounded-lg">
+                        <div class="px-4 py-5 sm:p-6">
+                            <button class="w-full flex justify-between items-center text-left focus:outline-none" id="faq2">
+                                <span class="text-lg font-medium text-gray-900">What prerequisites do I need?</span>
+                                <i class="fas fa-chevron-down text-blue-500 transition-transform duration-200 transform"></i>
+                            </button>
+                            <div class="mt-4 hidden" id="faq2-content">
+                                <p class="text-gray-600">
+                                    Our beginner courses require no prior knowledge. For intermediate and advanced courses, we recommend basic programming knowledge (especially Python) and some understanding of electronics. Each course page lists specific prerequisites.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white shadow overflow-hidden rounded-lg">
+                        <div class="px-4 py-5 sm:p-6">
+                            <button class="w-full flex justify-between items-center text-left focus:outline-none" id="faq3">
+                                <span class="text-lg font-medium text-gray-900">Do you offer certificates?</span>
+                                <i class="fas fa-chevron-down text-blue-500 transition-transform duration-200 transform"></i>
+                            </button>
+                            <div class="mt-4 hidden" id="faq3-content">
+                                <p class="text-gray-600">
+                                    Yes! Upon successful completion of any course, including all assignments and projects, you'll receive a digital certificate that you can share on LinkedIn or include in your resume.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white shadow overflow-hidden rounded-lg">
+                        <div class="px-4 py-5 sm:p-6">
+                            <button class="w-full flex justify-between items-center text-left focus:outline-none" id="faq4">
+                                <span class="text-lg font-medium text-gray-900">What hardware do I need?</span>
+                                <i class="fas fa-chevron-down text-blue-500 transition-transform duration-200 transform"></i>
+                            </button>
+                            <div class="mt-4 hidden" id="faq4-content">
+                                <p class="text-gray-600">
+                                    For most courses, you'll need a computer with internet access. Some advanced courses may require specific hardware like Raspberry Pi, Arduino, or robotic kits. These requirements are clearly listed on each course page.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -586,68 +826,61 @@ cv2.destroyAllWindows()</code></pre>
     <!-- Footer -->
     <footer class="bg-gray-800">
         <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="grid grid-cols-2 md:grid-ccols-4 gap-8">
                 <div>
-                    <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Courses</h3>
-                    <ul class="mt-4 space-y-4">
-                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Beginner</a></li>
-                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Intermediate</a></li>
-                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Advanced</a></li>
-                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Certification</a></li>
+                    <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">Courses</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Beginner</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Intermediate</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Advanced</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Specializations</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Resources</h3>
-                    <ul class="mt-4 space-y-4">
-                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Documentation</a></li>
-                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Tutorials</a></li>
-                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Blog</a></li>
-                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Community</a></li>
+                    <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">Resources</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Documentation</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Code Examples</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">3D Models</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Community</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Company</h3>
-                    <ul class="mt-4 space-y-4">
-                        <li><a href="#" class="text-base text-gray-300 hover:text-white">About</a></li>
-                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Careers</a></li>
-                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Contact</a></li>
-                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Press</a></li>
+                    <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">Company</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">About</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Blog</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Careers</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Partners</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Legal</h3>
-                    <ul class="mt-4 space-y-4">
-                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Privacy</a></li>
-                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Terms</a></li>
-                        <li><a href="#" class="text-base text-gray-300 hover:text-white">Cookie Policy</a></li>
+                    <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">Legal</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Privacy</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Terms</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Cookie Policy</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Contact</a></li>
                     </ul>
                 </div>
             </div>
             <div class="mt-8 border-t border-gray-700 pt-8 md:flex md:items-center md:justify-between">
                 <div class="flex space-x-6 md:order-2">
-                    <a href="#" class="text-gray-400 hover:text-gray-300">
-                        <span class="sr-only">Facebook</span>
-                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd"></path>
-                        </svg>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-gray-300">
+                    <a href="#" class="text-gray-400 hover:text-white">
                         <span class="sr-only">Twitter</span>
-                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
-                        </svg>
+                        <i class="fab fa-twitter text-lg"></i>
                     </a>
-                    <a href="#" class="text-gray-400 hover:text-gray-300">
-                        <span class="sr-only">YouTube</span>
-                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path fill-rule="evenodd" d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z" clip-rule="evenodd"></path>
-                        </svg>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-gray-300">
+                    <a href="#" class="text-gray-400 hover:text-white">
                         <span class="sr-only">GitHub</span>
-                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.004.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.369.678 1.157.678 1.157 0 1.007-.01 1.816-.01 2.055 0 .21.144.461.691.384 4.01-1.34 6.848-4.595 6.848-9.004 0-5.533-4.473-10-10-10z" clip-rule="evenodd"></path>
-                        </svg>
+                        <i class="fab fa-github text-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <span class="sr-only">YouTube</span>
+                        <i class="fab fa-youtube text-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <span class="sr-only">LinkedIn</span>
+                        <i class="fab fa-linkedin-in text-lg"></i>
                     </a>
                 </div>
                 <p class="mt-8 text-base text-gray-400 md:mt-0 md:order-1">
@@ -661,31 +894,93 @@ cv2.destroyAllWindows()</code></pre>
         // Mobile menu toggle
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
             const menu = document.getElementById('mobile-menu');
-            if (menu.classList.contains('hidden')) {
-                menu.classList.remove('hidden');
-            } else {
-                menu.classList.add('hidden');
-            }
+            menu.classList.toggle('hidden');
         });
 
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
+        // FAQ accordion functionality
+        const faqButtons = document.querySelectorAll('[id^="faq"]:not([id$="content"])');
+        faqButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const contentId = this.id + '-content';
+                const content = document.getElementById(contentId);
+                const icon = this.querySelector('i');
                 
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
+                // Toggle content visibility
+                content.classList.toggle('hidden');
                 
-                if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                    
-                    // Close mobile menu if open
-                    const mobileMenu = document.getElementById('mobile-menu');
-                    if (!mobileMenu.classList.contains('hidden')) {
-                        mobileMenu.classList.add('hidden');
-                    }
+                // Rotate icon
+                if (content.classList.contains('hidden')) {
+                    icon.classList.remove('rotate-180');
+                } else {
+                    icon.classList.add('rotate-180');
+                }
+            });
+        });
+
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            // Here you would typically send this data to a server
+            console.log('Form submitted:', { name, email, subject, message });
+            
+            // Show success message
+            alert('Thank you for your message! We will get back to you soon.');
+            
+            // Reset form
+            this.reset();
+        });
+
+        // Tab functionality for Python section
+        const tabButtons = document.querySelectorAll('.tab-button');
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons and tabs
+                document.querySelectorAll('.tab-button').forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.classList.remove('border-blue-500');
+                    btn.classList.add('border-transparent');
+                });
+                
+                document.querySelectorAll('.tab-content').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                
+                // Add active class to clicked button and corresponding tab
+                this.classList.add('active', 'border-blue-500');
+                this.classList.remove('border-transparent');
+                
+                const tabId = this.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Highlight active nav link on scroll
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= (sectionTop - 300)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active', 'text-blue-600');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active', 'text-blue-600');
                 }
             });
         });
