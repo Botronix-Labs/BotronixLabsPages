@@ -89,8 +89,32 @@
                     </div>
                 </div>
                 <div class="hidden md:ml-6 md:flex md:items-center space-x-4">
-                    <input type="email" placeholder="Enter your email" class="py-2 px-3 border border-gray-300 rounded-md text-sm focus:ring-blue-500 focus:border-blue-500" />
-                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">Subscribe</button>
+                    <form id="subscribeForm" action="https://script.google.com/macros/s/AKfycbxn15R0u4wP1LQiTLVILjKLurW_-j1hi0a1IiEOwOvvqIwNJPQLUAMiWpKpaTb6aSQt/exec" method="POST" target="hidden_iframe" onsubmit="handleSubscribe(event)">
+                        <input type="email" id="emailInput" name="email" placeholder="Enter your email" required class="py-2 px-3 border border-gray-300 rounded-md text-sm focus:ring-blue-500 focus:border-blue-500" />
+                        <button id="subscribeButton" type="submit" class="ml-2 bg-purple-600 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">Subscribe</button>
+                    </form>
+                    <iframe name="hidden_iframe" style="display:none;"></iframe>
+                    <script>
+                        function handleSubscribe(event) {
+                            const emailInput = document.getElementById('emailInput');
+                            const subscribeButton = document.getElementById('subscribeButton');
+
+                            // Ensure the form submits to the Google Apps Script
+                            setTimeout(() => {
+                                subscribeButton.textContent = 'Subscribed';
+                                subscribeButton.disabled = true;
+
+                                // Clear the email input field
+                                emailInput.value = '';
+
+                                // Revert button text after 3 seconds
+                                setTimeout(() => {
+                                    subscribeButton.textContent = 'Subscribe';
+                                    subscribeButton.disabled = false;
+                                }, 3000);
+                            }, 500); // Allow form submission to complete
+                        }
+                    </script>
                 </div>
                 <div class="-mr-2 flex items-center md:hidden">
                     <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500" aria-controls="mobile-menu" aria-expanded="false" id="mobile-menu-button">
