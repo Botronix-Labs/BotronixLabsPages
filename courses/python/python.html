@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Course - Learn Python Online</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <header class="bg-blue-600 text-white py-4">
+        <div class="max-w-7xl mx-auto px-4">
+            <h1 class="text-3xl font-bold">Learn Python Programming</h1>
+            <p class="mt-2">Practice Python syntax and concepts interactively in your browser.</p>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        <section>
+            <h2 class="text-2xl font-bold mb-4">Interactive Python Interpreter</h2>
+            <p class="mb-4">Write Python code in the editor below and click "Run Code" to see the output.</p>
+
+            <div class="flex flex-col md:flex-row gap-4">
+                <!-- Code Editor -->
+                <div id="code-editor" class="bg-gray-100 p-4 rounded-md overflow-x-auto flex-1 h-96">
+                    <textarea id="pythonCode" class="w-full h-full p-2 border border-gray-300 rounded-md" placeholder="Write your Python code here...">print("Hello, Python Learner!")</textarea>
+                </div>
+
+                <!-- Terminal Output -->
+                <div id="output" class="bg-gray-800 text-white p-4 rounded-md overflow-y-auto flex-1 h-96">
+                    <p>Output will appear here...</p>
+                </div>
+            </div>
+
+            <div class="mt-4 flex justify-between">
+                <button id="runCode" class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 focus:outline-none">
+                    Run Code
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function runPythonCode() {
+            const code = document.getElementById('pythonCode').value;
+            const output = document.getElementById('output');
+            output.innerHTML = '<p>Running your code...</p>';
+
+            // Clear previous output
+            Sk.configure({
+                output: function (text) {
+                    output.innerHTML += `<p>${text}</p>`;
+                },
+                read: function (x) {
+                    if (Sk.builtinFiles === undefined || Sk.builtinFiles['files'][x] === undefined) {
+                        throw `File not found: '${x}'`;
+                    }
+                    return Sk.builtinFiles['files'][x];
+                }
+            });
+
+            Sk.misceval.asyncToPromise(function () {
+                return Sk.importMainWithBody('<stdin>', false, code, true);
+            }).then(function () {
+                output.innerHTML += '<p>Execution complete.</p>';
+            }).catch(function (err) {
+                output.innerHTML += `<p style="color: red;">Error: ${err.toString()}</p>`;
+            });
+        }
+
+        document.getElementById('runCode').addEventListener('click', runPythonCode);
+    </script>
+</body>
+</html>

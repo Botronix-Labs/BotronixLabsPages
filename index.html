@@ -276,8 +276,15 @@
                     Python Code Playground
                 </p>
                 <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-                    Practical Python code snippets for robotics applications.
+                    Learn Python programming interactively with our online interpreter. Practice syntax, explore examples, and build your skills directly in the browser.
                 </p>
+
+                <div class="mt-10 text-center">
+                    <a href="courses/python/python.html" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                        Start Learning Python
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
             </div>
 
             <div class="mt-10">
@@ -289,11 +296,11 @@
                                 Interactive Python Code Editor
                             </h3>
                             <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                                Test your Python code for sensors, LCDs, and wheels directly in the browser.
+                                Practice Python programming interactively. Write code, run it, and see the output instantly in the terminal below.
                             </p>
                         </div>
-                        <button id="showMore" class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 focus:outline-none">
-                            Show More Examples
+                        <button id="runCode" class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 focus:outline-none">
+                            Run Code
                         </button>
                     </div>
                     <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
@@ -301,20 +308,14 @@
                             <div class="py-4 sm:py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
                                 <div class="flex flex-col md:flex-row gap-4">
                                     <!-- Code Editor -->
-                                    <div id="code-editor" class="bg-gray-100 p-4 rounded-md overflow-x-auto flex-1 h-[30rem]">
+                                    <div id="code-editor" class="bg-gray-100 p-4 rounded-md overflow-x-auto flex-1 h-96">
                                         <textarea id="pythonCode" class="w-full h-full p-2 border border-gray-300 rounded-md" placeholder="Write your Python code here...">print("Hello Botronix Labs!")</textarea>
                                     </div>
 
                                     <!-- Terminal Output -->
-                                    <div id="output" class="bg-gray-800 text-white p-4 rounded-md overflow-y-auto flex-1 h-[30rem]">
+                                    <div id="output" class="bg-gray-900 text-white p-4 rounded-md overflow-y-auto flex-1 h-96">
                                         <p>Output will appear here...</p>
                                     </div>
-                                </div>
-
-                                <div class="mt-4 flex justify-between">
-                                    <button id="runCode" class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 focus:outline-none">
-                                        Run Code
-                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -355,6 +356,10 @@
         }
 
         document.getElementById('runCode').addEventListener('click', runPythonCode);
+
+        document.getElementById('showMore').addEventListener('click', function() {
+            window.location.href = 'courses/python/python.html';
+        });
     </script>
 
     <!-- 3D Prints Section -->
