@@ -380,84 +380,97 @@
                 </p>
             </div>
 
-            <!-- Horizontal Scrolling Container -->
-            <div class="mt-10 overflow-x-auto whitespace-nowrap">
-                <div class="inline-flex space-x-6">
-                    <!-- Product Card 1 -->
-                    <div class="project-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out w-[30rem] inline-block">
-                        <div class="px-6 py-6 sm:p-8">
-                            <div class="flex items-center">
-                                <div class="flex-shrink-0 bg-blue-100 rounded-md p-4">
-                                    <i class="fas fa-cogs text-blue-600 text-2xl"></i>
+            <!-- Horizontal Scrolling Container with Arrows -->
+            <div class="relative mt-10">
+                <!-- Left Arrow -->
+                <button id="scrollLeft" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white p-3 rounded-full shadow hover:bg-blue-700 focus:outline-none">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+
+                <!-- Scrollable Track -->
+                <div id="scrollContainer" class="overflow-x-auto whitespace-nowrap scroll-smooth">
+                    <div class="inline-flex space-x-6">
+                        <!-- Product Card 1 -->
+                        <div class="project-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out w-72 inline-block">
+                            <div class="px-4 py-4 sm:p-6">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 bg-blue-100 rounded-md p-3">
+                                        <i class="fas fa-cogs text-blue-600 text-xl"></i>
+                                    </div>
+                                    <div class="ml-4 w-0 flex-1">
+                                        <h3 class="text-lg font-medium text-gray-900">product_01</h3>
+                                        <p class="mt-1 text-sm text-gray-500">Beginner Level</p>
+                                    </div>
                                 </div>
-                                <div class="ml-6 w-0 flex-1">
-                                    <h3 class="text-xl font-medium text-gray-900">product_01</h3>
-                                    <p class="mt-2 text-sm text-gray-500">Beginner Level - A simple model designed for easy assembly and basic Python programming. This kit is perfect for those starting their robotics journey.</p>
+                                <div class="mt-4">
+                                    <img src="assets/product_01.gif" alt="product_01" class="w-full h-40 object-cover rounded-md">
                                 </div>
-                            </div>
-                            <div class="mt-6">
-                                <img src="assets/product_01.gif" alt="product_01" class="w-full h-64 object-cover rounded-md">
-                            </div>
-                            <div class="mt-6 flex items-center justify-between">
-                                <span class="text-sm font-medium text-gray-500">Includes STL files and assembly guide</span>
-                                <a href="3D products/product_01.html" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
-                                    View Details
-                                </a>
+                                <div class="mt-4 text-center">
+                                    <p class="text-sm text-gray-500">Includes STL files and assembly guide</p>
+                                    <a href="3D products/product_01.html" class="inline-flex items-center px-3 py-1 mt-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                        View Details
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Product Card 2 -->
-                    <div class="project-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out w-[30rem] inline-block">
-                        <div class="px-6 py-6 sm:p-8">
-                            <div class="flex items-center">
-                                <div class="flex-shrink-0 bg-blue-100 rounded-md p-4">
-                                    <i class="fas fa-cogs text-blue-600 text-2xl"></i>
+                        <!-- Product Card 2 -->
+                        <div class="project-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out w-72 inline-block">
+                            <div class="px-4 py-4 sm:p-6">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 bg-blue-100 rounded-md p-3">
+                                        <i class="fas fa-cogs text-blue-600 text-xl"></i>
+                                    </div>
+                                    <div class="ml-4 w-0 flex-1">
+                                        <h3 class="text-lg font-medium text-gray-900">product_02</h3>
+                                        <p class="mt-1 text-sm text-gray-500">Beginner Level</p>
+                                    </div>
                                 </div>
-                                <div class="ml-6 w-0 flex-1">
-                                    <h3 class="text-xl font-medium text-gray-900">product_02</h3>
-                                    <p class="mt-2 text-sm text-gray-500">Intermediate Level - A versatile model with advanced features for robotics enthusiasts.</p>
+                                <div class="mt-4">
+                                    <img src="assets/test.jpg" alt="product_02" class="w-full h-40 object-cover rounded-md">
                                 </div>
-                            </div>
-                            <div class="mt-6">
-                                <img src="assets/test.jpg" alt="product_02" class="w-full h-56 object-cover rounded-md">
-                            </div>
-                            <div class="mt-6 flex items-center justify-between">
-                                <span class="text-sm font-medium text-gray-500">Includes STL files and assembly guide</span>
-                                <a href="3D products/product_02.html" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
-                                    View Details
-                                </a>
+                                <div class="mt-4 text-center">
+                                    <p class="text-sm text-gray-500">Includes STL files and assembly guide</p>
+                                    <a href="3D products/product_02.html" class="inline-flex items-center px-3 py-1 mt-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                        View Details
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Product Card 3 -->
-                    <div class="project-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out w-[30rem] inline-block">
-                        <div class="px-6 py-6 sm:p-8">
-                            <div class="flex items-center">
-                                <div class="flex-shrink-0 bg-blue-100 rounded-md p-4">
-                                    <i class="fas fa-cogs text-blue-600 text-2xl"></i>
+                        <!-- Product Card 3 -->
+                        <div class="project-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out w-72 inline-block">
+                            <div class="px-4 py-4 sm:p-6">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 bg-blue-100 rounded-md p-3">
+                                        <i class="fas fa-cogs text-blue-600 text-xl"></i>
+                                    </div>
+                                    <div class="ml-4 w-0 flex-1">
+                                        <h3 class="text-lg font-medium text-gray-900">product_03</h3>
+                                        <p class="mt-1 text-sm text-gray-500">Beginner Level</p>
+                                    </div>
                                 </div>
-                                <div class="ml-6 w-0 flex-1">
-                                    <h3 class="text-xl font-medium text-gray-900">product_03</h3>
-                                    <p class="mt-2 text-sm text-gray-500">Advanced Level - A complex model for experienced users to explore robotics in depth.</p>
+                                <div class="mt-4">
+                                    <img src="assets/test.jpg" alt="product_03" class="w-full h-40 object-cover rounded-md">
                                 </div>
-                            </div>
-                            <div class="mt-6">
-                                <img src="assets/test.jpg" alt="product_03" class="w-full h-56 object-cover rounded-md">
-                            </div>
-                            <div class="mt-6 flex items-center justify-between">
-                                <span class="text-sm font-medium text-gray-500">Includes STL files and assembly guide</span>
-                                <a href="3D products/product_03.html" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
-                                    View Details
-                                </a>
+                                <div class="mt-4 text-center">
+                                    <p class="text-sm text-gray-500">Includes STL files and assembly guide</p>
+                                    <a href="3D products/product_03.html" class="inline-flex items-center px-3 py-1 mt-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                        View Details
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Right Arrow -->
+                <button id="scrollRight" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white p-3 rounded-full shadow hover:bg-blue-700 focus:outline-none">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
 
-            <!-- Add Explore More Products Button -->
+            <!-- Add Explore More Products Button Below the Grid -->
             <div class="mt-10 text-center">
                 <a href="#" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
                     Explore More Products
@@ -466,6 +479,21 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // JavaScript for Horizontal Scrolling with Arrows
+        const scrollContainer = document.getElementById('scrollContainer');
+        const scrollLeft = document.getElementById('scrollLeft');
+        const scrollRight = document.getElementById('scrollRight');
+
+        scrollLeft.addEventListener('click', () => {
+            scrollContainer.scrollBy({ left: -300, behavior: 'smooth' });
+        });
+
+        scrollRight.addEventListener('click', () => {
+            scrollContainer.scrollBy({ left: 300, behavior: 'smooth' });
+        });
+    </script>
 
     <!-- Videos Section -->
     <div id="videos" class="py-12 bg-gray-50">
