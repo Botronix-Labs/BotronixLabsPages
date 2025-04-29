@@ -4,17 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fundamentals of Robotics</title>
-    <link rel="stylesheet" href="../../assets/styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            scroll-behavior: smooth;
+            text-size-adjust: 100%;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        }
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
 </head>
-<body>
-    <header>
-        <h1>Fundamentals of Robotics</h1>
+<body class="bg-gray-50">
+    <header class="hero-gradient py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl font-extrabold text-white">Fundamentals of Robotics</h1>
+            <p class="mt-4 text-lg text-blue-100">Explore the basics of robotics through these modules.</p>
+        </div>
     </header>
-    <main>
-        <p>Welcome to the Fundamentals of Robotics course. This course is designed for beginners to learn the basics of robotics, including components, simple circuits, and introductory programming concepts.</p>
+    <main class="py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="module-card bg-white shadow rounded-lg p-6" onclick="location.href='module1.html'">
+                    <h2 class="text-xl font-bold text-gray-900">Module 1</h2>
+                    <p class="mt-2 text-gray-600">Preparing Your Pico Board to Run MicroPython</p>
+                </div>
+                <div class="module-card bg-white shadow rounded-lg p-6">
+                    <h2 class="text-xl font-bold text-gray-900">Module 2</h2>
+                    <p class="mt-2 text-gray-600">Description for Module 2.</p>
+                </div>
+                <div class="module-card bg-white shadow rounded-lg p-6">
+                    <h2 class="text-xl font-bold text-gray-900">Module 3</h2>
+                    <p class="mt-2 text-gray-600">Description for Module 3.</p>
+                </div>
+                <div class="module-card bg-white shadow rounded-lg p-6">
+                    <h2 class="text-xl font-bold text-gray-900">Module 4</h2>
+                    <p class="mt-2 text-gray-600">Description for Module 4.</p>
+                </div>
+                <div class="module-card bg-white shadow rounded-lg p-6">
+                    <h2 class="text-xl font-bold text-gray-900">Module 5</h2>
+                    <p class="mt-2 text-gray-600">Description for Module 5.</p>
+                </div>
+                <div class="module-card bg-white shadow rounded-lg p-6">
+                    <h2 class="text-xl font-bold text-gray-900">Module 6</h2>
+                    <p class="mt-2 text-gray-600">Description for Module 6.</p>
+                </div>
+            </div>
+        </div>
     </main>
-    <footer>
-        <p>&copy; 2025 Botronix Labs</p>
+    <footer class="bg-gray-800 py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm text-gray-400">&copy; 2025 Botronix Labs. All rights reserved.</p>
+        </div>
     </footer>
 </body>
 </html>
