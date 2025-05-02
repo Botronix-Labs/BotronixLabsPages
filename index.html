@@ -74,6 +74,16 @@
         #subscribeButton {
             background-color: #3b82f6; /* Blue color */
         }
+        .video-section .grid {
+            display: flex;
+            flex-direction: row; /* Ensure horizontal layout */
+            overflow-x: auto; /* Enable horizontal scrolling */
+            gap: 1rem; /* Add spacing between cards */
+        }
+        .video-section .grid > div {
+            flex: 0 0 auto; /* Prevent cards from shrinking */
+            width: 300px; /* Set a fixed width for cards */
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -84,15 +94,13 @@
                 <div class="flex">
                     <div class="flex-shrink-0 flex items-center">
                         <div class="flex items-center">
-                            <div class="robot-logo">
-                                <i class="fas fa-robot"></i>
-                            </div>
+                            <img src="assets/logo.jpeg" alt="Botronix Labs Logo" style="height: 2.5rem; width: auto; border-radius: 0.25rem;" />
                             <span class="ml-2 text-xl font-bold text-gray-900">Botronix Labs</span>
                         </div>
                     </div>
                     <div class="hidden md:ml-8 md:flex md:space-x-8">
                         <a href="#courses" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Courses</a>
-                        <a href="#python" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Python Code</a>
+                        <a href="python/python.html" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Python</a>
                         <a href="#3dprints" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">3D Prints</a>
                         <a href="#videos" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Videos</a>
                         <a href="#contact" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Contact</a>
@@ -275,17 +283,90 @@
     <div id="python" class="py-12 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="lg:text-center">
-                <h2 class="text-base text-blue-600 font-semibold tracking-wide uppercase">Resources</h2>
+                <h2 class="text-base text-blue-600 font-semibold tracking-wide uppercase">Learn Python</h2>
                 <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                    Python Code Playground
+                    Start Your Python Journey
                 </p>
                 <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-                    Learn Python programming interactively with our online interpreter. Practice syntax, explore examples, and build your skills directly in the browser.
+                    Explore Python from basics to advanced concepts and build a Human-Machine Interface (HMI) as your capstone project.
                 </p>
             </div>
 
-            <div class="mt-10">
-                <!-- Interactive Code Editor Section -->
+            <!-- Example Codes Section -->
+            <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+                <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
+                    <div>
+                        <h3 class="text-lg leading-6 font-medium text-gray-900">
+                            Example Codes
+                        </h3>
+                        <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                            Explore and copy example Python codes to try them out in the editor.
+                        </p>
+                    </div>
+                </div>
+                <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
+                    <div class="sm:divide-y sm:divide-gray-200">
+                        <div class="py-4 sm:py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
+                            <div class="bg-gray-100 p-4 rounded-md overflow-y-auto h-64">
+                                <div class="space-y-4">
+                                    <div class="bg-white p-4 rounded-md shadow">
+                                        <h4 class="text-sm font-bold text-gray-800">Hello, World!</h4>
+                                        <pre class="bg-gray-200 p-2 rounded-md overflow-x-auto text-sm">
+print("Hello, World!")
+                                        </pre>
+                                    </div>
+
+                                    <div class="bg-white p-4 rounded-md shadow">
+                                        <h4 class="text-sm font-bold text-gray-800">For Loop</h4>
+                                        <pre class="bg-gray-200 p-2 rounded-md overflow-x-auto text-sm">
+for i in range(5):
+    print(i)
+                                        </pre>
+                                    </div>
+
+                                    <div class="bg-white p-4 rounded-md shadow">
+                                        <h4 class="text-sm font-bold text-gray-800">Function Example</h4>
+                                        <pre class="bg-gray-200 p-2 rounded-md overflow-x-auto text-sm">
+def greet(name):
+    return f"Hello, {name}!"
+
+print(greet("Botronix"))
+                                        </pre>
+                                    </div>
+
+                                    <div class="bg-white p-4 rounded-md shadow">
+                                        <h4 class="text-sm font-bold text-gray-800">Class Example</h4>
+                                        <pre class="bg-gray-200 p-2 rounded-md overflow-x-auto text-sm">
+class Robot:
+    def __init__(self, name):
+        self.name = name
+
+    def greet(self):
+        return f"I am {self.name}, your robot assistant!"
+
+robot = Robot("Botronix")
+print(robot.greet())
+                                        </pre>
+                                    </div>
+
+                                    <div class="bg-white p-4 rounded-md shadow">
+                                        <h4 class="text-sm font-bold text-gray-800">Error Handling</h4>
+                                        <pre class="bg-gray-200 p-2 rounded-md overflow-x-auto text-sm">
+try:
+    x = 10 / 0
+except ZeroDivisionError as e:
+    print("Error:", e)
+                                        </pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Python Code Editor -->
+            <div class="flex-1 mt-6">
                 <div class="bg-white shadow overflow-hidden sm:rounded-lg">
                     <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
                         <div>
@@ -293,10 +374,10 @@
                                 Interactive Python Code Editor
                             </h3>
                             <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                                Practice Python programming interactively. Write code, run it, and see the output instantly in the terminal below.
+                                Write code, run it, and see the output instantly in the terminal below.
                             </p>
                         </div>
-                        <button id="runCode" class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 focus:outline-none">
+                        <button id="runCode" class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 focus:outline-none" onclick="runPythonCode()">
                             Run Code
                         </button>
                     </div>
@@ -305,12 +386,12 @@
                             <div class="py-4 sm:py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
                                 <div class="flex flex-col md:flex-row gap-4">
                                     <!-- Code Editor -->
-                                    <div id="code-editor" class="bg-gray-100 p-4 rounded-md overflow-x-auto flex-1 h-96">
+                                    <div id="code-editor" class="bg-gray-100 p-4 rounded-md overflow-x-auto flex-1 h-64">
                                         <textarea id="pythonCode" class="w-full h-full p-2 border border-gray-300 rounded-md" placeholder="Write your Python code here...">print("Hello Botronix Labs!")</textarea>
                                     </div>
 
                                     <!-- Terminal Output -->
-                                    <div id="output" class="bg-gray-900 text-white p-4 rounded-md overflow-y-auto flex-1 h-96">
+                                    <div id="output" class="bg-gray-900 text-white p-4 rounded-md overflow-y-auto flex-1 h-64">
                                         <p>Output will appear here...</p>
                                     </div>
                                 </div>
@@ -318,14 +399,13 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Add Start Learning Python Button -->
-                <div class="mt-10 text-center">
-                    <a href="courses/python/python.html" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
-                        Start Learning Python
-                        <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
-                </div>
+            <div class="mt-10 text-center">
+                <a href="courses/python/python.html" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                    View More Courses
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </a>
             </div>
         </div>
     </div>
@@ -335,17 +415,16 @@
     <script>
         function runPythonCode() {
             const code = document.getElementById('pythonCode').value;
-            const output = document.getElementById('output');
-            output.innerHTML = '<p>Running your code...</p>';
+            const outputElement = document.getElementById('output');
+            outputElement.innerHTML = ''; // Clear previous output
 
-            // Clear previous output
             Sk.configure({
                 output: function (text) {
-                    output.innerHTML += `<p>${text}</p>`;
+                    outputElement.innerHTML += text + '\n';
                 },
                 read: function (x) {
                     if (Sk.builtinFiles === undefined || Sk.builtinFiles['files'][x] === undefined) {
-                        throw `File not found: '${x}'`;
+                        throw new Error("File not found: " + x);
                     }
                     return Sk.builtinFiles['files'][x];
                 }
@@ -353,18 +432,10 @@
 
             Sk.misceval.asyncToPromise(function () {
                 return Sk.importMainWithBody('<stdin>', false, code, true);
-            }).then(function () {
-                output.innerHTML += '<p>Execution complete.</p>';
             }).catch(function (err) {
-                output.innerHTML += `<p style="color: red;">Error: ${err.toString()}</p>`;
+                outputElement.innerHTML = `<span style='color: red;'>${err.toString()}</span>`;
             });
         }
-
-        document.getElementById('runCode').addEventListener('click', runPythonCode);
-
-        document.getElementById('showMore').addEventListener('click', function() {
-            window.location.href = 'courses/python/python.html';
-        });
     </script>
 
     <!-- 3D Printing Section -->
@@ -380,140 +451,86 @@
                 </p>
             </div>
 
-            <!-- Horizontal Scrolling Container with Arrows -->
-            <div class="relative mt-10">
-                <!-- Left Arrow -->
-                <button id="scrollLeft" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white p-3 rounded-full shadow hover:bg-blue-700 focus:outline-none">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-
-                <!-- Scrollable Track -->
-                <div id="scrollContainer" class="overflow-x-auto whitespace-nowrap scroll-smooth">
-                    <div class="inline-flex space-x-6">
-                        <!-- Product Card 1 -->
-                        <div class="project-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out w-[20rem] inline-block">
-                            <div class="px-4 py-4 sm:p-6">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0 bg-blue-100 rounded-md p-3">
-                                        <i class="fas fa-cogs text-blue-600 text-xl"></i>
-                                    </div>
-                                    <div class="ml-4 w-0 flex-1">
-                                        <h3 class="text-lg font-medium text-gray-900">product_01</h3>
-                                        <p class="mt-1 text-sm text-gray-500">Beginner Level</p>
-                                    </div>
-                                </div>
-                                <div class="mt-4">
-                                    <img src="assets/product_01.gif" alt="product_01" class="w-full h-40 object-cover rounded-md">
-                                </div>
-                                <div class="mt-4 text-center">
-                                    <a href="3D products/product_01.html" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
-                                        View Details
-                                    </a>
-                                </div>
+            <div class="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                <!-- Product Card 1 -->
+                <div class="project-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
+                    <div class="px-4 py-4 sm:p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-blue-100 rounded-md p-3">
+                                <i class="fas fa-cogs text-blue-600 text-xl"></i>
+                            </div>
+                            <div class="ml-4 w-0 flex-1">
+                                <h3 class="text-lg font-medium text-gray-900">product_01</h3>
+                                <p class="mt-1 text-sm text-gray-500">Beginner Level</p>
                             </div>
                         </div>
-
-                        <!-- Product Card 2 -->
-                        <div class="project-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out w-[20rem] inline-block">
-                            <div class="px-4 py-4 sm:p-6">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0 bg-blue-100 rounded-md p-3">
-                                        <i class="fas fa-cogs text-blue-600 text-xl"></i>
-                                    </div>
-                                    <div class="ml-4 w-0 flex-1">
-                                        <h3 class="text-lg font-medium text-gray-900">product_02</h3>
-                                        <p class="mt-1 text-sm text-gray-500">Beginner Level</p>
-                                    </div>
-                                </div>
-                                <div class="mt-4">
-                                    <img src="assets/test.jpg" alt="product_02" class="w-full h-40 object-cover rounded-md">
-                                </div>
-                                <div class="mt-4 text-center">
-                                    <a href="3D products/product_02.html" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
-                                        View Details
-                                    </a>
-                                </div>
-                            </div>
+                        <div class="mt-4">
+                            <img src="assets/product_01.gif" alt="product_01" class="w-full h-40 object-cover rounded-md">
                         </div>
-
-                        <!-- Product Card 3 -->
-                        <div class="project-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out w-[20rem] inline-block">
-                            <div class="px-4 py-4 sm:p-6">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0 bg-blue-100 rounded-md p-3">
-                                        <i class="fas fa-cogs text-blue-600 text-xl"></i>
-                                    </div>
-                                    <div class="ml-4 w-0 flex-1">
-                                        <h3 class="text-lg font-medium text-gray-900">product_03</h3>
-                                        <p class="mt-1 text-sm text-gray-500">Beginner Level</p>
-                                    </div>
-                                </div>
-                                <div class="mt-4">
-                                    <img src="assets/test.jpg" alt="product_03" class="w-full h-40 object-cover rounded-md">
-                                </div>
-                                <div class="mt-4 text-center">
-                                    <a href="3D products/product_03.html" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
-                                        View Details
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Product Card 4 -->
-                        <div class="project-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out w-[20rem] inline-block">
-                            <div class="px-4 py-4 sm:p-6">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0 bg-blue-100 rounded-md p-3">
-                                        <i class="fas fa-cogs text-blue-600 text-xl"></i>
-                                    </div>
-                                    <div class="ml-4 w-0 flex-1">
-                                        <h3 class="text-lg font-medium text-gray-900">product_04</h3>
-                                        <p class="mt-1 text-sm text-gray-500">Intermediate Level</p>
-                                    </div>
-                                </div>
-                                <div class="mt-4">
-                                    <img src="assets/test.jpg" alt="product_04" class="w-full h-40 object-cover rounded-md">
-                                </div>
-                                <div class="mt-4 text-center">
-                                    <a href="3D products/product_04.html" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
-                                        View Details
-                                    </a>
-                                </div>
-                            </div>
+                        <div class="mt-4 text-center">
+                            <a href="3D products/product_01.html" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                View Details
+                            </a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Right Arrow -->
-                <button id="scrollRight" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white p-3 rounded-full shadow hover:bg-blue-700 focus:outline-none">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
+                <!-- Product Card 2 -->
+                <div class="project-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
+                    <div class="px-4 py-4 sm:p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-blue-100 rounded-md p-3">
+                                <i class="fas fa-cogs text-blue-600 text-xl"></i>
+                            </div>
+                            <div class="ml-4 w-0 flex-1">
+                                <h3 class="text-lg font-medium text-gray-900">product_02</h3>
+                                <p class="mt-1 text-sm text-gray-500">Beginner Level</p>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <img src="assets/test.jpg" alt="product_02" class="w-full h-40 object-cover rounded-md">
+                        </div>
+                        <div class="mt-4 text-center">
+                            <a href="3D products/product_02.html" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 3 -->
+                <div class="project-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
+                    <div class="px-4 py-4 sm:p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-blue-100 rounded-md p-3">
+                                <i class="fas fa-cogs text-blue-600 text-xl"></i>
+                            </div>
+                            <div class="ml-4 w-0 flex-1">
+                                <h3 class="text-lg font-medium text-gray-900">product_03</h3>
+                                <p class="mt-1 text-sm text-gray-500">Beginner Level</p>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <img src="assets/test.jpg" alt="product_03" class="w-full h-40 object-cover rounded-md">
+                        </div>
+                        <div class="mt-4 text-center">
+                            <a href="3D products/product_03.html" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- Add Explore More Products Button Below the Grid -->
+            <!-- Add View All Products Button -->
             <div class="mt-10 text-center">
-                <a href="#" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
-                    Explore More Products
+                <a href="3D products/" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                    View All Products
                     <i class="fas fa-arrow-right ml-2"></i>
                 </a>
             </div>
         </div>
     </div>
-
-    <script>
-        // JavaScript for Horizontal Scrolling with Arrows
-        const scrollContainer = document.getElementById('scrollContainer');
-        const scrollLeft = document.getElementById('scrollLeft');
-        const scrollRight = document.getElementById('scrollRight');
-
-        scrollLeft.addEventListener('click', () => {
-            scrollContainer.scrollBy({ left: -300, behavior: 'smooth' });
-        });
-
-        scrollRight.addEventListener('click', () => {
-            scrollContainer.scrollBy({ left: 300, behavior: 'smooth' });
-        });
-    </script>
 
     <!-- Videos Section -->
     <div id="videos" class="py-12 bg-gray-50">
@@ -521,66 +538,75 @@
             <div class="lg:text-center">
                 <h2 class="text-base text-blue-600 font-semibold tracking-wide uppercase">Tutorials</h2>
                 <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                    Instructional Videos
+                    Instructional Videos by Course Level
                 </p>
                 <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-                    Learn robotics concepts through our video tutorials.
+                    Explore our categorized video tutorials to learn robotics concepts at your own pace.
                 </p>
             </div>
 
-            <div class="mt-10">
-                <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
-                    <!-- Video 1 -->
-                    <div class="bg-white overflow-hidden shadow rounded-lg">
-                        <div class="video-container">
-                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                        <div class="px-4 py-5 sm:p-6">
-                            <h3 class="text-lg font-medium text-gray-900">Getting Started with Robotics</h3>
-                            <p class="mt-1 text-sm text-gray-500">
-                                Learn the basics of robotics in this introductory tutorial.
-                            </p>
-                            <div class="mt-4 flex items-center">
-                                <div class="flex-shrink-0">
-                                    <img class="h-10 w-10 rounded-full" src="https://via.placeholder.com/40?text=Instructor" alt="Instructor">
-                                </div>
-                                <div class="ml-3">
-                                    <p class="text-sm font-medium text-gray-900">Dr. Sarah Johnson</p>
-                                    <p class="text-sm text-gray-500">Robotics Engineer</p>
-                                </div>
-                            </div>
-                        </div>
+            <div class="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                <!-- Beginner Level -->
+                <div class="course-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/videoseries?list=PLCmvNYmqSchD2PjgRpErZ-RimLSKOv4RQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
-
-                    <!-- Video 2 -->
-                    <div class="bg-white overflow-hidden shadow rounded-lg">
-                        <div class="video-container">
-                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                        <div class="px-4 py-5 sm:p-6">
-                            <h3 class="text-lg font-medium text-gray-900">Building Your First Robot</h3>
-                            <p class="mt-1 text-sm text-gray-500">
-                                Step-by-step guide to assembling a simple robot.
-                            </p>
-                            <div class="mt-4 flex items-center">
-                                <div class="flex-shrink-0">
-                                    <img class="h-10 w-10 rounded-full" src="https://via.placeholder.com/40?text=Instructor" alt="Instructor">
-                                </div>
-                                <div class="ml-3">
-                                    <p class="text-sm font-medium text-gray-900">Mark Williams</p>
-                                    <p class="text-sm text-gray-500">Robotics Instructor</p>
-                                </div>
-                            </div>
+                    <div class="px-4 py-5 sm:p-6">
+                        <h3 class="text-lg font-medium text-gray-900">Fundamentals of Robotics</h3>
+                        <p class="mt-1 text-sm text-gray-500">
+                            Learn the basics of robotics, including components, simple circuits, and introductory programming concepts.
+                        </p>
+                        <div class="mt-4">
+                            <a href="courses/fundamentals/fundamentals.html" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                Learn More
+                            </a>
                         </div>
                     </div>
                 </div>
 
-                <div class="mt-10 text-center">
-                    <a href="#" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
-                        View More Videos
-                        <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
+                <!-- Intermediate Level -->
+                <div class="course-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="px-4 py-5 sm:p-6">
+                        <h3 class="text-lg font-medium text-gray-900">Intermediate Robotics</h3>
+                        <p class="mt-1 text-sm text-gray-500">
+                            Build and program RPI Pico-based robots with sensors, motors, and wireless communication modules.
+                        </p>
+                        <div class="mt-4">
+                            <a href="courses/intermediate/intermediate.html" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                Learn More
+                            </a>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Advanced Level -->
+                <div class="course-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="px-4 py-5 sm:p-6">
+                        <h3 class="text-lg font-medium text-gray-900">Advanced Robotics</h3>
+                        <p class="mt-1 text-sm text-gray-500">
+                            Implement machine learning and computer vision in robotics using Python and Raspberry Pi.
+                        </p>
+                        <div class="mt-4">
+                            <a href="courses/advanced/advanced.html" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                Learn More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add View All Videos Button -->
+            <div class="mt-10 text-center">
+                <a href="#videos" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                    View All Videos
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </a>
             </div>
         </div>
     </div>
@@ -705,7 +731,7 @@
                                 <h3 class="text-lg font-medium text-gray-900">Phone & Email</h3>
                                 <p class="mt-1 text-sm text-gray-500">
                                     <span class="block">+1 (647)-862-8160</span>
-                                    <span class="block">tonycui623@gmail.com</span>
+                                    <span class="block">info@botronixlabs.com</span>
                                 </p>
                             </div>
                         </div>
@@ -834,6 +860,26 @@
                     <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">Courses</h3>
                     <ul class="mt-4 space-y-2">
                         <li><a href="#" class="text-base text-gray-400 hover:text-white">Beginner</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Intermediate</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Advanced</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Specializations</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">Resources</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Documentation</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Code Examples</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">3D Models</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Community</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">Company</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">About</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Blog</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Careers</a></li>
                         <li><a href="#" class="text-base text-gray-400 hover:text-white">Intermediate</a></li>
                         <li><a href="#" class="text-base text-gray-400 hover:text-white">Advanced</a></li>
                         <li><a href="#" class="text-base text-gray-400 hover:text-white">Specializations</a></li>

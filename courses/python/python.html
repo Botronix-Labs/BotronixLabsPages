@@ -17,64 +17,226 @@
     <header class="bg-blue-600 text-white py-4">
         <div class="max-w-7xl mx-auto px-4">
             <h1 class="text-3xl font-bold">Learn Python Programming</h1>
-            <p class="mt-2">Practice Python syntax and concepts interactively in your browser.</p>
+            <p class="mt-2">Master Python programming with a structured learning path covering Basics, Object-Oriented Programming (OOP), and a GUI project.</p>
         </div>
     </header>
 
     <main class="max-w-7xl mx-auto px-4 py-8">
+        <!-- Updated Python Learning Path Section with Indexed Cards -->
         <section>
-            <h2 class="text-2xl font-bold mb-4">Interactive Python Interpreter</h2>
-            <p class="mb-4">Write Python code in the editor below and click "Run Code" to see the output.</p>
-
-            <div class="flex flex-col md:flex-row gap-4">
-                <!-- Code Editor -->
-                <div id="code-editor" class="bg-gray-100 p-4 rounded-md overflow-x-auto flex-1 h-96">
-                    <textarea id="pythonCode" class="w-full h-full p-2 border border-gray-300 rounded-md" placeholder="Write your Python code here...">print("Hello, Python Learner!")</textarea>
+            <h2 class="text-2xl font-bold mb-4">Python Learning Path</h2>
+            <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                <!-- Module 1 Card -->
+                <div class="course-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
+                    <div class="px-4 py-5 sm:p-6">
+                        <h3 class="text-lg font-medium text-gray-900">Module 1: Introduction to Python</h3>
+                        <p class="mt-1 text-sm text-gray-500">
+                            Get started with Python by installing Thonny IDE and writing your first "Hello, World!" program.
+                        </p>
+                        <div class="mt-4">
+                            <a href="../fundamentals/module1.html" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                Start Module 1
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Terminal Output -->
-                <div id="output" class="bg-gray-800 text-white p-4 rounded-md overflow-y-auto flex-1 h-96">
-                    <p>Output will appear here...</p>
+                <!-- Module 2 Card -->
+                <div class="course-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
+                    <div class="px-4 py-5 sm:p-6">
+                        <h3 class="text-lg font-medium text-gray-900">Module 2: Data Types and Variables</h3>
+                        <p class="mt-1 text-sm text-gray-500">
+                            Learn about Python's data types and how to use variables effectively to store and manipulate data.
+                        </p>
+                        <div class="mt-4">
+                            <a href="../fundamentals/module2.html" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                Start Module 2
+                            </a>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="mt-4 flex justify-between">
-                <button id="runCode" class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 focus:outline-none">
-                    Run Code
-                </button>
+                <!-- Module 3 Card -->
+                <div class="course-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
+                    <div class="px-4 py-5 sm:p-6">
+                        <h3 class="text-lg font-medium text-gray-900">Module 3: Expressions, Operators, and Comments</h3>
+                        <p class="mt-1 text-sm text-gray-500">
+                            Explore Python expressions, operators, comments, and arithmetic operations to enhance your coding skills.
+                        </p>
+                        <div class="mt-4">
+                            <a href="#" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                Start Module 3
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 4 Card -->
+                <div class="course-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
+                    <div class="px-4 py-5 sm:p-6">
+                        <h3 class="text-lg font-medium text-gray-900">Module 4: Branch Control Structures</h3>
+                        <p class="mt-1 text-sm text-gray-500">
+                            Understand branch control structures, including boolean expressions and if statements, to make decisions in your programs.
+                        </p>
+                        <div class="mt-4">
+                            <a href="#" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                Start Module 4
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 5 Card -->
+                <div class="course-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
+                    <div class="px-4 py-5 sm:p-6">
+                        <h3 class="text-lg font-medium text-gray-900">Module 5: Iterative Control Structures</h3>
+                        <p class="mt-1 text-sm text-gray-500">
+                            Learn about iterative control structures, including loops, to perform repetitive tasks efficiently in Python.
+                        </p>
+                        <div class="mt-4">
+                            <a href="#" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                Start Module 5
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 6 Card -->
+                <div class="course-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
+                    <div class="px-4 py-5 sm:p-6">
+                        <h3 class="text-lg font-medium text-gray-900">Module 6: Functions</h3>
+                        <p class="mt-1 text-sm text-gray-500">
+                            Discover how to define and use functions in Python to write reusable and modular code.
+                        </p>
+                        <div class="mt-4">
+                            <a href="#" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                Start Module 6
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 7 Card -->
+                <div class="course-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
+                    <div class="px-4 py-5 sm:p-6">
+                        <h3 class="text-lg font-medium text-gray-900">Module 7: Lists</h3>
+                        <p class="mt-1 text-sm text-gray-500">
+                            Learn how to work with lists in Python, including creating, modifying, and iterating through them.
+                        </p>
+                        <div class="mt-4">
+                            <a href="#" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                Start Module 7
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 8 Card -->
+                <div class="course-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
+                    <div class="px-4 py-5 sm:p-6">
+                        <h3 class="text-lg font-medium text-gray-900">Module 8: Dictionaries</h3>
+                        <p class="mt-1 text-sm text-gray-500">
+                            Explore dictionaries in Python, including how to create, access, and manipulate key-value pairs.
+                        </p>
+                        <div class="mt-4">
+                            <a href="#" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                Start Module 8
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 9 Card -->
+                <div class="course-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
+                    <div class="px-4 py-5 sm:p-6">
+                        <h3 class="text-lg font-medium text-gray-900">Module 9: Tuples and Sets</h3>
+                        <p class="mt-1 text-sm text-gray-500">
+                            Learn about tuples and sets in Python, their unique properties, and how to use them effectively.
+                        </p>
+                        <div class="mt-4">
+                            <a href="#" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                Start Module 9
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 10 Card -->
+                <div class="course-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
+                    <div class="px-4 py-5 sm:p-6">
+                        <h3 class="text-lg font-medium text-gray-900">Module 10: Strings</h3>
+                        <p class="mt-1 text-sm text-gray-500">
+                            Explore the world of strings in Python, including string manipulation, formatting, and common operations.
+                        </p>
+                        <div class="mt-4">
+                            <a href="#" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                Start Module 10
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 11 Card -->
+                <div class="course-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
+                    <div class="px-4 py-5 sm:p-6">
+                        <h3 class="text-lg font-medium text-gray-900">Module 11: Object-Oriented Programming (OOP)</h3>
+                        <p class="mt-1 text-sm text-gray-500">
+                            Dive into the principles of Object-Oriented Programming in Python, including classes, objects, inheritance, and encapsulation.
+                        </p>
+                        <div class="mt-4">
+                            <a href="#" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                Start Module 11
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 12 Card -->
+                <div class="course-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
+                    <div class="px-4 py-5 sm:p-6">
+                        <h3 class="text-lg font-medium text-gray-900">Module 12: GUI Programming in Tkinter</h3>
+                        <p class="mt-1 text-sm text-gray-500">
+                            Learn how to create graphical user interfaces in Python using the Tkinter library. This module covers widgets, event handling, and layout management.
+                        </p>
+                        <div class="mt-4">
+                            <a href="#" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                Start Module 12
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 13 Card -->
+                <div class="course-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
+                    <div class="px-4 py-5 sm:p-6">
+                        <h3 class="text-lg font-medium text-gray-900">Module 13: Exception Handling in Python</h3>
+                        <p class="mt-1 text-sm text-gray-500">
+                            Understand how to handle errors and exceptions in Python using try, except, finally, and raise statements. Learn best practices for writing robust code.
+                        </p>
+                        <div class="mt-4">
+                            <a href="#" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                Start Module 13
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 14 Card -->
+                <div class="course-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
+                    <div class="px-4 py-5 sm:p-6">
+                        <h3 class="text-lg font-medium text-gray-900">Module 14: Capstone Project – HMI GUI</h3>
+                        <p class="mt-1 text-sm text-gray-500">
+                            Apply your Python skills to build a Human-Machine Interface (HMI) using a graphical user interface. This capstone project brings together concepts from previous modules for a real-world application.
+                        </p>
+                        <div class="mt-4">
+                            <a href="#" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                Start Module 14
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
-
-    <script>
-        function runPythonCode() {
-            const code = document.getElementById('pythonCode').value;
-            const output = document.getElementById('output');
-            output.innerHTML = '<p>Running your code...</p>';
-
-            // Clear previous output
-            Sk.configure({
-                output: function (text) {
-                    output.innerHTML += `<p>${text}</p>`;
-                },
-                read: function (x) {
-                    if (Sk.builtinFiles === undefined || Sk.builtinFiles['files'][x] === undefined) {
-                        throw `File not found: '${x}'`;
-                    }
-                    return Sk.builtinFiles['files'][x];
-                }
-            });
-
-            Sk.misceval.asyncToPromise(function () {
-                return Sk.importMainWithBody('<stdin>', false, code, true);
-            }).then(function () {
-                output.innerHTML += '<p>Execution complete.</p>';
-            }).catch(function (err) {
-                output.innerHTML += `<p style="color: red;">Error: ${err.toString()}</p>`;
-            });
-        }
-
-        document.getElementById('runCode').addEventListener('click', runPythonCode);
-    </script>
 </body>
 </html>
