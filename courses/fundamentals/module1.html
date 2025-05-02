@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 1 - Preparing Your Pico Board</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            scroll-behavior: smooth;
+            text-size-adjust: 100%;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        }
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .code-block {
+            background-color: #1e293b; /* Dark blue-gray for contrast */
+            color: #f8fafc; /* Light text for readability */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: monospace;
+        }
+        .recap-box {
+            background-color: #e5f3ff;
+            padding: 1rem;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0.5rem;
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <header class="hero-gradient py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl font-extrabold text-white">Get Ready to Program: Setting Up Your Raspberry Pi Pico!</h1>
+            <p class="mt-4 text-lg text-blue-100">Learn how to install MicroPython and write your first script.</p>
+        </div>
+    </header>
+    <main class="py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- What You Need -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">What You Need</h2>
+                <ul class="space-y-4">
+                    <li class="checklist-item"><i class="fas fa-desktop text-blue-600"></i> 🖥️ Computer (Windows / Mac / Linux)</li>
+                    <li class="checklist-item"><i class="fas fa-usb text-blue-600"></i> 🔌 Micro USB Cable</li>
+                    <li class="checklist-item"><i class="fas fa-microchip text-blue-600"></i> 🔵 Raspberry Pi Pico or Pico W</li>
+                    <li class="checklist-item"><i class="fas fa-tools text-blue-600"></i> 🛠️ Install Thonny IDE</li>
+                    <li class="checklist-item"><i class="fas fa-folder text-blue-600"></i> 📂 Download MicroPython Firmware</li>
+                </ul>
+            </section>
+
+            <!-- Step-by-Step Path -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Step-by-Step Path</h2>
+                <div class="step">
+                    <div>
+                        <h3 class="text-lg font-bold">📥 Step 1: Install Thonny IDE</h3>
+                        <p>Visit the <a href="https://thonny.org" target="_blank" class="text-blue-600 underline">official Thonny website</a> and download the IDE for your operating system.</p>
+                        <img src="Module_01/F_M1_DownloadThonny.gif" alt="Thonny Installation Demo" class="mt-4 rounded-lg shadow">
+                    </div>
+                </div>
+                <div class="step">
+                    <div>
+                        <h3 class="text-lg font-bold">📥 Step 2: Download MicroPython Firmware</h3>
+                        <p>Get the latest MicroPython firmware for the Raspberry Pi Pico from the <a href="https://micropython.org/download/RPI_PICO/" target="_blank" class="text-blue-600 underline">official MicroPython website</a>.</p>
+                        <img src="Module_01/F_M1_DownloadFW.gif" alt="MicroPython Firmware Download Demo" class="mt-4 rounded-lg shadow">
+                    </div>
+                </div>
+                <div class="step">
+                    <div>
+                        <h3 class="text-lg font-bold">🔌 Step 3: Flash Firmware onto Pico</h3>
+                        <ul class="list-disc ml-6">
+                            <li>Hold BOOTSEL button while connecting the Pico to your computer.</li>
+                            <li>Drag and drop the .uf2 firmware file onto the Pico's storage drive.</li>
+                        </ul>
+                        <img src="Module_01/F_M1_InstallBootloader.gif" alt="Install Bootloader Demo" class="mt-4 rounded-lg shadow">
+                    </div>
+                </div>
+                <div class="step">
+                    <div>
+                        <h3 class="text-lg font-bold">🔗 Step 4: Connect Pico to Thonny</h3>
+                        <ul class="list-disc ml-6">
+                            <li>Select "MicroPython (Raspberry Pi Pico)" in Thonny.</li>
+                            <li>Set the correct port for your Pico.</li>
+                        </ul>
+                        <img src="Module_01/F_M1_ConnectPicoToThonny.gif" alt="Connect Pico to Thonny Demo" class="mt-4 rounded-lg shadow">
+                    </div>
+                </div>
+                <div class="step">
+                    <div>
+                        <h3 class="text-lg font-bold">💡 Step 5: Upload First Program (Blink LED)</h3>
+                        <p>Write and upload a simple script to blink the onboard LED.</p>
+                        <img src="Module_01/F_M1_UploadBlinkyProgram.gif" alt="Upload Blinky Program Demo" class="mt-4 rounded-lg shadow">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mini Project: Blink LED -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Mini Project: Blink LED</h2>
+                <div class="code-block">
+<pre><code>from machine import Pin
+import time
+
+led = Pin(25, Pin.OUT)  # Pico W: Pin("LED")
+
+while True:
+    led.toggle()
+    time.sleep(0.5)</code></pre>
+                </div>
+                <p class="mt-4">🖥️ Result: Your Pico's LED blinks every half second!</p>
+            </section>
+
+            <!-- Quick Recap Box -->
+            <section>
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Quick Recap</h2>
+                <div class="recap-box">
+                    <ul class="list-disc ml-6">
+                        <li>✅ Thonny Installed</li>
+                        <li>✅ MicroPython Installed</li>
+                        <li>✅ Pico Connected</li>
+                        <li>✅ First Program Uploaded</li>
+                    </ul>
+                </div>
+            </section>
+
+            <div class="mb-12"></div>
+
+            <!-- Embedded YouTube Video -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Complete Tutorial <a href="https://youtu.be/59STLjY4kgc" target="_blank" class="text-blue-600 underline text-sm">(Watch on YouTube)</a></h2>
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/59STLjY4kgc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </section>
+        </div>
+    </main>
+    <footer class="bg-gray-800 py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm text-gray-400">&copy; 2025 Botronix Labs. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

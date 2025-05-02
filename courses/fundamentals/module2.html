@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 2 - Interfacing 7-Segment Display & Push Button</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            scroll-behavior: smooth;
+            text-size-adjust: 100%;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        }
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .code-block {
+            background-color: #1e293b; /* Dark blue-gray for contrast */
+            color: #f8fafc; /* Light text for readability */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: monospace;
+        }
+        .recap-box {
+            background-color: #e5f3ff;
+            padding: 1rem;
+            border-left: 4px solid #3b82f6;
+            border-radius: 0.5rem;
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <header class="hero-gradient py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl font-extrabold text-white">Control and Display: Learn Inputs & Outputs with MicroPython!</h1>
+            <p class="mt-4 text-lg text-blue-100">Use a button to control a 7-segment display on your Raspberry Pi Pico.</p>
+        </div>
+    </header>
+    <main class="py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- What You Need -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">What You Need</h2>
+                <ul class="space-y-4">
+                    <li class="checklist-item"><i class="fas fa-microchip text-blue-600"></i> 🧠 Raspberry Pi Pico / Pico W</li>
+                    <li class="checklist-item"><i class="fas fa-usb text-blue-600"></i> 🔌 Micro USB Cable</li>
+                    <li class="checklist-item"><i class="fas fa-tv text-blue-600"></i> 📟 1× 7-Segment Display (Common Cathode)</li>
+                    <li class="checklist-item"><i class="fas fa-circle text-blue-600"></i> 🔘 1× Push Button Module</li>
+                    <li class="checklist-item"><i class="fas fa-cogs text-blue-600"></i> ⚙️ 1× 10kΩ Resistor (for pull-down, only needed for regular push buttons without built-in resistors)</li>
+                    <li class="checklist-item"><i class="fas fa-tools text-blue-600"></i> 🔧 Breadboard + Jumper Wires</li>
+                    <li class="checklist-item"><i class="fas fa-laptop text-blue-600"></i> 💻 Computer with Thonny IDE</li>
+                </ul>
+            </section>
+
+            <!-- Step-by-Step Path -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Step-by-Step Path</h2>
+                <div class="step">
+                    <div>
+                        <h3 class="text-lg font-bold">🛠️ Step 1: Understand Your Display</h3>
+                        <p>The 7-segment display is made up of 7 LEDs (segments) labeled A to G, plus an optional decimal point (DP). By lighting up specific segments, you can display numbers from 0 to 9. This project uses a common cathode display, where all cathodes are connected to GND.</p>
+                        <img src="Module_02/7-segment display pinout.jpg" alt="7-Segment Display Pinout" class="mt-4 rounded-lg shadow">
+                    </div>
+                </div>
+                <div class="step">
+                    <div>
+                        <h3 class="text-lg font-bold">🔌 Step 2: Wire the Segments to GPIOs</h3>
+                        <p>Connect each segment of the 7-segment display to the GPIO pins on the Raspberry Pi Pico as shown in the circuit diagram. Use the Pico pinout image for reference to identify the correct pins.</p>
+                        <img src="Module_02/CIRCUIT DIAGRAM.png" alt="Circuit Diagram" class="mt-4 rounded-lg shadow">
+                        <img src="Module_02/Raspberry-Pi-Pico-Pinout.jpg" alt="Raspberry Pi Pico Pinout" class="mt-4 rounded-lg shadow">
+                    </div>
+                </div>
+                <div class="step">
+                    <div>
+                        <h3 class="text-lg font-bold">🧮 Step 3: Display Numbers (0 to 9)</h3>
+                        <p>Create a lookup table for segments and write a <code>show_digit()</code> function to control which segments light up. The image below demonstrates how the 7-segment display lights up to show numbers from 0 to 9.</p>
+                        <img src="Module_02/turn on 7-segment led.png" alt="7-Segment LED Display Showing Numbers 0 to 9" class="mt-4 rounded-lg shadow">
+                    </div>
+                </div>
+                <div class="step">
+                    <div>
+                        <h3 class="text-lg font-bold">🔘 Step 4: Add the Push Button</h3>
+                        <p>Connect one leg of the push button to a GPIO pin and the other leg to GND. Use a pull-down resistor (10kΩ) to ensure the GPIO pin reads LOW when the button is not pressed. This prevents floating values and ensures reliable input detection.</p>
+                        <img src="Module_02/pull-down circuit.png" alt="Pull-Down Circuit Diagram" class="mt-4 rounded-lg shadow">
+                    </div>
+                </div>
+                <div class="step">
+                    <div>
+                        <h3 class="text-lg font-bold">🔁 Step 5: Increment Display</h3>
+                        <p>Press the button to increment the number on the display. The display resets to 0 after reaching 9. The animation below demonstrates the program in action.</p>
+                        <img src="Module_02/run-the-program.gif" alt="Run the Program Demo" class="mt-4 rounded-lg shadow">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mini Project: DIY Floor Counter Display -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Mini Project: DIY Floor Counter Display</h2>
+                <div class="code-block">
+<pre><code>from machine import Pin
+import time
+
+# Map GPIOs to 7-segment segments
+segment_pins = {
+    'A': Pin(0, Pin.OUT),
+    'B': Pin(1, Pin.OUT),
+    'C': Pin(2, Pin.OUT),
+    'D': Pin(3, Pin.OUT),
+    'E': Pin(4, Pin.OUT),
+    'F': Pin(5, Pin.OUT),
+    'G': Pin(6, Pin.OUT)
+}
+
+# Segment patterns for 0-9 (1 = ON)
+digit_patterns = {
+    0: ['A', 'B', 'C', 'D', 'E', 'F'],
+    1: ['B', 'C'],
+    2: ['A', 'B', 'G', 'E', 'D'],
+    3: ['A', 'B', 'C', 'D', 'G'],
+    4: ['F', 'G', 'B', 'C'],
+    5: ['A', 'F', 'G', 'C', 'D'],
+    6: ['A', 'F', 'G', 'C', 'D', 'E'],
+    7: ['A', 'B', 'C'],
+    8: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
+    9: ['A', 'B', 'C', 'D', 'F', 'G']
+}
+
+# Push button input (active HIGH with internal pull-down)
+button = Pin(10, Pin.IN, Pin.PULL_DOWN)
+
+def show_digit(num):
+    # Turn off all segments first
+    for seg in segment_pins:
+        segment_pins[seg].value(0)
+
+    # Turn on only required segments
+    for seg in digit_patterns[num]:
+        segment_pins[seg].value(1)
+
+current_digit = 0
+last_button_state = 0
+
+while True:
+    button_state = button.value()
+    
+    if button_state and not last_button_state:
+        # Rising edge detected
+        current_digit = (current_digit + 1) % 10
+        show_digit(current_digit)
+        time.sleep(0.2)  # Debounce delay
+
+    last_button_state = button_state</code></pre>
+                </div>
+                <p class="mt-4">🎮 User presses button → display goes from 0 → 1 → 2 → ... → 9 → 0</p>
+                <p>🌟 Bonus: Add a second button to count down!</p>
+            </section>
+
+            <!-- Embedded YouTube Video -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Complete Tutorial <a href="https://youtu.be/uvGaOG2oLt4" target="_blank" class="text-blue-600 underline text-sm">(Watch on YouTube)</a></h2>
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/uvGaOG2oLt4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </section>
+
+            <!-- Quick Recap Box -->
+            <section>
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Quick Recap</h2>
+                <div class="recap-box">
+                    <ul class="list-disc ml-6">
+                        <li>✅ Understand GPIO for output (7-segment)</li>
+                        <li>✅ Understand GPIO for input (button)</li>
+                        <li>✅ Combine input and output in logic</li>
+                        <li>✅ Real-time feedback loop created</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </main>
+    <footer class="bg-gray-800 py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm text-gray-400">&copy; 2025 Botronix Labs. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
