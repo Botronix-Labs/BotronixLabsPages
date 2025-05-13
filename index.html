@@ -84,6 +84,11 @@
             flex: 0 0 auto; /* Prevent cards from shrinking */
             width: 300px; /* Set a fixed width for cards */
         }
+        .project-card img {
+            height: auto; /* Adjust height to auto for proper aspect ratio */
+            max-height: 200px; /* Set a maximum height for images */
+            object-fit: contain; /* Ensure the image fits within the card without distortion */
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -493,16 +498,16 @@ except ZeroDivisionError as e:
                                 <i class="fas fa-cogs text-blue-600 text-xl"></i>
                             </div>
                             <div class="ml-4 w-0 flex-1">
-                                <h3 class="text-lg font-medium text-gray-900">product_01</h3>
+                                <h3 class="text-lg font-medium text-gray-900">Pico Otto Robot</h3>
                                 <p class="mt-1 text-sm text-gray-500">Beginner Level</p>
                             </div>
                         </div>
                         <div class="mt-4">
-                            <img src="assets/product_01.gif" alt="product_01" class="w-full h-40 object-cover rounded-md">
+                            <img src="assets/Pico Otto/picoOtto.png" alt="Pico Otto" class="w-full h-auto object-contain rounded-md">
                         </div>
                         <div class="mt-4 text-center">
-                            <a href="3D products/product_01.html" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
-                                View Details
+                            <a href="assets/Pico Otto/PicoOttoSTL.zip" download class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                Download STL Files
                             </a>
                         </div>
                     </div>
