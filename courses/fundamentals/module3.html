@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 3 - Buzzer Alert with Ultrasonic Sensor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; scroll-behavior: smooth; text-size-adjust: 100%; }
+        .hero-gradient { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); }
+        .checklist-item { display: flex; align-items: center; gap: 0.5rem; }
+        .step { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; }
+        .code-block { background-color: #1e293b; color: #f8fafc; padding: 1rem; border-radius: 0.5rem; font-family: monospace; }
+        .recap-box { background-color: #e5f3ff; padding: 1rem; border-left: 4px solid #3b82f6; border-radius: 0.5rem; }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <header class="hero-gradient py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl font-extrabold text-white">📏🔊 Buzzer Alert with Ultrasonic Sensor and Raspberry Pi Pico!</h1>
+            <p class="mt-4 text-lg text-blue-100">Learn how to measure distance and trigger a buzzer alert when something gets too close.</p>
+        </div>
+    </header>
+    <main class="py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- What You Need -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">What You Need</h2>
+                <ul class="space-y-4">
+                    <li class="checklist-item"><i class="fas fa-microchip text-blue-600"></i> Raspberry Pi Pico / Pico W</li>
+                    <li class="checklist-item"><i class="fas fa-ruler-horizontal text-blue-600"></i> HC-SR04 Ultrasonic Distance Sensor</li>
+                    <li class="checklist-item"><i class="fas fa-bell text-blue-600"></i> Active Buzzer Module</li>
+                    <li class="checklist-item"><i class="fas fa-th-large text-blue-600"></i> Breadboard</li>
+                    <li class="checklist-item"><i class="fas fa-random text-blue-600"></i> Jumper Wires</li>
+                    <li class="checklist-item"><i class="fas fa-usb text-blue-600"></i> Micro-USB Cable</li>
+                    <li class="checklist-item"><i class="fas fa-laptop text-blue-600"></i> Computer with Thonny IDE</li>
+                </ul>
+            </section>
+
+            <!-- Step-by-Step Path -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Step-by-Step Path</h2>
+                <div class="step">
+                    <div>
+                        <h3 class="text-lg font-bold">🔌 Step 1: How the Ultrasonic Sensor and Buzzer Work</h3>
+                        <p class="mb-2 text-gray-700">
+                            The <b>HC-SR04 ultrasonic sensor</b> measures distance by sending out a short ultrasonic pulse from its "TRIG" pin. When this pulse hits an object, it bounces back and is detected by the "ECHO" pin. The time it takes for the echo to return is used to calculate how far away the object is. This is similar to how bats use echolocation!
+                        </p>
+                        <div class="my-4 flex justify-start">
+                            <img src="Module_03/ultra-3.gif" alt="Ultrasonic Sensor Working Principle Demo" class="rounded-lg shadow max-w-md w-full">
+                        </div>
+                        <p class="mb-2 text-gray-700">
+                            The <b>active buzzer</b> is a simple electronic component that makes a sound when you apply voltage to it. In this project, the buzzer will beep when the sensor detects something close. The closer the object, the faster the buzzer will beep, acting as an alert or warning system.
+                        </p>
+                        <div class="my-4 flex justify-start">
+                            <img src="Module_03/buzzer.gif" alt="Buzzer Working Principle Demo" class="rounded-lg shadow max-w-md w-full">
+                        </div>
+                    </div>
+                </div>
+                <div class="step">
+                    <div>
+                        <h3 class="text-lg font-bold">🔗 Step 2: Wire the Circuit</h3>
+                        <ul class="list-disc ml-6">
+                            <li>Connect VCC and GND of the ultrasonic sensor to 3.3V and GND</li>
+                            <li>Connect TRIG to GPIO pin (e.g., GP3)</li>
+                            <li>Connect ECHO to GPIO pin (e.g., GP2)</li>
+                            <li>Connect Buzzer to GPIO (e.g., GP15)</li>
+                        </ul>
+                        <div class="my-4 flex flex-col sm:flex-row gap-4">
+                            <img src="Module_03/wiring.png" alt="Wiring Diagram for Ultrasonic Sensor and Buzzer" class="rounded-lg shadow max-w-md w-full">
+                            <img src="Module_03/pico-pinout.jpg" alt="Raspberry Pi Pico Pinout" class="rounded-lg shadow max-w-md w-full">
+                        </div>
+                        <p class="mt-2 text-sm text-gray-600">(Show wiring diagram, pinout, and photo references in video)</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div>
+                        <h3 class="text-lg font-bold">💻 Step 3: Write the MicroPython Code</h3>
+                        <ul class="list-disc ml-6">
+                            <li>Send a trigger pulse</li>
+                            <li>Measure echo time</li>
+                            <li>Calculate distance</li>
+                            <li>If distance &lt; threshold, turn on the buzzer and beep faster when closer</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mini Project: Proximity Alarm System -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Mini Project: Proximity Alarm System</h2>
+                <p class="mb-4">🧠 <b>Objective:</b> Trigger a buzzer when an object is detected within 30 cm.</p>
+                <div class="code-block">
+<pre><code>from machine import Pin, time_pulse_us  # Import Pin class and time_pulse_us for timing ultrasonic signal
+import time  # Import time module for delays
+
+# Initialize pins
+TRIG = Pin(3, Pin.OUT)   # Trigger pin of ultrasonic sensor (GPIO 3)
+ECHO = Pin(2, Pin.IN)    # Echo pin of ultrasonic sensor (GPIO 2)
+buzzer = Pin(15, Pin.OUT)  # Buzzer connected to GPIO 15
+led = Pin(25, Pin.OUT)     # Onboard LED for visual feedback (GPIO 25)
+
+# Function to measure distance using ultrasonic sensor
+def get_distance():
+    TRIG.low()           # Ensure trigger is LOW
+    time.sleep_us(2)     # Short delay for stability
+    TRIG.high()          # Send a 10 microsecond HIGH pulse
+    time.sleep_us(10)
+    TRIG.low()
+
+    # Measure the time duration that ECHO is HIGH (max timeout 30 ms)
+    pulse_time = time_pulse_us(ECHO, 1, 30000)
+
+    # Calculate distance in cm: speed of sound is ~343 m/s → 29.1 µs/cm round-trip
+    distance_cm = (pulse_time / 2) / 29.1
+    return distance_cm
+
+# Main loop
+while True:
+    dist = get_distance()  # Measure distance
+    print("Distance:", dist, "cm")  # Print it for debugging
+
+    if dist < 30:  # If object is within 30 cm
+        if dist < 5:
+            # If object is very close (<5 cm), buzzer and LED stay ON
+            buzzer.value(1)
+            led.value(1)
+        else:
+            # For distances between 5–30 cm, blink buzzer and LED faster as object gets closer
+            delay = max(0.01, dist / 1000)  # Delay between buzzes: closer = faster
+
+            buzzer.value(1)
+            led.value(1)
+            time.sleep(delay)
+
+            buzzer.value(0)
+            led.value(0)
+            time.sleep(delay)
+    else:
+        # If object is far away (>30 cm), turn everything off
+        buzzer.value(0)
+        led.value(0)
+
+    time.sleep(0.2)  # Small pause before next measurement
+</code></pre>
+                </div>
+                <div class="my-8"></div>
+                <div class="step">
+                    <div>
+                        <h3 class="text-lg font-bold">🧪 Step 4: Upload and Test</h3>
+                        <ul class="list-disc ml-6">
+                            <li>Move your hand close to the sensor and hear the buzzer beep!</li>
+                        </ul>
+                        <div class="my-4 flex justify-start">
+                            <img src="Module_03/project-demo.gif" alt="Project Demo: Upload and Test" class="rounded-lg shadow max-w-md w-full">
+                        </div>
+                    </div>
+                </div>
+                <p class="mt-4">🖥️ <b>Result:</b> When an object gets closer than 30 cm, the buzzer sounds off as an alert.</p>
+            </section>
+
+            <!-- Embedded YouTube Video -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Complete Tutorial <a href="https://youtu.be/Xd3xqAWbi0E" target="_blank" class="text-blue-600 underline text-sm">(Watch on YouTube)</a></h2>
+                <div class="video-container">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/Xd3xqAWbi0E" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </section>
+
+            <!-- Quick Recap Box -->
+            <section>
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Quick Recap</h2>
+                <div class="recap-box">
+                    <ul class="list-disc ml-6">
+                        <li>✅ Read distance using ultrasonic sensor</li>
+                        <li>✅ Trigger buzzer if object is too close</li>
+                        <li>✅ Real-world input-output response</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </main>
+    <footer class="bg-gray-800 py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-sm text-gray-400">&copy; 2025 Botronix Labs. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

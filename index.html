@@ -208,7 +208,7 @@
                                 </p>
                             </div>
                             <div class="mt-5 flex items-center justify-between">
-                                <span class="text-sm font-medium text-blue-600">8 Weeks</span>
+                                <span id="fundamentals-module-count" class="text-sm font-medium text-blue-600"></span>
                                 <button class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none" onclick="location.href='courses/fundamentals/fundamentals.html'">
                                     Learn More
                                 </button>
@@ -234,7 +234,7 @@
                                 </p>
                             </div>
                             <div class="mt-5 flex items-center justify-between">
-                                <span class="text-sm font-medium text-blue-600">12 Weeks</span>
+                                <span id="intermediate-module-count" class="text-sm font-medium text-blue-600"></span>
                                 <button class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none" onclick="location.href='courses/intermediate/intermediate.html'">
                                     Learn More
                                 </button>
@@ -260,7 +260,7 @@
                                 </p>
                             </div>
                             <div class="mt-5 flex items-center justify-between">
-                                <span class="text-sm font-medium text-blue-600">16 Weeks</span>
+                                <span id="advanced-module-count" class="text-sm font-medium text-blue-600"></span>
                                 <button class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none" onclick="location.href='courses/advanced/advanced.html'">
                                     Learn More
                                 </button>
@@ -436,6 +436,39 @@ except ZeroDivisionError as e:
                 outputElement.innerHTML = `<span style='color: red;'>${err.toString()}</span>`;
             });
         }
+
+        // Fetch and display module count for Fundamentals of Robotics
+        fetch('courses/fundamentals/fundamentals.html')
+          .then(response => response.text())
+          .then(html => {
+            const match = html.match(/const modules\s*=\s*(\[[\s\S]*?\]);/);
+            if (match) {
+              const modulesArray = eval(match[1]);
+              document.getElementById('fundamentals-module-count').textContent = modulesArray.length + ' Modules';
+            } else {
+              document.getElementById('fundamentals-module-count').textContent = '';
+            }
+          })
+          .catch(() => {
+            document.getElementById('fundamentals-module-count').textContent = '';
+          });
+
+        // Dynamic module count for Intermediate and Advanced
+        function getModuleCount(course, elementId) {
+          fetch(`courses/${course}/`)
+            .then(response => response.text())
+            .then(html => {
+              // Count folders that start with 'Module' (case-insensitive)
+              const matches = html.match(/href=\"(Module[^\/]*?)\//gi);
+              const count = matches ? matches.length : 0;
+              document.getElementById(elementId).textContent = count + ' Modules';
+            })
+            .catch(() => {
+              document.getElementById(elementId).textContent = '0 Modules';
+            });
+        }
+        getModuleCount('intermediate', 'intermediate-module-count');
+        getModuleCount('advanced', 'advanced-module-count');
     </script>
 
     <!-- 3D Printing Section -->
@@ -1033,6 +1066,39 @@ except ZeroDivisionError as e:
                 }
             });
         });
+
+        // Fetch and display module count for Fundamentals of Robotics
+        fetch('courses/fundamentals/fundamentals.html')
+          .then(response => response.text())
+          .then(html => {
+            const match = html.match(/const modules\s*=\s*(\[[\s\S]*?\]);/);
+            if (match) {
+              const modulesArray = eval(match[1]);
+              document.getElementById('fundamentals-module-count').textContent = modulesArray.length + ' Modules';
+            } else {
+              document.getElementById('fundamentals-module-count').textContent = '';
+            }
+          })
+          .catch(() => {
+            document.getElementById('fundamentals-module-count').textContent = '';
+          });
+
+        // Dynamic module count for Intermediate and Advanced
+        function getModuleCount(course, elementId) {
+          fetch(`courses/${course}/`)
+            .then(response => response.text())
+            .then(html => {
+              // Count folders that start with 'Module' (case-insensitive)
+              const matches = html.match(/href=\"(Module[^\/]*?)\//gi);
+              const count = matches ? matches.length : 0;
+              document.getElementById(elementId).textContent = count + ' Modules';
+            })
+            .catch(() => {
+              document.getElementById(elementId).textContent = '0 Modules';
+            });
+        }
+        getModuleCount('intermediate', 'intermediate-module-count');
+        getModuleCount('advanced', 'advanced-module-count');
     </script>
 </body>
 </html>
