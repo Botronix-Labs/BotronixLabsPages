@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 5: Build a Pico Otto Robot Car</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { font-family: 'Montserrat', sans-serif; }
+    .checklist-item { display: flex; align-items: center; margin-bottom: 0.5rem; }
+    .checklist-item i { margin-right: 0.75rem; color: #3b82f6; }
+    .recap-box { background: #e0f2fe; border-left: 4px solid #3b82f6; padding: 1rem; border-radius: 0.5rem; margin-top: 2rem; }
+    .step { margin-bottom: 1.5rem; }
+    .step-title { font-weight: 600; color: #1d4ed8; }
+    pre { padding: 1rem; border-radius: 0.5rem; overflow-x: auto; }
+    .code-block { background-color: #1e293b; color: #f8fafc; padding: 1rem; border-radius: 0.5rem; font-family: monospace; }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <header class="hero-gradient py-8 text-center bg-gradient-to-r from-blue-500 to-blue-800">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-2">Module 5: Build a Pico Otto Robot Car</h1>
+    <p class="text-lg text-blue-100">This milestone module combines all the knowledge from previous modules to create a fully functional robot car using open-source 3D-printed parts and MicroPython programming.</p>
+  </header>
+  <main class="py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- What You Need -->
+      <section class="mb-10">
+        <h2 class="text-2xl font-bold text-blue-700 mb-4">What You Need</h2>
+        <div class="space-y-2">
+          <div class="checklist-item"><i class="fas fa-robot"></i> 3D-printed parts for the Pico Otto Robot Car</div>
+          <div class="checklist-item"><i class="fas fa-microchip"></i> Raspberry Pi Pico or Pico W</div>
+          <div class="checklist-item"><i class="fas fa-cogs"></i> Continuous rotation servo motors (x2)</div>
+          <div class="checklist-item"><i class="fas fa-battery-full"></i> 3.7V Li-ion battery and holder</div>
+          <div class="checklist-item"><i class="fas fa-braille"></i> Breadboard and jumper wires</div>
+          <div class="checklist-item"><i class="fas fa-code"></i> MicroPython programming environment</div>
+          <div class="checklist-item"><i class="fas fa-bolt"></i> Ultrasonic sensor</div>
+          <div class="checklist-item"><i class="fas fa-volume-up"></i> Active buzzer</div>
+          <div class="checklist-item"><i class="fas fa-toggle-on"></i> Switch</div>
+          <div class="checklist-item"><i class="fas fa-7"></i> 7-segment LED display</div>
+        </div>
+      </section>
+      <!-- Project Image -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Project Overview</h2>
+        <p class="mb-2 text-gray-700">Here is an image of the Pico Otto Robot Car you will build in this module:</p>
+        <div class="flex flex-col sm:flex-row items-center gap-6 my-4">
+          <div class="flex flex-col items-center w-full sm:w-1/2 max-w-xs">
+            <img src="Module_05/otto1.png" alt="Pico Otto Robot Car" class="rounded shadow mb-2">
+            <span class="text-center text-sm text-gray-600">Pico Otto Robot Car</span>
+          </div>
+        </div>
+      </section>
+      <!-- Step-by-Step Path -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Step-by-Step Path</h2>
+        <div class="step">
+          <div>
+            <h3 class="text-lg font-bold text-gray-900">🔧 Step 1: Assemble the Robot</h3>
+            <p class="mb-2 text-gray-700">
+              Use the 3D-printed parts to assemble the chassis of the robot car. Attach the servo motors, battery holder, and Raspberry Pi Pico to the chassis. Watch the assembly tutorial video below for detailed instructions:
+            </p>
+            <div class="video-container">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/CDxdaWwQxvE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <h3 class="text-lg font-bold text-gray-900">🔌 Step 2: Wiring Diagram</h3>
+            <p class="mb-2 text-gray-700">Follow the wiring diagram below to connect all components:</p>
+            <div class="flex flex-col sm:flex-row items-start gap-6 my-4">
+              <div class="flex flex-col items-center w-full sm:w-1/2 max-w-md">
+                <img src="Module_05/circuit diagram.png" alt="Wiring Diagram for Module 5" class="rounded shadow mb-2">
+                <span class="text-center text-sm text-gray-600">Wiring Diagram</span>
+              </div>
+              <div class="flex flex-col items-center w-full sm:w-1/2 max-w-md">
+                <img src="Module_05/pico-pinout.jpg" alt="Pico Pinout" class="rounded shadow mb-2">
+                <span class="text-center text-sm text-gray-600">Pico Pinout</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <h3 class="text-lg font-bold text-gray-900">💻 Step 3: Program the Robot</h3>
+            <p class="mb-2 text-gray-700">
+              Write a MicroPython program to control the robot's movement using PWM signals for the servo motors. Use the knowledge from previous modules to integrate sensors and add functionality.
+            </p>
+            <div class="code-block"><pre><code>from machine import Pin, PWM
+import time
+
+# Ultrasonic Sensor Pins
+trig = Pin(2, Pin.OUT)
+echo = Pin(3, Pin.IN)
+
+# Buzzer
+buzzer = Pin(4, Pin.OUT)
+
+# Servo Motors (Continuous Rotation)
+left_servo = PWM(Pin(14))
+right_servo = PWM(Pin(13))
+
+left_servo.freq(50)
+right_servo.freq(50)
+
+# 7-Segment Display GP16–GP22(for reduce the power consumption we only use B,C,G segments)
+segment_pins = [
+    Pin(16, Pin.OUT),  # A
+    Pin(17, Pin.OUT),  # B
+    Pin(18, Pin.OUT),  # C
+    Pin(19, Pin.OUT),  # D
+    Pin(20, Pin.OUT),  # E
+    Pin(21, Pin.OUT),  # F
+    Pin(22, Pin.OUT)   # G
+]
+
+# Segment bit patterns for common characters
+segment_map = {
+    '+': [0, 1, 1, 0, 0, 0, 1],
+    '-': [0, 1, 1, 0, 0, 0, 0],
+}
+
+# Function to measure distance
+def measure_distance():
+    trig.low()
+    time.sleep_us(2)
+    trig.high()
+    time.sleep_us(10)
+    trig.low()
+
+    while echo.value() == 0:
+        pulse_start = time.ticks_us()
+
+    while echo.value() == 1:
+        pulse_end = time.ticks_us()
+
+    duration = time.ticks_diff(pulse_end, pulse_start)
+    distance = (duration * 0.0343) / 2  # in cm
+    return distance
+
+# Servo control functions
+
+def stop():
+    left_servo.duty_u16(5000)
+    right_servo.duty_u16(5000)
+    
+#8000(full forward) 5500(slow forward) 
+def forward():
+    left_servo.duty_u16(5500) 
+    right_servo.duty_u16(4300)
+
+#3000(full backward) 4300(slow backward) 
+def backward():
+    left_servo.duty_u16(4300)
+    right_servo.duty_u16(5500)
+
+def turn_left():
+    left_servo.duty_u16(4300)
+    right_servo.duty_u16(4300)
+
+def turn_right():
+    left_servo.duty_u16(5500)
+    right_servo.duty_u16(5500)
+
+def display_char(char):
+    pattern = segment_map.get(char.upper(), [0] * 7)
+    for pin, val in zip(segment_pins, pattern):
+        pin.value(val)
+# Main loop
+try:
+    while True:
+        display_char('-')
+        distance = measure_distance()
+        if distance == -1:
+            print("Out of range or no echo")
+        else:
+            print("Distance:", distance, "cm")
+
+        if distance < 10:
+            stop()
+            buzzer.high()
+            display_char('+')
+            time.sleep(0.5)
+
+            # Backup and turn logic
+            backward()
+            time.sleep(1)
+            turn_right()
+            time.sleep(1)
+            stop()
+
+        elif distance < 20:
+            display_char('-')
+            buzzer.high()
+            forward()
+            time.sleep(0.2)
+            buzzer.low()
+
+        else:
+            buzzer.low()
+            forward()
+            display_char('-')
+            
+        time.sleep(0.1)
+
+except KeyboardInterrupt:
+    stop()
+    buzzer.low()
+    power_led.low()
+    print("Program stopped.")</code></pre></div>
+          </div>
+        </div>
+        <div class="step">
+          <div>
+            <h3 class="text-lg font-bold text-gray-900">🧪 Step 4: Test and Debug</h3>
+            <p class="mb-2 text-gray-700">
+              Test the robot's movement and functionality. Debug any issues with the assembly or programming. Watch the demo below to see the robot in action:
+            </p>
+            <div class="flex justify-start my-4">
+              <img src="Module_05/run.gif" alt="Robot Debug Demo" class="rounded shadow max-w-md">
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Complete Tutorial Section -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Complete Tutorial</h2>
+        <p class="mb-2 text-gray-700">Watch the complete tutorial video below to see the Pico Otto Robot Car in action:</p>
+        <div class="video-container">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/qO6w_cu3lEM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </section>
+      <!-- Quick Recap Box -->
+      <section class="recap-box">
+        <h3 class="font-bold text-blue-700 mb-2">Quick Recap</h3>
+        <ul class="list-disc ml-6 text-blue-900">
+          <li>✅ Assembled the robot using 3D-printed parts</li>
+          <li>✅ Programmed the robot to move using PWM signals</li>
+          <li>✅ Tested and debugged the robot's functionality</li>
+        </ul>
+      </section>
+    </div>
+  </main>
+  <footer class="bg-gray-800 py-6 mt-10">
+    <div class="max-w-3xl mx-auto text-center">
+      <a href="fundamentals.html" class="text-blue-300 hover:text-white">&larr; Back to Fundamentals Modules</a>
+      <p class="text-sm text-gray-400 mt-2">&copy; 2025 Botronix Labs. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>

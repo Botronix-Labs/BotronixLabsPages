@@ -31,32 +31,7 @@
     </header>
     <main class="py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="module-card bg-white shadow rounded-lg p-6" onclick="location.href='module1.html'">
-                    <h2 class="text-xl font-bold text-gray-900">Module 1</h2>
-                    <p class="mt-2 text-gray-600">Preparing Your Pico Board to Run MicroPython</p>
-                </div>
-                <div class="module-card bg-white shadow rounded-lg p-6" onclick="location.href='module2.html'">
-                    <h2 class="text-xl font-bold text-gray-900">Module 2</h2>
-                    <p class="mt-2 text-gray-600">Interfacing 7-Segment Display & Push Button</p>
-                </div>
-                <div class="module-card bg-white shadow rounded-lg p-6">
-                    <h2 class="text-xl font-bold text-gray-900">Module 3</h2>
-                    <p class="mt-2 text-gray-600">Description for Module 3.</p>
-                </div>
-                <div class="module-card bg-white shadow rounded-lg p-6">
-                    <h2 class="text-xl font-bold text-gray-900">Module 4</h2>
-                    <p class="mt-2 text-gray-600">Description for Module 4.</p>
-                </div>
-                <div class="module-card bg-white shadow rounded-lg p-6">
-                    <h2 class="text-xl font-bold text-gray-900">Module 5</h2>
-                    <p class="mt-2 text-gray-600">Description for Module 5.</p>
-                </div>
-                <div class="module-card bg-white shadow rounded-lg p-6">
-                    <h2 class="text-xl font-bold text-gray-900">Module 6</h2>
-                    <p class="mt-2 text-gray-600">Description for Module 6.</p>
-                </div>
-            </div>
+            <div id="modules-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
         </div>
     </main>
     <footer class="bg-gray-800 py-6">
@@ -64,5 +39,47 @@
             <p class="text-sm text-gray-400">&copy; 2025 Botronix Labs. All rights reserved.</p>
         </div>
     </footer>
+    <script>
+      // Define your modules here
+      const modules = [
+        {
+          title: 'Preparing Your Pico Board to Run MicroPython',
+          link: 'module1.html',
+        },
+        {
+          title: 'Interfacing 7-Segment Display & Push Button',
+          link: 'module2.html',
+        },
+        {
+          title: 'Make It Beep! Detect Distance with Ultrasonic Sensor and Buzzer Alert',
+          link: 'module3.html',
+        },
+        {
+          title: 'Power Up & Drive: Using a 3.7V Battery to Control a 360° Servo with Raspberry Pi Pico!',
+          link: 'module4.html',
+        },
+        {
+          title: 'Milestone: Build a Pico Otto Robot Car',
+          link: 'module5.html',
+        },
+        {
+          title: 'Description for Module 6.',
+          link: '',
+        },
+      ];
+      const modulesList = document.getElementById('modules-list');
+      modules.forEach((mod, idx) => {
+        const card = document.createElement('div');
+        card.className = 'module-card bg-white shadow rounded-lg p-6' + (mod.link ? ' cursor-pointer' : '');
+        if (mod.link) {
+          card.onclick = () => { location.href = mod.link; };
+        }
+        card.innerHTML = `
+          <h2 class="text-xl font-bold text-gray-900">Module ${idx + 1}</h2>
+          <p class="mt-2 text-gray-600">${mod.title}</p>
+        `;
+        modulesList.appendChild(card);
+      });
+    </script>
 </body>
 </html>
