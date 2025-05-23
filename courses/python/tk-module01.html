@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 1: Tkinter Basics - Python GUI for Robotics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Arial', sans-serif; }
+        pre, code { background: #1a202c; color: #60a5fa; border-radius: 0.375rem; padding: 0.5em 1em; display: block; margin: 1em 0; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <header class="bg-blue-600 text-white py-4">
+        <div class="max-w-4xl mx-auto px-4">
+            <h1 class="text-3xl font-bold">Module 1: Tkinter Basics</h1>
+            <p class="mt-2">Start your journey in Python GUI development for robotics! Learn to create windows, add widgets, and arrange them using Tkinter.</p>
+        </div>
+    </header>
+    <main class="max-w-4xl mx-auto px-4 py-8">
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4">Step 1: Create Your First Tkinter Window</h2>
+            <p class="mb-4 text-blue-900 bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
+                <span class="font-semibold">What is Tkinter?</span><br>
+                Tkinter is the standard Python library for creating graphical user interfaces (GUIs). It lets you build windows, buttons, text fields, and more—all with Python code. With Tkinter, you can quickly make interactive apps to control robots, visualize data, or create custom tools for your projects.
+            </p>
+            <p>Every Tkinter app starts with a window. Here's how to make one:</p>
+            <pre><code>import tkinter as tk  # Import tkinter module
+
+# Create the main window
+root = tk.Tk()
+root.title("My First GUI")
+root.geometry("300x200")  # Width x Height
+
+# Start the GUI loop
+root.mainloop()</code></pre>
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mt-2 mb-2">
+                <p class="mb-1 font-semibold">🧠 Explanation:</p>
+                <ul class="list-disc pl-5 text-gray-700">
+                    <li><code>tk.Tk()</code> creates a root window.</li>
+                    <li><code>.title()</code> sets the window title.</li>
+                    <li><code>.geometry()</code> sets the size.</li>
+                    <li><code>mainloop()</code> keeps the window open and responsive.</li>
+                </ul>
+                <p class="mt-2">✅ Try this code — you should see a blank GUI window pop up!</p>
+            </div>
+        </section>
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4">Step 2: Add Labels and Buttons</h2>
+            <p>Add widgets to your window:</p>
+            <pre><code>import tkinter as tk
+
+root = tk.Tk()
+root.title("Label and Button")
+root.geometry("300x200")
+
+# Add a Label
+label = tk.Label(root, text="Welcome to Robotics!", font=("Arial", 14))
+label.pack(pady=10)
+
+# Add a Button
+button = tk.Button(root, text="Click Me")
+button.pack()
+
+root.mainloop()</code></pre>
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mt-2 mb-2">
+                <p class="mb-1 font-semibold">🧠 Explanation:</p>
+                <ul class="list-disc pl-5 text-gray-700">
+                    <li><code>Label</code> displays text.</li>
+                    <li><code>Button</code> creates a clickable button.</li>
+                    <li><code>.pack()</code> automatically places the widgets vertically.</li>
+                    <li><code>pady=10</code> adds vertical spacing.</li>
+                </ul>
+                <p class="mt-2">💡 This simple layout is enough for many robot control panels.</p>
+            </div>
+        </section>
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4">Step 3: Add Button Action with a Function</h2>
+            <p>Make your button interactive by connecting it to a function:</p>
+            <pre><code>import tkinter as tk
+
+def greet():
+    label.config(text="Hello, Robot Builder!")
+
+root = tk.Tk()
+root.title("Robot Greeter")
+root.geometry("300x200")
+
+label = tk.Label(root, text="Welcome!", font=("Arial", 14))
+label.pack(pady=10)
+
+button = tk.Button(root, text="Greet", command=greet)
+button.pack()
+
+root.mainloop()</code></pre>
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mt-2 mb-2">
+                <p class="mb-1 font-semibold">🧠 Explanation:</p>
+                <ul class="list-disc pl-5 text-gray-700">
+                    <li><code>def greet()</code> defines a Python function.</li>
+                    <li><code>command=greet</code> binds the button to the function.</li>
+                    <li><code>.config(text="...")</code> changes the label text dynamically.</li>
+                </ul>
+                <p class="mt-2">✅ Try clicking the “Greet” button. Did the label change?</p>
+            </div>
+        </section>
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4">Step 4: Use Entry Field to Accept User Input</h2>
+            <p>Let users type their name and greet them dynamically:</p>
+            <pre><code>import tkinter as tk
+
+def show_name():
+    name = entry.get()
+    label.config(text=f"Hello, {name}!")
+
+root = tk.Tk()
+root.title("Name Greeter")
+root.geometry("300x200")
+
+entry = tk.Entry(root, font=("Arial", 12))
+entry.pack(pady=10)
+
+button = tk.Button(root, text="Say Hello", command=show_name)
+button.pack()
+
+label = tk.Label(root, text="", font=("Arial", 14))
+label.pack(pady=10)
+
+root.mainloop()</code></pre>
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mt-2 mb-2">
+                <p class="mb-1 font-semibold">🧠 Explanation:</p>
+                <ul class="list-disc pl-5 text-gray-700">
+                    <li><code>Entry</code> is a text box for user input.</li>
+                    <li><code>.get()</code> retrieves the text from the Entry.</li>
+                    <li>You can use f-strings to format dynamic messages.</li>
+                </ul>
+                <p class="mt-2">💬 Now you’re collecting input—perfect for robot commands later!</p>
+            </div>
+        </section>
+        <div class="mt-10 p-6 bg-blue-100 rounded-lg shadow text-gray-900">
+            <h2 class="text-2xl font-bold mb-2">🎯 Mini Project at the End of Module 1</h2>
+            <p class="mb-2">💻 <span class="font-semibold">Challenge:</span> Create a GUI with:</p>
+            <ul class="list-disc pl-6 mb-2">
+                <li>A welcome message</li>
+                <li>A user input field (name or robot name)</li>
+                <li>A button that displays a greeting using the input</li>
+            </ul>
+            <p class="mb-4">✅ <span class="font-semibold">Bonus:</span> Try changing the window color with <code>root.configure(bg=&quot;lightblue&quot;)</code>.</p>
+            <h3 class="text-xl font-bold mb-2">📦 What You've Learned in Module 1:</h3>
+            <div class="overflow-x-auto mb-6">
+                <table class="min-w-full bg-white rounded shadow overflow-hidden">
+                    <thead>
+                        <tr>
+                            <th class="py-2 px-4 border-b">Concept</th>
+                            <th class="py-2 px-4 border-b">Skill Gained</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="py-2 px-4 border-b">Tkinter Basics</td>
+                            <td class="py-2 px-4 border-b">Create windows and main loop</td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 px-4 border-b">Labels &amp; Buttons</td>
+                            <td class="py-2 px-4 border-b">Display and interact with user</td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 px-4 border-b">Events &amp; Functions</td>
+                            <td class="py-2 px-4 border-b">Make buttons do things</td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 px-4 border-b">User Input</td>
+                            <td class="py-2 px-4 border-b">Collect and use entry data</td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 px-4 border-b">Layout (pack)</td>
+                            <td class="py-2 px-4 border-b">Organize GUI elements simply</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-8 text-center">
+                <h3 class="text-xl font-bold mb-2">📺 Complete Video Tutorial</h3>
+                <div class="flex justify-center">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/w5VEoObxxcs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="rounded-lg shadow"></iframe>
+                </div>
+            </div>
+        </div>
+        <div class="mt-10 text-center">
+            <a href="python.html" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                Back to Course Overview
+            </a>
+        </div>
+    </main>
+</body>
+</html>

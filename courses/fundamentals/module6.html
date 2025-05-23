@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 6: Testing 180° Servo Motor (4DOF Robot Arm Project)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { font-family: 'Montserrat', sans-serif; }
+    .checklist-item { display: flex; align-items: center; margin-bottom: 0.5rem; }
+    .checklist-item i { margin-right: 0.75rem; color: #3b82f6; }
+    .recap-box { background: #e0f2fe; border-left: 4px solid #3b82f6; padding: 1rem; border-radius: 0.5rem; margin-top: 2rem; }
+    .step { margin-bottom: 1.5rem; }
+    .step-title { font-weight: 600; color: #1d4ed8; }
+    pre { padding: 1rem; border-radius: 0.5rem; overflow-x: auto; }
+    .code-block { background-color: #1e293b; color: #f8fafc; padding: 1rem; border-radius: 0.5rem; font-family: monospace; }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <header class="hero-gradient py-8 text-center bg-gradient-to-r from-blue-500 to-blue-800">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-2">Module 6: Testing 180° Servo Motor (4DOF Robot Arm Project)</h1>
+    <p class="text-lg text-blue-100">Start your 4DOF robot arm journey! Learn to connect and test a 180° servo motor with the Raspberry Pi Pico using MicroPython.</p>
+  </header>
+  <main class="py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- What You Need -->
+      <section class="mb-10">
+        <h2 class="text-2xl font-bold text-black mb-4">What You Need</h2>
+        <div class="space-y-2">
+          <div class="checklist-item"><i class="fas fa-microchip"></i> Raspberry Pi Pico or Pico W (USB connected)</div>
+          <div class="checklist-item"><i class="fas fa-laptop-code"></i> Thonny IDE installed on your computer</div>
+          <div class="checklist-item"><i class="fas fa-cogs"></i> 1x SG90 or MG90S 180° servo motor</div>
+          <div class="checklist-item"><i class="fas fa-battery-full"></i> 3.7V Li-ion battery (e.g., 1x18650 cell)</div>
+          <div class="checklist-item"><i class="fas fa-bolt"></i> 5V regulator module (for stable servo power)</div>
+          <div class="checklist-item"><i class="fas fa-braille"></i> Breadboard and jumper wires</div>
+        </div>
+        <div class="mt-2 text-yellow-800 bg-yellow-100 rounded p-2">
+          💡 If you haven't installed Thonny or set up MicroPython, go back to <a href="module1.html" class="underline text-blue-600">Fundamental Course - Module 1</a> to complete that step.
+        </div>
+      </section>
+      <!-- Step-by-Step Path -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Step-by-Step Path</h2>
+        <div class="step">
+          <h3 class="text-lg font-bold text-gray-900">🔌 Step 1: Wiring Instructions & Pinout</h3>
+          <p class="mb-4">Connect your 180° servo motor to the Raspberry Pi Pico as shown below. This setup is essential for testing and controlling the servo in your 4DOF robot arm project.</p>
+          <table class="mb-6">
+            <tr><th class="pr-4">Servo Wire</th><th>Connect To</th></tr>
+            <tr><td>Orange (Signal)</td><td>GP15 (or any PWM-capable GPIO)</td></tr>
+            <tr><td>Red (VCC)</td><td>External 5V Battery Positive</td></tr>
+            <tr><td>Brown (GND)</td><td>Shared Ground with Pico and Battery</td></tr>
+          </table>
+          <div class="mt-2 text-red-800 bg-red-100 rounded p-2 mb-6">⚠️ Important: Make sure the ground of the external battery is connected to the ground of the Pico (GND pin).</div>
+          <div class="flex flex-col sm:flex-row items-start gap-6 my-4">
+            <div class="flex flex-col items-center w-full sm:w-1/2 max-w-xs">
+              <img src="Module_06/motor.jpg" alt="180° Servo Motor" class="rounded shadow mb-2">
+              <span class="text-center text-sm text-gray-600">180° Servo Motor (SG90/MG90S)</span>
+            </div>
+            <div class="flex flex-col items-center w-full sm:w-1/2 max-w-xs">
+              <img src="Module_06/motor pinout.png" alt="Servo Motor Pinout" class="rounded shadow mb-2">
+              <span class="text-center text-sm text-gray-600">Servo Motor Pinout</span>
+            </div>
+          </div>
+          <div class="flex flex-col sm:flex-row items-start gap-6 my-4">
+            <div class="flex flex-col items-center w-full sm:w-1/2" style="max-width:520px;">
+              <img src="Module_06/pico-pinout.jpg" alt="Pico Pinout" class="rounded shadow mb-2 w-full" style="max-width:500px;">
+              <span class="text-center text-sm text-gray-600">Raspberry Pi Pico Pinout</span>
+            </div>
+            <div class="flex flex-col items-center w-full sm:w-1/2" style="max-width:400px;">
+              <img src="Module_06/circuit.png" alt="Servo Circuit Diagram" class="rounded shadow mb-2 w-full" style="max-width:380px;">
+              <span class="text-center text-sm text-gray-600">Servo Circuit Diagram</span>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <h3 class="text-lg font-bold text-gray-900">💡 Step 2: Understand PWM Control for Servos</h3>
+          <ul class="list-disc ml-6 text-gray-700">
+            <li>PWM frequency: typically 50 Hz (20ms period)</li>
+            <li>0° angle ≈ 0.5ms pulse (2.5% duty)</li>
+            <li>90° angle ≈ 1.5ms pulse (7.5% duty)</li>
+            <li>180° angle ≈ 2.5ms pulse (12.5% duty)</li>
+          </ul>
+          <p class="mt-2">In MicroPython, <code>PWM.duty_u16()</code> is used where 0 = 0% duty and 65535 = 100% duty. So, 7.5% ≈ <code>int(65535 * 0.075)</code> ≈ <b>4915</b>.</p>
+          <div class="flex flex-col items-center w-full max-w-lg mx-auto mt-4">
+            <img src="Module_06/principle.gif" alt="Servo PWM Principle" class="rounded shadow mb-2 w-full" style="max-width:420px;">
+            <span class="text-center text-sm text-gray-600">How PWM Duty Cycle Relates to Servo Angle</span>
+          </div>
+        </div>
+        <div class="step">
+          <h3 class="text-lg font-bold text-gray-900">🧪 Step 3: Test Code – Move Servo to 0°, 90°, 180°</h3>
+          <div class="code-block"><pre><code>from machine import Pin, PWM
+from time import sleep
+
+servo = PWM(Pin(15))  # use GP15
+servo.freq(50)        # 50 Hz for standard servo
+
+def move_servo_us(us):
+    duty = int(us * 65535 / 20000)  # convert microsecond to 16-bit PWM
+    servo.duty_u16(duty)
+
+# Move to 0 degrees (~500us)
+move_servo_us(500)
+sleep(1)
+
+# Move to 90 degrees (~1500us)
+move_servo_us(1500)
+sleep(1)
+
+# Move to 180 degrees (~2500us)
+move_servo_us(2500)
+sleep(1)
+</code></pre></div>
+          <div class="mt-2 text-yellow-800 bg-yellow-100 rounded p-2">🧠 Tip: Some servos may respond better between 600–2400µs depending on brand.</div>
+        </div>
+        <div class="step">
+          <h3 class="text-lg font-bold text-gray-900">🧰 Step 4: Create a Reusable Angle Function</h3>
+          <p>Instead of microsecond input, use degrees:</p>
+          <div class="code-block"><pre><code>def move_servo_angle(angle):
+    min_us = 500
+    max_us = 2500
+    us = min_us + (max_us - min_us) * angle / 180
+    move_servo_us(us)
+
+# Example usage:
+for angle in [0, 90, 180, 90, 0]:
+    move_servo_angle(angle)
+    sleep(1)
+</code></pre></div>
+          <div class="mt-2 text-green-800 bg-green-100 rounded p-2">✅ Learning Point: You now know how to define and call functions in MicroPython. This prepares you for modular coding and reusability in future modules.</div>
+        </div>
+        <div class="step">
+          <h3 class="text-lg font-bold text-gray-900">🛠️ Step 5: Troubleshooting Tips</h3>
+          <ul class="list-disc ml-6 text-gray-700">
+            <li>Servo twitches or doesn't move?</li>
+            <li>Is your 5V supply strong enough (≥1A)?</li>
+            <li>Is your ground shared with Pico?</li>
+            <li>Use a capacitor (100µF–470µF) across VCC/GND near the servo.</li>
+            <li>Increase <code>sleep(1)</code> delay between commands.</li>
+          </ul>
+        </div>
+      </section>
+      <!-- Tutorial Video Section -->
+      <section class="mt-12">
+        <h2 class="text-2xl font-bold mb-4 text-blue-700 flex items-center">
+          <svg class="w-7 h-7 mr-2 text-red-600" fill="currentColor" viewBox="0 0 24 24"><path d="M21.8 8.001c-.2-.8-.8-1.4-1.6-1.6C18.2 6 12 6 12 6s-6.2 0-8.2.4c-.8.2-1.4.8-1.6 1.6C2 10 2 12 2 12s0 2 .2 3.999c.2.8.8 1.4 1.6 1.6C5.8 18 12 18 12 18s6.2 0 8.2-.4c.8-.2 1.4-.8 1.6-1.6C22 14 22 12 22 12s0-2-.2-3.999zM10 15.5v-7l6 3.5-6 3.5z"/></svg>
+          Complete Tutorial Video
+        </h2>
+        <div class="flex flex-col md:flex-row md:items-center gap-8">
+          <div class="flex-1 flex justify-center">
+            <div class="w-full max-w-2xl aspect-video rounded-lg overflow-hidden shadow-lg border-2 border-blue-200">
+              <iframe class="w-full h-full min-h-[320px]" src="https://www.youtube.com/embed/TVHwjnef7no" title="Testing 180° Servo Motor (4DOF Robot Arm Project) - Module 6 Tutorial" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+          </div>
+          <div class="flex-1">
+            <div class="bg-white rounded-lg shadow p-6 border border-blue-100">
+              <h3 class="text-lg font-semibold mb-2 text-gray-900">What you'll learn in this video:</h3>
+              <ul class="list-disc pl-6 text-gray-700 space-y-1">
+                <li>Overview of the 4DOF robot arm project and Module 6 goals</li>
+                <li>How to wire a 180° servo motor to the Pico using a 3.7V Li-ion battery and 5V regulator</li>
+                <li>Understanding servo pinouts and Pico pin mapping</li>
+                <li>How PWM controls servo angle (with visual explanation)</li>
+                <li>Step-by-step code walkthrough for testing the servo in MicroPython</li>
+                <li>Common troubleshooting tips and best practices</li>
+              </ul>
+              <a href="https://youtu.be/TVHwjnef7no" target="_blank" rel="noopener" class="inline-block mt-4 px-4 py-2 bg-red-600 text-white rounded shadow hover:bg-red-700 transition">Watch on YouTube</a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Quick Recap Box -->
+      <section class="recap-box">
+        <h3 class="font-bold text-blue-700 mb-2">Quick Recap</h3>
+        <ul class="list-disc ml-6 text-blue-900">
+          <li>✅ Servo basics</li>
+          <li>✅ Wiring for external power</li>
+          <li>✅ Using PWM in MicroPython</li>
+          <li>✅ Writing and calling a function</li>
+          <li>✅ Testing movement angles</li>
+        </ul>
+      </section>
+      <div class="mt-8 p-4 bg-blue-100 rounded">
+        <h3 class="text-lg font-semibold mb-1">🎯 What’s Next?</h3>
+        <p>In Module 7, you’ll extend this single-servo code to control all 4 servos of the mini robot arm and map each one to a specific GPIO pin. You’ll also learn how to organize code for each joint.</p>
+      </div>
+      <div class="mt-8 text-center">
+        <a href="fundamentals.html" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+          &larr; Back to Fundamentals Modules
+        </a>
+      </div>
+    </div>
+  </main>
+  <footer class="bg-gray-800 py-6 mt-10">
+    <div class="max-w-3xl mx-auto text-center">
+      <p class="text-sm text-gray-400 mt-2">&copy; 2025 Botronix Labs. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
