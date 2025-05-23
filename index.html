@@ -288,193 +288,35 @@
     <div id="python" class="py-12 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="lg:text-center">
-                <h2 class="text-base text-blue-600 font-semibold tracking-wide uppercase">Learn Python</h2>
+                <h2 class="text-base text-blue-600 font-semibold tracking-wide uppercase">Python GUI with Tkinter</h2>
                 <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                    Start Your Python Journey
+                    Build GUI Applications to Control Your Robots
                 </p>
                 <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-                    Explore Python from basics to advanced concepts and build a Human-Machine Interface (HMI) as your capstone project.
+                    Learn how to create powerful graphical user interfaces (GUIs) in Python using Tkinter. Design custom control panels and dashboards to interact with robots like Pico Otto and bring your robotics projects to life!
                 </p>
             </div>
-
-            <!-- Example Codes Section -->
-            <div class="bg-white shadow overflow-hidden sm:rounded-lg">
-                <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
-                    <div>
-                        <h3 class="text-lg leading-6 font-medium text-gray-900">
-                            Example Codes
-                        </h3>
-                        <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                            Explore and copy example Python codes to try them out in the editor.
-                        </p>
-                    </div>
-                </div>
-                <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
-                    <div class="sm:divide-y sm:divide-gray-200">
-                        <div class="py-4 sm:py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
-                            <div class="bg-gray-100 p-4 rounded-md overflow-y-auto h-64">
-                                <div class="space-y-4">
-                                    <div class="bg-white p-4 rounded-md shadow">
-                                        <h4 class="text-sm font-bold text-gray-800">Hello, World!</h4>
-                                        <pre class="bg-gray-200 p-2 rounded-md overflow-x-auto text-sm">
-print("Hello, World!")
-                                        </pre>
-                                    </div>
-
-                                    <div class="bg-white p-4 rounded-md shadow">
-                                        <h4 class="text-sm font-bold text-gray-800">For Loop</h4>
-                                        <pre class="bg-gray-200 p-2 rounded-md overflow-x-auto text-sm">
-for i in range(5):
-    print(i)
-                                        </pre>
-                                    </div>
-
-                                    <div class="bg-white p-4 rounded-md shadow">
-                                        <h4 class="text-sm font-bold text-gray-800">Function Example</h4>
-                                        <pre class="bg-gray-200 p-2 rounded-md overflow-x-auto text-sm">
-def greet(name):
-    return f"Hello, {name}!"
-
-print(greet("Botronix"))
-                                        </pre>
-                                    </div>
-
-                                    <div class="bg-white p-4 rounded-md shadow">
-                                        <h4 class="text-sm font-bold text-gray-800">Class Example</h4>
-                                        <pre class="bg-gray-200 p-2 rounded-md overflow-x-auto text-sm">
-class Robot:
-    def __init__(self, name):
-        self.name = name
-
-    def greet(self):
-        return f"I am {self.name}, your robot assistant!"
-
-robot = Robot("Botronix")
-print(robot.greet())
-                                        </pre>
-                                    </div>
-
-                                    <div class="bg-white p-4 rounded-md shadow">
-                                        <h4 class="text-sm font-bold text-gray-800">Error Handling</h4>
-                                        <pre class="bg-gray-200 p-2 rounded-md overflow-x-auto text-sm">
-try:
-    x = 10 / 0
-except ZeroDivisionError as e:
-    print("Error:", e)
-                                        </pre>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Interactive Python Code Editor -->
-            <div class="flex-1 mt-6">
-                <div class="bg-white shadow overflow-hidden sm:rounded-lg">
-                    <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
-                        <div>
-                            <h3 class="text-lg leading-6 font-medium text-gray-900">
-                                Interactive Python Code Editor
-                            </h3>
-                            <p class="mt-1 max-w-2xl text-sm text-gray-500">
-                                Write code, run it, and see the output instantly in the terminal below.
-                            </p>
-                        </div>
-                        <button id="runCode" class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 focus:outline-none" onclick="runPythonCode()">
-                            Run Code
-                        </button>
-                    </div>
-                    <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
-                        <div class="sm:divide-y sm:divide-gray-200">
-                            <div class="py-4 sm:py-5 sm:grid sm:grid-cols-1 sm:gap-4 sm:px-6">
-                                <div class="flex flex-col md:flex-row gap-4">
-                                    <!-- Code Editor -->
-                                    <div id="code-editor" class="bg-gray-100 p-4 rounded-md overflow-x-auto flex-1 h-64">
-                                        <textarea id="pythonCode" class="w-full h-full p-2 border border-gray-300 rounded-md" placeholder="Write your Python code here...">print("Hello Botronix Labs!")</textarea>
-                                    </div>
-
-                                    <!-- Terminal Output -->
-                                    <div id="output" class="bg-gray-900 text-white p-4 rounded-md overflow-y-auto flex-1 h-64">
-                                        <p>Output will appear here...</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div class="mt-10 text-center">
-                <a href="courses/python/python.html" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
-                    View More Courses
+                <!-- Pico Otto GUI Project Card using course-card style -->
+                <div class="course-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out max-w-md mx-auto mb-8">
+                  <div class="video-container">
+                    <iframe width="100%" height="220" src="https://www.youtube.com/embed/videoseries?list=PLCmvNYmqSchBx2jH-7ti2fMVuzOympka6" title="Pico Otto GUI Project Playlist" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="rounded-t-md w-full"></iframe>
+                  </div>
+                  <div class="px-4 py-5 sm:p-6 flex flex-col items-center">
+                    <h3 class="text-lg font-bold text-gray-900 mb-1">Pico Otto GUI</h3>
+                    <p class="text-gray-700 text-sm text-center mb-3">Step-by-step video series to build a modern robot controller interface for Pico Otto using Python and Tkinter. Learn GUI layouts, images, controls, and styling.</p>
+                    <a href="courses/python/python.html" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-semibold rounded shadow hover:bg-blue-700 transition text-sm mt-2">
+                      Learn More
+                    </a>
+                  </div>
+                </div>
+                <a href="courses/python/python.html" class="inline-flex items-center px-6 py-3 border border-transparent textbase font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                    Explore Tkinter Courses
                     <i class="fas fa-arrow-right ml-2"></i>
                 </a>
             </div>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"></script>
-    <script>
-        function runPythonCode() {
-            const code = document.getElementById('pythonCode').value;
-            const outputElement = document.getElementById('output');
-            outputElement.innerHTML = ''; // Clear previous output
-
-            Sk.configure({
-                output: function (text) {
-                    outputElement.innerHTML += text + '\n';
-                },
-                read: function (x) {
-                    if (Sk.builtinFiles === undefined || Sk.builtinFiles['files'][x] === undefined) {
-                        throw new Error("File not found: " + x);
-                    }
-                    return Sk.builtinFiles['files'][x];
-                }
-            });
-
-            Sk.misceval.asyncToPromise(function () {
-                return Sk.importMainWithBody('<stdin>', false, code, true);
-            }).catch(function (err) {
-                outputElement.innerHTML = `<span style='color: red;'>${err.toString()}</span>`;
-            });
-        }
-
-        // Fetch and display module count for Fundamentals of Robotics
-        fetch('courses/fundamentals/fundamentals.html')
-          .then(response => response.text())
-          .then(html => {
-            const match = html.match(/const modules\s*=\s*(\[[\s\S]*?\]);/);
-            if (match) {
-              const modulesArray = eval(match[1]);
-              document.getElementById('fundamentals-module-count').textContent = modulesArray.length + ' Modules';
-            } else {
-              document.getElementById('fundamentals-module-count').textContent = '';
-            }
-          })
-          .catch(() => {
-            document.getElementById('fundamentals-module-count').textContent = '';
-          });
-
-        // Dynamic module count for Intermediate and Advanced
-        function getModuleCount(course, elementId) {
-          fetch(`courses/${course}/`)
-            .then(response => response.text())
-            .then(html => {
-              // Count folders that start with 'Module' (case-insensitive)
-              const matches = html.match(/href=\"(Module[^\/]*?)\//gi);
-              const count = matches ? matches.length : 0;
-              document.getElementById(elementId).textContent = count + ' Modules';
-            })
-            .catch(() => {
-              document.getElementById(elementId).textContent = '0 Modules';
-            });
-        }
-        getModuleCount('intermediate', 'intermediate-module-count');
-        getModuleCount('advanced', 'advanced-module-count');
-    </script>
 
     <!-- 3D Printing Section -->
     <div id="3dprints" class="py-12 bg-gray-50">
@@ -562,7 +404,7 @@ except ZeroDivisionError as e:
 
             <!-- Add View All Products Button -->
             <div class="mt-10 text-center">
-                <a href="3D products/" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                <a href="3D products/" class="inline-flex items-center px-6 py-3 border border-transparent textbase font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
                     View All Products
                     <i class="fas fa-arrow-right ml-2"></i>
                 </a>
@@ -641,7 +483,7 @@ except ZeroDivisionError as e:
 
             <!-- Add View All Videos Button -->
             <div class="mt-10 text-center">
-                <a href="#videos" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                <a href="#videos" class="inline-flex items-center px-6 py-3 border border-transparent textbase font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
                     View All Videos
                     <i class="fas fa-arrow-right ml-2"></i>
                 </a>

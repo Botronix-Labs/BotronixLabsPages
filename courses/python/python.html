@@ -16,27 +16,32 @@
 <body class="bg-gray-50">
     <header class="bg-blue-600 text-white py-4">
         <div class="max-w-7xl mx-auto px-4">
-            <h1 class="text-3xl font-bold">Learn Python Programming</h1>
-            <p class="mt-2">Master Python programming with a structured learning path covering Basics, Object-Oriented Programming (OOP), and a GUI project.</p>
+            <h1 class="text-3xl font-bold">Python GUI with Tkinter</h1>
+            <p class="mt-2">Follow our structured learning path to master Python basics, OOP, and GUI development with Tkinter. By the end, you'll be able to build custom control panels and dashboards to interact with robots like Pico Otto!</p>
         </div>
     </header>
 
     <main class="max-w-7xl mx-auto px-4 py-8">
-        <!-- Updated Python Learning Path Section with Indexed Cards -->
         <section>
-            <h2 class="text-2xl font-bold mb-4">Python Learning Path</h2>
+            <h2 class="text-2xl font-bold mb-4">Tkinter Learning Path</h2>
+            <p class="mb-8 text-lg text-gray-700">This course guides you from Python fundamentals to building real GUI applications for robotics control using Tkinter. Each module builds your skills step by step, ending with a capstone HMI project for your robot.</p>
             <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
                 <!-- Module 1 Card -->
                 <div class="course-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
                     <div class="px-4 py-5 sm:p-6">
-                        <h3 class="text-lg font-medium text-gray-900">Module 1: Introduction to Python</h3>
+                        <h3 class="text-lg font-medium text-gray-900">Module 1: Tkinter Basics</h3>
                         <p class="mt-1 text-sm text-gray-500">
-                            Get started with Python by installing Thonny IDE and writing your first "Hello, World!" program.
+                            Start your journey in GUI development with Tkinter! In this module, you'll learn how to:
+                            <ul class="list-disc pl-5 mt-2">
+                                <li>Create your first Tkinter window</li>
+                                <li>Add widgets like labels and buttons</li>
+                                <li>Arrange widgets using <code>.pack()</code> and <code>.grid()</code> layout managers</li>
+                            </ul>
                         </p>
-                        <div class="mt-4">
-                            <span class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gray-400 cursor-not-allowed">
-                                Coming Soon
-                            </span>
+                        <div class="mt-4 flex gap-2">
+                            <button onclick="location.href='tk-module01.html'" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                Start
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -44,14 +49,20 @@
                 <!-- Module 2 Card -->
                 <div class="course-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
                     <div class="px-4 py-5 sm:p-6">
-                        <h3 class="text-lg font-medium text-gray-900">Module 2: Data Types and Variables</h3>
+                        <h3 class="text-lg font-medium text-gray-900">Module 2: Layouts, Frames, & Action Buttons</h3>
                         <p class="mt-1 text-sm text-gray-500">
-                            Learn about Python's data types and how to use variables effectively to store and manipulate data.
+                            In this module, you'll learn how to:
+                            <ul class="list-disc pl-5 mt-2">
+                                <li>Use <b>Frame</b> and <b>LabelFrame</b> to organize your GUI</li>
+                                <li>Arrange widgets precisely for a D-pad style movement control panel</li>
+                                <li>Connect buttons to movement functions</li>
+                                <li>Provide feedback with a status label</li>
+                            </ul>
                         </p>
-                        <div class="mt-4">
-                            <span class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gray-400 cursor-not-allowed">
-                                Coming Soon
-                            </span>
+                        <div class="mt-4 flex gap-2">
+                            <button onclick="location.href='tk-module02.html'" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                Start
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -59,14 +70,20 @@
                 <!-- Module 3 Card -->
                 <div class="course-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
                     <div class="px-4 py-5 sm:p-6">
-                        <h3 class="text-lg font-medium text-gray-900">Module 3: Expressions, Operators, and Comments</h3>
+                        <h3 class="text-lg font-medium text-gray-900">Module 3: Enhancing GUI with Images, LabelFrames, and Styling</h3>
                         <p class="mt-1 text-sm text-gray-500">
-                            Explore Python expressions, operators, comments, and arithmetic operations to enhance your coding skills.
+                            In this module, you'll learn how to:
+                            <ul class="list-disc pl-5 mt-2">
+                                <li><b>tk.PhotoImage()</b>: Load and display PNG images in your GUI</li>
+                                <li><b>LabelFrame</b>: Visually group related widgets</li>
+                                <li><b>Font and Color Styling</b>: Customize the appearance of labels and buttons</li>
+                                <li><b>Padding and Alignment</b>: Create a clean, user-friendly layout</li>
+                            </ul>
                         </p>
-                        <div class="mt-4">
-                            <span class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gray-400 cursor-not-allowed">
-                                Coming Soon
-                            </span>
+                        <div class="mt-4 flex gap-2">
+                            <button onclick="location.href='tk-module03.html'" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                Start
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -237,6 +254,12 @@
                 </div>
             </div>
         </section>
+        <div class="mt-10 text-center">
+            <a href="#" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                View All Tkinter Courses
+                <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
     </main>
 </body>
 </html>

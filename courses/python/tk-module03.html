@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 3: Enhancing GUI with Images, LabelFrames, and Styling | Botronix Labs Python GUI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Arial', sans-serif; }
+        pre, code { background: #1a202c; color: #60a5fa; border-radius: 0.375rem; padding: 0.5em 1em; display: block; margin: 1em 0; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <header class="bg-blue-600 text-white py-4">
+        <div class="max-w-4xl mx-auto px-4">
+            <h1 class="text-3xl font-bold">Module 3: Enhancing GUI with Images, LabelFrames, and Styling</h1>
+            <p class="mt-2">Learn how to make your Python GUI look more professional by adding images, styling text, and grouping related widgets.</p>
+        </div>
+    </header>
+    <main class="max-w-4xl mx-auto px-4 py-8">
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4">Step 1: Load and Display an Image in Tkinter</h2>
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded mb-4">
+                <span class="font-semibold">Concepts Introduced:</span>
+                <ul class="list-disc pl-5 text-gray-700">
+                    <li>tk.PhotoImage: Load and display PNG images in your GUI.</li>
+                    <li>Label widget: Used to show images or text.</li>
+                    <li>Raw string for file paths: Avoids Windows path errors.</li>
+                </ul>
+            </div>
+            <pre><code>import tkinter as tk
+
+root = tk.Tk()
+root.title("Robot GUI with Image")
+root.geometry("300x300")
+
+# Load a PNG image from the Downloads folder
+robot_img = tk.PhotoImage(file=r"C:\\Users\\tonyc\\Downloads\\robot.png")
+
+# Display it in a Label
+img_label = tk.Label(root, image=robot_img)
+img_label.pack(pady=10)
+
+root.mainloop()
+</code></pre>
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mt-2 mb-2">
+                <span class="font-semibold">🧠 Explanation:</span>
+                <ul class="list-disc pl-5 text-gray-700">
+                    <li><code>tk.PhotoImage</code> loads PNG/GIF images for use in Tkinter GUIs.</li>
+                    <li>Use a raw string (r"...") for Windows file paths to avoid errors.</li>
+                    <li><code>pady=10</code> adds vertical space around the image.</li>
+                </ul>
+            </div>
+        </section>
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4">Step 2: Group Widgets with LabelFrame</h2>
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded mb-4">
+                <span class="font-semibold">Concepts Introduced:</span>
+                <ul class="list-disc pl-5 text-gray-700">
+                    <li>LabelFrame: Visually group related widgets with a border and title.</li>
+                    <li>.grid() layout: Arrange buttons in a D-pad style.</li>
+                    <li>Padding: Controls spacing inside and outside the frame.</li>
+                </ul>
+            </div>
+            <pre><code>frame = tk.LabelFrame(root, text="Controls", padx=10, pady=10, font=("Arial", 12, "bold"))
+frame.pack(padx=10, pady=10)
+
+btn1 = tk.Button(frame, text="Forward", width=15)
+btn1.grid(row=0, column=1, pady=5)
+
+btn2 = tk.Button(frame, text="Left", width=15)
+btn2.grid(row=1, column=0, pady=5)
+
+btn3 = tk.Button(frame, text="Right", width=15)
+btn3.grid(row=1, column=2, pady=5)
+
+btn4 = tk.Button(frame, text="Backward", width=15)
+btn4.grid(row=2, column=1, pady=5)
+</code></pre>
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mt-2 mb-2">
+                <span class="font-semibold">🧠 Explanation:</span>
+                <ul class="list-disc pl-5 text-gray-700">
+                    <li><code>LabelFrame</code> creates a visible border and title for related controls.</li>
+                    <li><code>.grid()</code> arranges buttons in a 2D layout (like a D-pad).</li>
+                    <li><code>padx</code> and <code>pady</code> add space inside and outside the frame.</li>
+                </ul>
+            </div>
+        </section>
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4">Step 3: Add Fonts and Colors to Labels & Buttons</h2>
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded mb-4">
+                <span class="font-semibold">Concepts Introduced:</span>
+                <ul class="list-disc pl-5 text-gray-700">
+                    <li>Font and color styling: Make your GUI more readable and attractive.</li>
+                    <li>Button .config(): Change appearance after creation.</li>
+                </ul>
+            </div>
+            <pre><code>title_label = tk.Label(root, text="Pico Otto Control Panel", font=("Arial", 16, "bold"), fg="blue")
+title_label.pack(pady=5)
+
+btn1.config(bg="green", fg="white", font=("Arial", 12))
+btn2.config(bg="orange", fg="black", font=("Arial", 12))
+btn3.config(bg="orange", fg="black", font=("Arial", 12))
+btn4.config(bg="red", fg="white", font=("Arial", 12))
+</code></pre>
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mt-2 mb-2">
+                <span class="font-semibold">🧠 Explanation:</span>
+                <ul class="list-disc pl-5 text-gray-700">
+                    <li>Use <code>font</code>, <code>fg</code> (text color), and <code>bg</code> (background) to style widgets.</li>
+                    <li>Color coding buttons improves usability and makes controls stand out.</li>
+                    <li>Consistent fonts and colors give your GUI a professional look.</li>
+                </ul>
+            </div>
+        </section>
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4">Step 4: Mini Project – Styled Robot Controller GUI</h2>
+            <div class="bg-blue-50 border-l-4 border-yellow-400 p-4 rounded mb-4">
+                <span class="font-semibold">Challenge:</span>
+                <ul class="list-disc pl-5 text-gray-700">
+                    <li>Add an image of your robot at the top</li>
+                    <li>Use a bold, colored title</li>
+                    <li>Group movement buttons in a LabelFrame</li>
+                    <li>Style the background and add padding for a polished look</li>
+                </ul>
+            </div>
+            <pre><code>import tkinter as tk
+
+root = tk.Tk()
+root.title("Pico Otto Control Panel")
+root.geometry("500x400")  # Increased width for all buttons to fit nicely
+root.configure(bg="lightgray")
+
+# Title
+title = tk.Label(root, text="Robot Controller", font=("Arial", 18, "bold"), fg="blue", bg="lightgray")
+title.pack(pady=10)
+
+# Robot Image
+robot_img = tk.PhotoImage(file=r"C:\\Users\\tonyc\\Downloads\\robot.png")
+img_label = tk.Label(root, image=robot_img, bg="lightgray")
+img_label.pack()
+
+# Control Frame
+frame = tk.LabelFrame(root, text="Movement", font=("Arial", 12, "bold"), padx=10, pady=10, bg="white")
+frame.pack(pady=15)
+
+# Control Buttons
+btn_forward = tk.Button(frame, text="Forward", width=12, bg="green", fg="white")
+btn_forward.grid(row=0, column=1, pady=5)
+
+btn_left = tk.Button(frame, text="Left", width=12, bg="orange")
+btn_left.grid(row=1, column=0, padx=5)
+
+btn_right = tk.Button(frame, text="Right", width=12, bg="orange")
+btn_right.grid(row=1, column=2, padx=5)
+
+btn_backward = tk.Button(frame, text="Backward", width=12, bg="red", fg="white")
+btn_backward.grid(row=2, column=1, pady=5)
+
+root.mainloop()
+</code></pre>
+            <div class="bg-blue-50 border-l-4 border-yellow-400 p-4 mt-2 mb-2">
+                <span class="font-semibold">🧠 Explanation:</span>
+                <ul class="list-disc pl-5 text-gray-700">
+                    <li><code>root.geometry("500x400")</code> ensures all widgets fit comfortably.</li>
+                    <li><code>bg="lightgray"</code> gives a modern, soft background.</li>
+                    <li><code>LabelFrame</code> and <code>Button</code> backgrounds are styled for clarity and contrast.</li>
+                    <li>Use <code>padx</code> and <code>pady</code> for spacing between widgets and inside frames.</li>
+                </ul>
+            </div>
+        </section>
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4">What You’ve Learned in Module 3</h2>
+            <div class="overflow-x-auto mb-6">
+                <table class="min-w-full bg-white rounded shadow overflow-hidden">
+                    <thead>
+                        <tr>
+                            <th class="py-2 px-4 border-b">Feature</th>
+                            <th class="py-2 px-4 border-b">Skill</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="py-2 px-4 border-b">PhotoImage</td>
+                            <td class="py-2 px-4 border-b">Load and display PNG image</td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 px-4 border-b">LabelFrame</td>
+                            <td class="py-2 px-4 border-b">Group related widgets</td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 px-4 border-b">.grid()</td>
+                            <td class="py-2 px-4 border-b">Position buttons in a 2D layout</td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 px-4 border-b">.config()</td>
+                            <td class="py-2 px-4 border-b">Change font, color, and padding</td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 px-4 border-b">pack() & grid()</td>
+                            <td class="py-2 px-4 border-b">Use both layouts properly</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section class="mt-12">
+          <h2 class="text-2xl font-bold mb-4 text-blue-700 flex items-center">
+            <svg class="w-7 h-7 mr-2 text-red-600" fill="currentColor" viewBox="0 0 24 24"><path d="M21.8 8.001c-.2-.8-.8-1.4-1.6-1.6C18.2 6 12 6 12 6s-6.2 0-8.2.4c-.8.2-1.4.8-1.6 1.6C2 10 2 12 2 12s0 2 .2 3.999c.2.8.8 1.4 1.6 1.6C5.8 18 12 18 12 18s6.2 0 8.2-.4c.8-.2 1.4-.8 1.6-1.6C22 14 22 12 22 12s0-2-.2-3.999zM10 15.5v-7l6 3.5-6 3.5z"/></svg>
+            Complete Tutorial Video
+          </h2>
+          <div class="flex justify-center">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/-7oLeim9q7I" title="Tkinter Images, LabelFrames & Styling - Module 3 Tutorial" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="rounded-lg shadow"></iframe>
+          </div>
+        </section>
+        <div class="mt-10 text-center">
+            <a href="python.html" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                Back to Course Overview
+            </a>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 2: Layouts, Frames & Action Buttons - Tkinter GUI with Python</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Arial', sans-serif; }
+        pre, code { background: #1a202c; color: #60a5fa; border-radius: 0.375rem; padding: 0.5em 1em; display: block; margin: 1em 0; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <header class="bg-blue-600 text-white py-4">
+        <div class="max-w-4xl mx-auto px-4">
+            <h1 class="text-3xl font-bold">Module 2: Layouts, Frames & Action Buttons</h1>
+            <p class="mt-2">Learn how to group controls using LabelFrame, organize widgets with grid(), and trigger real actions with buttons—laying the foundation for your robot control panel.</p>
+        </div>
+    </header>
+    <main class="max-w-4xl mx-auto px-4 py-8">
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4">Step 1: Set Up the Main Window and Add a Labeled Frame</h2>
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded mb-4">
+                <span class="font-semibold">Concepts Introduced:</span>
+                <ul class="list-disc pl-5 text-gray-700">
+                    <li>Tkinter window: Every GUI app needs a main window (also called the “root” window).</li>
+                    <li>Window size: Use .geometry() to set its width and height in pixels.</li>
+                    <li>LabelFrame: A frame with a border and title, used to group related widgets.</li>
+                    <li>Force visibility: If a frame is empty, it might collapse and become invisible—so we add a placeholder label.</li>
+                </ul>
+            </div>
+            <pre><code>import tkinter as tk
+
+# Create the main window
+root = tk.Tk()
+root.title("Pico Otto GUI")       # Set the window title
+root.geometry("300x300")          # Set window size to 300x300 pixels
+
+# Create a labeled frame with title and padding
+movement_frame = tk.LabelFrame(root, text="Movement Controls", font=("Arial", 12),
+                               borderwidth=2, relief="groove", padx=10, pady=10)
+
+# Make sure the frame is visible even if empty
+movement_frame.config(width=200, height=100)
+movement_frame.pack(pady=10)  # Add some space around the frame
+
+# Optional placeholder to keep the frame visible
+placeholder = tk.Label(movement_frame, text="(Add controls here)")
+placeholder.pack()
+
+# Start the GUI loop (must be at the end)
+root.mainloop()
+</code></pre>
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mt-2 mb-2">
+                <span class="font-semibold">🧠 Explanation:</span>
+                <ul class="list-disc pl-5 text-gray-700">
+                    <li><code>tk.Tk()</code> creates the main window.</li>
+                    <li><code>.geometry()</code> sets the window size.</li>
+                    <li><code>LabelFrame</code> is a frame with a border and title for grouping widgets.</li>
+                    <li>Adding a placeholder label keeps the frame visible even if empty.</li>
+                </ul>
+            </div>
+        </section>
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4">Step 2: Using .grid() to Arrange Buttons Like a D-pad</h2>
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded mb-4">
+                <span class="font-semibold">Concepts Introduced:</span>
+                <ul class="list-disc pl-5 text-gray-700">
+                    <li>Button widgets: Basic clickable elements.</li>
+                    <li>.grid() layout: Lets you place widgets in rows and columns (just like a table).</li>
+                    <li>D-pad layout: Forward = top center, Back = bottom center, Left = middle left, Right = middle right.</li>
+                </ul>
+            </div>
+            <pre><code>import tkinter as tk
+
+root = tk.Tk()
+root.title("Pico Otto GUI")
+root.geometry("300x300")
+
+movement_frame = tk.LabelFrame(root, text="Movement Controls", font=("Arial", 12),
+                               borderwidth=2, relief="groove", padx=10, pady=10)
+movement_frame.pack(pady=10)
+
+# Create directional buttons
+forward_btn = tk.Button(movement_frame, text="↑ Forward")
+left_btn = tk.Button(movement_frame, text="← Left")
+right_btn = tk.Button(movement_frame, text="→ Right")
+back_btn = tk.Button(movement_frame, text="↓ Back")
+
+# Place them in a grid like a game controller
+forward_btn.grid(row=0, column=1)
+left_btn.grid(row=1, column=0)
+right_btn.grid(row=1, column=2)
+back_btn.grid(row=2, column=1)
+
+root.mainloop()
+</code></pre>
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mt-2 mb-2">
+                <span class="font-semibold">🧠 Explanation:</span>
+                <ul class="list-disc pl-5 text-gray-700">
+                    <li>Each <code>Button</code> creates a clickable control.</li>
+                    <li><code>.grid()</code> arranges widgets in a table-like layout.</li>
+                    <li>This layout mimics a D-pad for intuitive robot control.</li>
+                </ul>
+            </div>
+        </section>
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4">Step 3: Adding Functions to Buttons (Command Callbacks)</h2>
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded mb-4">
+                <span class="font-semibold">Concepts Introduced:</span>
+                <ul class="list-disc pl-5 text-gray-700">
+                    <li>Command parameter: Makes the button do something when clicked.</li>
+                    <li>Functions (def): Define reusable code blocks that are triggered by buttons.</li>
+                </ul>
+            </div>
+            <pre><code>import tkinter as tk
+
+# Define actions when buttons are clicked
+def move_forward():
+    print("Moving Forward")
+
+def move_back():
+    print("Moving Backward")
+
+def move_left():
+    print("Turning Left")
+
+def move_right():
+    print("Turning Right")
+
+root = tk.Tk()
+root.title("Pico Otto GUI")
+root.geometry("300x300")
+
+movement_frame = tk.LabelFrame(root, text="Movement Controls", font=("Arial", 12),
+                               borderwidth=2, relief="groove", padx=10, pady=10)
+movement_frame.pack(pady=10)
+
+# Buttons trigger the movement functions
+forward_btn = tk.Button(movement_frame, text="↑ Forward", command=move_forward)
+left_btn = tk.Button(movement_frame, text="← Left", command=move_left)
+right_btn = tk.Button(movement_frame, text="→ Right", command=move_right)
+back_btn = tk.Button(movement_frame, text="↓ Back", command=move_back)
+
+forward_btn.grid(row=0, column=1)
+left_btn.grid(row=1, column=0)
+right_btn.grid(row=1, column=2)
+back_btn.grid(row=2, column=1)
+
+root.mainloop()
+</code></pre>
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mt-2 mb-2">
+                <span class="font-semibold">🧠 Explanation:</span>
+                <ul class="list-disc pl-5 text-gray-700">
+                    <li>Each function defines what happens when a button is pressed.</li>
+                    <li><code>command=move_forward</code> links the button to the function.</li>
+                    <li>Function names are passed without parentheses.</li>
+                </ul>
+            </div>
+        </section>
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4">Step 4: Add a Title Label and Improve Styling</h2>
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded mb-4">
+                <span class="font-semibold">Concepts Introduced:</span>
+                <ul class="list-disc pl-5 text-gray-700">
+                    <li>Title label: A heading for your app using Label.</li>
+                    <li>Font styling: Customize text with font name and size.</li>
+                </ul>
+            </div>
+            <pre><code>import tkinter as tk
+
+def move_forward():
+    print("Moving Forward")
+
+def move_back():
+    print("Moving Backward")
+
+def move_left():
+    print("Turning Left")
+
+def move_right():
+    print("Turning Right")
+
+root = tk.Tk()
+root.title("Pico Otto GUI")
+root.geometry("300x300")
+
+# Add a top label for title
+title_label = tk.Label(root, text="Pico Otto Direction Control", font=("Arial", 14))
+title_label.pack(pady=5)
+
+movement_frame = tk.LabelFrame(root, text="Movement Controls", font=("Arial", 12),
+                               borderwidth=2, relief="groove", padx=10, pady=10)
+movement_frame.pack(pady=10)
+
+forward_btn = tk.Button(movement_frame, text="↑ Forward", command=move_forward)
+left_btn = tk.Button(movement_frame, text="← Left", command=move_left)
+right_btn = tk.Button(movement_frame, text="→ Right", command=move_right)
+back_btn = tk.Button(movement_frame, text="↓ Back", command=move_back)
+
+forward_btn.grid(row=0, column=1)
+left_btn.grid(row=1, column=0)
+right_btn.grid(row=1, column=2)
+back_btn.grid(row=2, column=1)
+
+root.mainloop()
+</code></pre>
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mt-2 mb-2">
+                <span class="font-semibold">🧠 Explanation:</span>
+                <ul class="list-disc pl-5 text-gray-700">
+                    <li><code>Label</code> is used for section titles or messages.</li>
+                    <li><code>font=("Arial", 14)</code> customizes the label's appearance.</li>
+                    <li><code>.pack(pady=5)</code> adds vertical spacing.</li>
+                </ul>
+            </div>
+        </section>
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold mb-4">Step 5: Final GUI with Functioning D-pad</h2>
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded mb-4">
+                <span class="font-semibold">Concepts Combined:</span>
+                <ul class="list-disc pl-5 text-gray-700">
+                    <li>Labeled frames for organization.</li>
+                    <li>Grid layout for button positioning.</li>
+                    <li>Commands to control robot or print movement.</li>
+                    <li>Title for better user experience.</li>
+                </ul>
+            </div>
+            <pre><code>import tkinter as tk
+
+# Movement functions
+def move_forward():
+    print("Moving Forward")
+
+def move_back():
+    print("Moving Backward")
+
+def move_left():
+    print("Turning Left")
+
+def move_right():
+    print("Turning Right")
+
+# Main window setup
+root = tk.Tk()
+root.title("Pico Otto GUI")
+root.geometry("300x300")
+
+# App title
+title_label = tk.Label(root, text="Pico Otto Direction Control", font=("Arial", 14))
+title_label.pack(pady=5)
+
+# Group box for controls
+movement_frame = tk.LabelFrame(root, text="Movement Controls", font=("Arial", 12),
+                               borderwidth=2, relief="groove", padx=10, pady=10)
+movement_frame.pack(pady=10)
+
+# Directional buttons
+forward_btn = tk.Button(movement_frame, text="↑ Forward", command=move_forward)
+left_btn = tk.Button(movement_frame, text="← Left", command=move_left)
+right_btn = tk.Button(movement_frame, text="→ Right", command=move_right)
+back_btn = tk.Button(movement_frame, text="↓ Back", command=move_back)
+
+# Arrange like a D-pad
+forward_btn.grid(row=0, column=1)
+left_btn.grid(row=1, column=0)
+right_btn.grid(row=1, column=2)
+back_btn.grid(row=2, column=1)
+
+root.mainloop()
+</code></pre>
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mt-2 mb-2">
+                <span class="font-semibold">🧠 Explanation:</span>
+                <ul class="list-disc pl-5 text-gray-700">
+                    <li>This code brings together all previous steps for a working robot control panel.</li>
+                    <li>Each button triggers a movement function and prints to the console.</li>
+                    <li>The layout is clean, organized, and ready for further extension.</li>
+                </ul>
+            </div>
+        </section>
+        <div class="mt-10 p-6 bg-blue-100 rounded-lg shadow text-gray-900">
+            <h2 class="text-2xl font-bold mb-2">🎯 Mini Project at the End of Module 2</h2>
+            <p class="mb-2">💻 <span class="font-semibold">Challenge:</span> Create a GUI with:</p>
+            <ul class="list-disc pl-6 mb-2">
+                <li>A titled control panel section using <code>LabelFrame</code></li>
+                <li>A D-pad layout for movement buttons</li>
+                <li>Each button prints a different movement direction</li>
+                <li>Try customizing the colors or adding more controls!</li>
+            </ul>
+            <h3 class="text-xl font-bold mb-2">📦 What You've Learned in Module 2:</h3>
+            <div class="overflow-x-auto mb-6">
+                <table class="min-w-full bg-white rounded shadow overflow-hidden">
+                    <thead>
+                        <tr>
+                            <th class="py-2 px-4 border-b">Concept</th>
+                            <th class="py-2 px-4 border-b">Skill Gained</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="py-2 px-4 border-b">LabelFrame</td>
+                            <td class="py-2 px-4 border-b">Group controls with a titled frame</td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 px-4 border-b">Grid Layout</td>
+                            <td class="py-2 px-4 border-b">Arrange widgets in rows and columns</td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 px-4 border-b">Button Commands</td>
+                            <td class="py-2 px-4 border-b">Trigger actions with button clicks</td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 px-4 border-b">Styling</td>
+                            <td class="py-2 px-4 border-b">Improve GUI appearance and usability</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Tutorial Video Section -->
+        <section class="mt-12">
+          <h2 class="text-2xl font-bold mb-4 text-blue-700 flex items-center">
+            <svg class="w-7 h-7 mr-2 text-red-600" fill="currentColor" viewBox="0 0 24 24"><path d="M21.8 8.001c-.2-.8-.8-1.4-1.6-1.6C18.2 6 12 6 12 6s-6.2 0-8.2.4c-.8.2-1.4.8-1.6 1.6C2 10 2 12 2 12s0 2 .2 3.999c.2.8.8 1.4 1.6 1.6C5.8 18 12 18 12 18s6.2 0 8.2-.4c.8-.2 1.4-.8 1.6-1.6C22 14 22 12 22 12s0-2-.2-3.999zM10 15.5v-7l6 3.5-6 3.5z"/></svg>
+            Complete Tutorial Video
+          </h2>
+          <div class="flex justify-center">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/desSG1RJ-cA" title="Tkinter Layouts, Frames & Action Buttons - Module 2 Tutorial" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="rounded-lg shadow"></iframe>
+          </div>
+        </section>
+        <div class="mt-10 text-center">
+            <a href="python.html" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                Back to Course Overview
+            </a>
+        </div>
+    </main>
+</body>
+</html>
