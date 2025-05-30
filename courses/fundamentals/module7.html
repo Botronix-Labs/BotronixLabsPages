@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 7: Smooth Servo Sweeping with 4-DOF Robotic Arm</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { font-family: 'Montserrat', sans-serif; }
+    .checklist-item { display: flex; align-items: center; margin-bottom: 0.5rem; }
+    .checklist-item i { margin-right: 0.75rem; color: #3b82f6; }
+    .recap-box { background: #e0f2fe; border-left: 4px solid #3b82f6; padding: 1rem; border-radius: 0.5rem; margin-top: 2rem; }
+    .step { margin-bottom: 1.5rem; }
+    .step-title { font-weight: 600; color: #1d4ed8; }
+    pre { padding: 1rem; border-radius: 0.5rem; overflow-x: auto; }
+    .code-block { background-color: #1e293b; color: #f8fafc; padding: 1rem; border-radius: 0.5rem; font-family: monospace; }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <header class="hero-gradient py-8 text-center bg-gradient-to-r from-blue-500 to-blue-800">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-2">Module 7: Smooth Servo Sweeping with 4-DOF Robotic Arm</h1>
+    <p class="text-lg text-blue-100">Continue your robot arm journey! Learn to control all 4 servos of Pedro 1.0 with smooth, realistic motion using MicroPython.</p>
+  </header>
+  <main class="py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- What You Need -->
+      <section class="mb-10">
+        <h2 class="text-2xl font-bold text-black mb-4">What You Need</h2>
+        <div class="space-y-2">
+          <div class="checklist-item"><i class="fas fa-microchip"></i> Raspberry Pi Pico (with MicroPython installed)</div>
+          <div class="checklist-item"><i class="fas fa-cogs"></i> 4x SG90 or MG90S servo motors</div>
+          <div class="checklist-item"><i class="fas fa-braille"></i> Jumper wires and breadboard</div>
+          <div class="checklist-item"><i class="fas fa-bolt"></i> External 5V power supply for servos <span class="text-red-600 ml-2">(⚠️ Don’t power servos directly from Pico!)</span></div>
+          <div class="checklist-item"><i class="fas fa-robot"></i> 3D printed Pedro 1.0 robot arm</div>
+          <div class="checklist-item"><i class="fas fa-usb"></i> USB cable, computer with Thonny IDE</div>
+        </div>
+      </section>
+      <!-- Learning Goals -->
+      <section class="mb-10">
+        <h2 class="text-2xl font-bold text-black mb-4">Learning Goals</h2>
+        <ul class="list-disc ml-6 text-gray-700">
+          <li>Understand the concept of Degrees of Freedom (DOF) in robotic arms</li>
+          <li>Control individual servos using PWM in MicroPython</li>
+          <li>Write code for smooth sweeping motion between angles</li>
+          <li>Sequence a realistic pick-and-drop movement</li>
+        </ul>
+      </section>
+      <!-- Step-by-Step Guide -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Step-by-Step Guide</h2>
+        <div class="step">
+          <h3 class="text-lg font-bold text-gray-900">🔌 Step 1: Wiring and Assembly</h3>
+          <ul class="list-disc ml-6 text-gray-700 mb-2">
+            <li>Connect Servos to GPIO pins:
+              <ul class="list-disc ml-6">
+                <li>Base → GP2</li>
+                <li>Shoulder → GP3</li>
+                <li>Elbow → GP4</li>
+                <li>Gripper → GP5</li>
+              </ul>
+            </li>
+            <li>Use a separate 5V supply for servo power and connect all grounds together.</li>
+          </ul>
+          <div class="flex flex-col md:flex-row gap-8 items-center justify-center">
+            <div class="flex-1 flex flex-col items-center">
+              <img src="../fundamentals/Module_07/circuit.png" alt="Circuit Diagram" class="w-full max-w-2xl rounded-lg border-4 border-blue-200 shadow-lg mb-4" style="min-width:350px;">
+              <span class="block text-center text-gray-600 text-sm">Circuit Diagram</span>
+            </div>
+            <div class="flex-1 flex flex-col items-center">
+              <img src="../fundamentals/Module_07/pico-pinout.jpg" alt="Pico Pinout" class="w-full max-w-2xl rounded-lg border-4 border-blue-200 shadow-lg mb-4" style="min-width:350px;">
+              <span class="block text-center text-gray-600 text-sm">Pico Pinout</span>
+            </div>
+          </div>
+          <ul class="list-disc ml-6 text-gray-700 mt-4">
+            <li>Assemble Pedro 1.0: Follow the visuals below for fitting each servo into the printed parts. Use screws to secure parts as shown.</li>
+          </ul>
+          <div class="flex flex-col items-center mt-2">
+            <img src="../fundamentals/Module_07/build.png" alt="Build Pedro 1.0" class="w-full max-w-3xl rounded-lg border-4 border-blue-200 shadow-lg mb-2" style="min-width:400px;">
+            <span class="block text-center text-gray-600 text-sm">Pedro 1.0 Assembly Reference</span>
+          </div>
+        </div>
+        <div class="step">
+          <h3 class="text-lg font-bold text-gray-900">⚙️ Step 2: Understanding 4 Degrees of Freedom</h3>
+          <p class="mb-2">"DOF" or Degrees of Freedom refers to the number of independent movements a robotic arm can make. Pedro has 4 DOF, which allows the end effector (gripper) to move through space to pick and place objects.</p>
+          <ul class="list-disc ml-6 text-gray-700">
+            <li>Base Rotation (turning left/right)</li>
+            <li>Shoulder Movement (lifting arm up/down)</li>
+            <li>Elbow Bending (adjusting reach length)</li>
+            <li>Gripper Control (open/close)</li>
+          </ul>
+          <p class="mt-2">This structure enables a lot of flexibility with simple mechanics — similar to a human arm, minus the wrist and finger joints.</p>
+          <div class="flex flex-col items-center mt-4">
+            <img src="../fundamentals/Module_07/picoPedro.JPG" alt="Pedro 1.0 4-DOF Arm Example" class="w-full max-w-xl rounded-lg border-4 border-blue-200 shadow-lg mb-2" style="min-width:300px;">
+            <span class="block text-center text-gray-600 text-sm">Pedro 1.0 - 4-DOF Robotic Arm Example</span>
+          </div>
+        </div>
+        <div class="step">
+          <h3 class="text-lg font-bold text-gray-900">🎮 Step 3: Test and Center Each Servo</h3>
+          <p>Before doing anything fancy, let's center the servos to 90°.</p>
+          <div class="code-block"><pre><code>from machine import Pin, PWM
+from time import sleep
+
+base = PWM(Pin(2))
+shoulder = PWM(Pin(3))
+elbow = PWM(Pin(4))
+gripper = PWM(Pin(5))
+
+# Set PWM frequency
+for servo in [base, shoulder, elbow, gripper]:
+    servo.freq(50)
+
+def move_servo(servo, angle):
+    min_us = 500
+    max_us = 2500
+    us = min_us + (max_us - min_us) * angle // 180
+    duty = int(us * 65535 / 20000)
+    servo.duty_u16(duty)
+
+# Center all servos
+move_servo(base, 90)
+move_servo(shoulder, 90)
+move_servo(elbow, 90)
+move_servo(gripper, 90)
+sleep(2)
+
+# Quick motion demo
+move_servo(shoulder, 30)
+sleep(1)
+move_servo(gripper, 0)
+sleep(1)
+move_servo(gripper, 180)
+</code></pre></div>
+          <div class="mt-2 text-green-800 bg-green-100 rounded p-2">✅ Your arm should now be in a neutral, centered position.</div>
+        </div>
+        <div class="step">
+          <h3 class="text-lg font-bold text-gray-900">🌀 Step 4: Add Smooth Sweeping Motion</h3>
+          <p>We’ll now add smooth transitions between angles to make the motion more natural (instead of jumping).</p>
+          <div class="code-block"><pre><code>def angle_to_duty(angle):
+    min_us = 500
+    max_us = 2500
+    us = min_us + (max_us - min_us) * angle // 180
+    return int(us * 65535 / 20000)
+
+def sweep_to_angle(servo, current_angle, target_angle, step=2, delay=0.02):
+    if current_angle < target_angle:
+        for angle in range(current_angle, target_angle + 1, step):
+            servo.duty_u16(angle_to_duty(angle))
+            sleep(delay)
+    else:
+        for angle in range(current_angle, target_angle - 1, -step):
+            servo.duty_u16(angle_to_duty(angle))
+            sleep(delay)
+    return target_angle
+</code></pre></div>
+        </div>
+        <div class="step">
+          <h3 class="text-lg font-bold text-gray-900">🎯 Step 5: Create a Pick-and-Drop Action Sequence</h3>
+          <p>Now let’s use the <code>sweep_to_angle</code> function to perform a full pick-drop-reset cycle with smooth motion.</p>
+          <div class="code-block"><pre><code># Initial positions
+base_angle = 0
+shoulder_angle = 0
+elbow_angle = 0
+gripper_angle = 0
+sleep(1)
+
+# Move to pick-up pose
+base_angle = sweep_to_angle(base, base_angle, 90)
+sleep(1)
+shoulder_angle = sweep_to_angle(shoulder, shoulder_angle, 90)
+elbow_angle = sweep_to_angle(elbow, elbow_angle, 0)
+gripper_angle = sweep_to_angle(gripper, gripper_angle, 100)
+sleep(1)
+
+# Lift object
+shoulder_angle = sweep_to_angle(shoulder, shoulder_angle, 60)
+elbow_angle = sweep_to_angle(elbow, elbow_angle, 10)
+sleep(1)
+
+# Move back and release
+base_angle = sweep_to_angle(base, base_angle, 0)
+sleep(1)
+gripper_angle = sweep_to_angle(gripper, gripper_angle, 0)
+sleep(1)
+
+# Reset all
+base_angle = sweep_to_angle(base, base_angle, 0)
+shoulder_angle = sweep_to_angle(shoulder, shoulder_angle, 0)
+elbow_angle = sweep_to_angle(elbow, elbow_angle, 0)
+gripper_angle = sweep_to_angle(gripper, gripper_angle, 0)
+</code></pre></div>
+          <div class="mt-4 flex flex-col items-center">
+            <a href="https://github.com/Botronix-Labs/BotronixLabsCourses/blob/832b3b847c8129d92744038654a3755bc5180af9/Fundamentals/m7-controlPicoPedroRobotArm.py" target="_blank" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-semibold rounded shadow hover:bg-blue-700 transition mb-2">
+              <i class="fas fa-download mr-2"></i> Download Full Test Code (.py)
+            </a>
+            <span class="text-gray-600 text-sm">Get the complete MicroPython script from our GitHub repository</span>
+          </div>
+        </div>
+      </section>
+      <!-- YouTube Tutorial Section -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center"><i class="fab fa-youtube mr-2"></i>Complete Video Tutorial</h2>
+        <div class="flex flex-col items-center">
+          <div class="w-full max-w-lg aspect-video mb-4">
+            <iframe class="w-full h-72 rounded-lg shadow-lg border-4 border-red-200" src="https://www.youtube.com/embed/Ha6y7WkIhpY" title="Smooth Servo Sweeping with 4-DOF Robotic Arm - Complete Tutorial" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+          <p class="text-gray-800 text-center">Watch the full step-by-step build and code walkthrough for this module. Pause and follow along at your own pace!</p>
+        </div>
+      </section>
+      <!-- Quick Recap Box -->
+      <section class="recap-box">
+        <h3 class="font-bold text-blue-700 mb-2">Quick Recap</h3>
+        <ul class="list-disc ml-6 text-blue-900">
+          <li>✅ 4-DOF arm wiring and assembly</li>
+          <li>✅ DOF concept and mapping to servos</li>
+          <li>✅ Centering and testing all servos</li>
+          <li>✅ Smooth sweeping code for natural motion</li>
+          <li>✅ Pick-and-drop sequence with MicroPython</li>
+        </ul>
+      </section>
+      <div class="mt-8 p-4 bg-blue-100 rounded">
+        <h3 class="text-lg font-semibold mb-1">🎯 What’s Next?</h3>
+        <p>Try customizing the pick-and-drop sequence, or add more complex movements! Experiment with different angles and timings for your own robotic tasks.</p>
+      </div>
+      <div class="mt-8 text-center">
+        <a href="fundamentals.html" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+          &larr; Back to Fundamentals Modules
+        </a>
+      </div>
+    </div>
+  </main>
+  <footer class="bg-gray-800 py-6 mt-10">
+    <div class="max-w-3xl mx-auto text-center">
+      <p class="text-sm text-gray-400 mt-2">&copy; 2025 Botronix Labs. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
