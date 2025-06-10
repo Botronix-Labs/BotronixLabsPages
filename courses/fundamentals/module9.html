@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 9: Dual Joystick Controller for Multi-DOF Manual Control</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { font-family: 'Montserrat', sans-serif; }
+    .checklist-item { display: flex; align-items: center; margin-bottom: 0.5rem; }
+    .checklist-item i { margin-right: 0.75rem; color: #3b82f6; }
+    .recap-box { background: #e0f2fe; border-left: 4px solid #3b82f6; padding: 1rem; border-radius: 0.5rem; margin-top: 2rem; }
+    .step { margin-bottom: 1.5rem; }
+    .step-title { font-weight: 600; color: #1d4ed8; }
+    pre { padding: 1rem; border-radius: 0.5rem; overflow-x: auto; }
+    .code-block { background-color: #1e293b; color: #f8fafc; padding: 1rem; border-radius: 0.5rem; font-family: monospace; }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <header class="hero-gradient py-8 text-center bg-gradient-to-r from-blue-500 to-blue-800">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-2">Module 9: Dual Joystick Controller for Multi-DOF Manual Control</h1>
+    <p class="text-lg text-blue-100">In this module, you’ll use two analog joysticks and two buttons to control a 4-DOF robotic arm (base, shoulder, elbow, gripper) with an LED indicator for feedback. Learn robust, real-time manual control with safety and convenience features.</p>
+  </header>
+  <main class="py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Learning Objectives -->
+      <section class="mb-10">
+        <h2 class="text-2xl font-bold text-black mb-4">Learning Objectives</h2>
+        <ul class="list-disc ml-6 text-gray-700">
+          <li>Read analog signals from three ADC pins for real-time servo control</li>
+          <li>Use two joystick buttons as digital inputs for system control</li>
+          <li>Control multiple servos using smooth sweeping transitions</li>
+          <li>Implement a flag-based control mode using button press</li>
+          <li>Enhance hardware control robustness using dead zones and initialization logic</li>
+        </ul>
+      </section>
+      <!-- Required Components -->
+      <section class="mb-10">
+        <h2 class="text-2xl font-bold text-black mb-4">Required Components</h2>
+        <div class="space-y-2">
+          <div class="checklist-item"><i class="fas fa-microchip"></i> Raspberry Pi Pico (with MicroPython installed)</div>
+          <div class="checklist-item"><i class="fas fa-gamepad"></i> 2 × HW-504 Joysticks</div>
+          <div class="checklist-item"><i class="fas fa-cogs"></i> 4 × SG90 or similar servos (base, shoulder, elbow, gripper)</div>
+          <div class="checklist-item"><i class="fas fa-lightbulb"></i> 1 × LED</div>
+          <div class="checklist-item"><i class="fas fa-braille"></i> Jumper wires and breadboard</div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+          <figure class="text-center">
+            <img src="Module_09/a1.jpg" alt="3D Printed Controller Enclosure - Angle 1" class="rounded shadow-md mx-auto max-h-40 object-contain">
+            <figcaption class="mt-2 text-xs text-gray-600">3D Printed Controller Enclosure (Angle 1)</figcaption>
+          </figure>
+          <figure class="text-center">
+            <img src="Module_09/a2.jpg" alt="3D Printed Controller Enclosure - Angle 2" class="rounded shadow-md mx-auto max-h-40 object-contain">
+            <figcaption class="mt-2 text-xs text-gray-600">3D Printed Controller Enclosure (Angle 2)</figcaption>
+          </figure>
+          <figure class="text-center">
+            <img src="Module_09/a3.jpg" alt="3D Printed Controller Enclosure - Angle 3" class="rounded shadow-md mx-auto max-h-40 object-contain">
+            <figcaption class="mt-2 text-xs text-gray-600">3D Printed Controller Enclosure (Angle 3)</figcaption>
+          </figure>
+          <figure class="text-center">
+            <img src="Module_09/a4.jpg" alt="3D Printed Controller Enclosure - Angle 4" class="rounded shadow-md mx-auto max-h-40 object-contain">
+            <figcaption class="mt-2 text-xs text-gray-600">3D Printed Controller Enclosure (Angle 4)</figcaption>
+          </figure>
+        </div>
+        <div class="mt-2 text-xs text-gray-500">Controller enclosure design by Tokoyo_bird, licensed under Creative Commons Attribution (Thingiverse).</div>
+      </section>
+      <!-- Step-by-Step Instructions -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Step-by-Step Instructions</h2>
+        <div class="step">
+          <h3 class="text-lg font-bold text-gray-900">🔹 Step 1: Connect Your Hardware</h3>
+          <ul class="list-disc ml-6 text-gray-700 mb-2">
+            <li>Joystick 1: VRx → GP26 (ADC0), VRy → GP27 (ADC1), SW → GP15</li>
+            <li>Joystick 2: VRx → GP28 (ADC2), SW → GP14</li>
+            <li>Servos: Base → GP2, Shoulder → GP3, Elbow → GP4, Gripper → GP5</li>
+            <li>LED: GP13 (indicator LED)</li>
+          </ul>
+          <p class="text-gray-600 mt-2">This wiring allows you to independently control each joint of the robotic arm using the joysticks, while the buttons provide system control and gripper actuation. The LED gives you visual feedback for control mode status.</p>
+          <div class="flex flex-col md:flex-row gap-6 justify-center mt-6">
+            <figure class="flex-1 text-center">
+              <img src="Module_09/circuit.png" alt="Dual Joystick Robotic Arm Circuit Diagram" class="rounded shadow-md mx-auto max-h-96 object-contain">
+              <figcaption class="mt-2 text-sm text-gray-600">Wiring diagram: Dual Joystick & Button Control for 4-DOF Robotic Arm</figcaption>
+            </figure>
+            <figure class="flex-1 text-center">
+              <img src="Module_09/pico-pinout.jpg" alt="Raspberry Pi Pico Pinout" class="rounded shadow-md mx-auto max-h-96 object-contain">
+              <figcaption class="mt-2 text-sm text-gray-600">Raspberry Pi Pico Pinout Reference</figcaption>
+            </figure>
+          </div>
+        </div>
+        <div class="step">
+          <h3 class="text-lg font-bold text-gray-900">🔹 Step 2: Import Libraries & Initialize Hardware</h3>
+          <p class="text-gray-600 mb-2">Import the required MicroPython libraries and set up all hardware connections for analog, digital, and PWM control.</p>
+          <div class="code-block"><pre><code>from machine import ADC, Pin, PWM
+from time import sleep
+</code></pre></div>
+        </div>
+        <div class="step">
+          <h3 class="text-lg font-bold text-gray-900">🔹 Step 3: Configure Inputs & Outputs</h3>
+          <p class="text-gray-600 mb-2">Set up analog joystick inputs, digital button inputs, LED output, and initialize PWM for all servos.</p>
+          <div class="code-block"><pre><code># === Analog inputs from 3 ADC-capable pins ===
+x1 = ADC(26)  # Joystick 1 X → Base
+y1 = ADC(27)  # Joystick 1 Y → Shoulder
+x2 = ADC(28)  # Joystick 2 X → Elbow
+
+# === Digital input for joystick buttons ===
+button1 = Pin(15, Pin.IN, Pin.PULL_UP)  # Joystick 1 button (optional)
+button2 = Pin(14, Pin.IN, Pin.PULL_UP)  # Joystick 2 button → Gripper toggle
+
+# === Digital output for LED feedback ===
+led = Pin(13, Pin.OUT)
+
+# === Servo PWM setup ===
+base_servo = PWM(Pin(2))
+shoulder_servo = PWM(Pin(3))
+elbow_servo = PWM(Pin(4))
+gripper_servo = PWM(Pin(5))
+
+for servo in (base_servo, shoulder_servo, elbow_servo, gripper_servo):
+    servo.freq(50)
+</code></pre></div>
+        </div>
+        <div class="step">
+          <h3 class="text-lg font-bold text-gray-900">🔹 Step 4: Helper Functions for Servo Control</h3>
+          <p class="text-gray-600 mb-2">Define functions to convert angles to PWM, move servos, sweep smoothly, and reset all servos to neutral positions.</p>
+          <div class="code-block"><pre><code># === Helper function to convert angle to duty cycle ===
+def angle_to_duty(angle):
+    min_us = 500
+    max_us = 2500
+    us = min_us + (max_us - min_us) * angle 80
+    return int(us * 65535 000)
+
+# === Move servo to given angle ===
+def move_servo(servo, angle):
+    servo.duty_u16(angle_to_duty(angle))
+    
+def sweep_to_angle(servo, current_angle, target_angle, delay=0.01):
+    """Smooth sweep servo from current to target angle."""
+    step = 1 if current_angle < target_angle else -1
+    for angle in range(current_angle, target_angle + step, step):
+        move_servo(servo, angle)
+        sleep(delay)
+    return target_angle
+
+def reset_all_servos():
+    """Set all servos to initial neutral positions."""
+    global base_angle, shoulder_angle, elbow_angle
+    base_angle = sweep_to_angle(base_servo, base_angle, 0)
+    shoulder_angle = sweep_to_angle(shoulder_servo, shoulder_angle, 0)
+    elbow_angle = sweep_to_angle(elbow_servo, elbow_angle, 0)
+    sweep_to_angle(gripper_servo, 0 if gripper_open else 100, 0 if gripper_open else 100)
+</code></pre></div>
+        </div>
+        <div class="step">
+          <h3 class="text-lg font-bold text-gray-900">🔹 Step 5: Dead Zone, State Tracking, and Initialization</h3>
+          <p class="text-gray-600 mb-2">Set up dead zone for analog input, track servo angles and button states, and reset all servos at startup.</p>
+          <div class="code-block"><pre><code># === Dead zone for analog input ===
+center = 32767
+dead_zone = 2000
+
+# === Track current angles and gripper state ===
+base_angle = 0
+shoulder_angle = 0
+elbow_angle = 0
+gripper_open = True
+button1_flag = False
+button1_last = 1
+button2_flag = False
+
+# === Reset servos to initial positions ===
+reset_all_servos()
+</code></pre></div>
+        </div>
+        <div class="step">
+          <h3 class="text-lg font-bold text-gray-900">🔹 Step 6: Main Control Loop</h3>
+          <p class="text-gray-600 mb-2">Continuously check button and joystick states, toggle control mode, reset servos, and move each joint or gripper as needed.</p>
+          <div class="code-block"><pre><code># === Main control loop ===
+while True:
+     # Toggle button1 flag on rising edge
+    if button1.value() == 0 and button1_last == 1:
+        button1_flag = not button1_flag
+        led.value(button1_flag)  # LED indicates control mode ON/OFF
+        print("Button 1 pressed. Toggle mode:", button1_flag)
+        reset_all_servos()  # Reset servos every toggle
+        sleep(0.2)  # Debounce delay
+    button1_last = button1.value()
+    
+    if button1_flag:
+        x1_val = x1.read_u16()
+        y1_val = y1.read_u16()
+        x2_val = x2.read_u16()
+        print(f"x1 value : {x1_val} -- y1 value : {y1_val} -- x2 value : {x2_val}")
+
+        # === Base control ===
+        if abs(x1_val - center) > dead_zone:
+            target = int(x1_val * 180 / 65535)
+            base_angle = sweep_to_angle(base_servo, base_angle, target)
+
+        # === Shoulder control ===
+        if abs(y1_val - center) > dead_zone:
+            target = int(y1_val * 180 / 65535)
+            shoulder_angle = sweep_to_angle(shoulder_servo, shoulder_angle, target)
+
+        # === Elbow control ===
+        if abs(x2_val - center) > dead_zone:
+            target = int(x2_val * 180 / 65535)
+            elbow_angle = sweep_to_angle(elbow_servo, elbow_angle, target)
+
+
+     # === Gripper toggle with button 2 ===
+    if button2.value() == 0 and not button2_flag:
+        gripper_open = not gripper_open
+        angle = 0 if gripper_open else 100
+        sweep_to_angle(gripper_servo, 0 if not gripper_open else 100, angle)
+        button2_flag = True
+    elif button2.value() == 1:
+        button2_flag = False
+
+    sleep(0.05)
+</code></pre></div>
+        </div>
+      </section>
+      <!-- Download Code Button -->
+      <div class="flex justify-center mb-10">
+        <a href="https://github.com/Botronix-Labs/BotronixLabsCourses/blob/be02e7840d09211e8feb1fa60528cedc937203a9/Fundamentals/m9-dualJoystickControllerForManualControl.py" target="_blank" rel="noopener" class="inline-flex items-center px-5 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none transition">
+          <i class="fas fa-download mr-2"></i>Download Full Test Code (.py)
+        </a>
+      </div>
+      <!-- Complete Tutorial Video -->
+      <section class="mb-10 mt-16">
+        <h2 class="text-2xl font-bold text-black mb-4">📺 Complete Tutorial Video</h2>
+        <div class="flex justify-center mb-8">
+          <iframe width="560" height="315" class="rounded-lg shadow-lg w-full max-w-2xl aspect-video" src="https://www.youtube.com/embed/0cifJYTeqs4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      </section>
+      <!-- Recap Box -->
+      <section class="recap-box">
+        <h3 class="font-bold text-blue-700 mb-2">Quick Recap</h3>
+        <ul class="list-disc ml-6 text-blue-900">
+          <li>✅ Dual joystick, multi-DOF manual control with safety features</li>
+          <li>✅ Button 1 toggles control/reset, Button 2 toggles gripper</li>
+          <li>✅ Dead zones and smooth sweeping for robust, jitter-free operation</li>
+          <li>✅ LED indicator for visual feedback</li>
+        </ul>
+      </section>
+      <div class="mt-8 p-4 bg-blue-100 rounded">
+        <h3 class="text-lg font-semibold mb-1">🎯 What’s Next?</h3>
+        <p>Try recording and replaying your robot’s motions, or add more feedback and safety features for advanced projects!</p>
+      </div>
+      <div class="mt-8 text-center">
+        <a href="fundamentals.html" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+          &larr; Back to Fundamentals Modules
+        </a>
+      </div>
+    </div>
+  </main>
+  <footer class="bg-gray-800 py-6 mt-10">
+    <div class="max-w-3xl mx-auto text-center">
+      <p class="text-sm text-gray-400 mt-2">&copy; 2025 Botronix Labs. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -76,17 +76,28 @@
           link: 'module8.html',
           description: 'This module introduces real-time manual control using a joystick to rotate the base of your robotic arm. You’ll explore how a joystick works, read analog values with Raspberry Pi Pico, and implement smooth servo movement using real-time logic.'
         },
+        {
+          title: 'Module 9: Full Robotic Arm Control with Dual Joysticks and LED Indicator',
+          link: 'module9.html',
+          description: 'Control all four joints of your robotic arm using two joysticks and a status LED. Learn to map analog joystick inputs to servos for real-time, multi-axis movement and add interactive feedback with an LED.'
+        },
+        {
+          title: 'Recording and Playback of Robotic Arm Movements',
+          link: 'module10.html',
+          description: 'Learn to record and replay robotic arm movements using joystick control and two-button operation. Implement human-in-the-loop recording, playback, and smooth servo motion for gesture learning and automation.'
+        },
       ];
       const modulesList = document.getElementById('modules-list');
       modules.forEach((mod, idx) => {
         const card = document.createElement('div');
-        card.className = 'module-card bg-white shadow rounded-lg p-6' + (mod.link ? ' cursor-pointer' : '');
+        card.className = 'module-card bg-white shadow rounded-2xl p-10 min-h-[220px] flex flex-col justify-between transition-transform duration-200' + (mod.link ? ' cursor-pointer' : '');
         if (mod.link) {
           card.onclick = () => { location.href = mod.link; };
         }
         card.innerHTML = `
-          <h2 class="text-xl font-bold text-gray-900">Module ${idx + 1}</h2>
-          <p class="mt-2 text-gray-600">${mod.title}</p>
+          <h2 class="text-2xl font-extrabold text-gray-900 mb-2">Module ${idx + 1}</h2>
+          <p class="mt-2 text-lg text-gray-700">${mod.title}</p>
+          ${mod.description ? `<p class=\"mt-4 text-base text-gray-500\">${mod.description}</p>` : ''}
         `;
         modulesList.appendChild(card);
       });
