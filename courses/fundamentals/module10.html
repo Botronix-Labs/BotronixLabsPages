@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 10: Recording and Playback of Robotic Arm Movements</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { font-family: 'Montserrat', sans-serif; }
+    .checklist-item { display: flex; align-items: center; margin-bottom: 0.5rem; }
+    .checklist-item i { margin-right: 0.75rem; color: #3b82f6; }
+    .recap-box { background: #e0f2fe; border-left: 4px solid #3b82f6; padding: 1rem; border-radius: 0.5rem; margin-top: 2rem; }
+    .step { margin-bottom: 1.5rem; }
+    .step-title { font-weight: 600; color: #1d4ed8; }
+    pre { padding: 1rem; border-radius: 0.5rem; overflow-x: auto; }
+    .code-block { background-color: #1e293b; color: #f8fafc; padding: 1rem; border-radius: 0.5rem; font-family: monospace; }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <header class="hero-gradient py-8 text-center bg-gradient-to-r from-blue-500 to-blue-800">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-2">Module 10: Recording and Playback of Robotic Arm Movements</h1>
+    <p class="text-lg text-blue-100">Learn to record and replay robotic arm movements using joystick control and two-button operation. Implement human-in-the-loop recording, playback, and smooth servo motion for gesture learning and automation.</p>
+  </header>
+  <main class="py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Learning Objectives -->
+      <section class="mb-10">
+        <h2 class="text-2xl font-bold text-black mb-4">Learning Objectives</h2>
+        <ul class="list-disc ml-6 text-gray-700">
+          <li>Understand how to record servo positions manually using joystick control.</li>
+          <li>Implement a two-button control mechanism for flexible one-handed operation and playback.</li>
+          <li>Improve precision in robotic movements through human-in-the-loop input.</li>
+          <li>Utilize button state detection and servo smooth movement functions in a real application.</li>
+        </ul>
+      </section>
+      <!-- Step-by-Step Course Content -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Step-by-Step Course Content</h2>
+        <div class="step">
+          <h3 class="text-lg font-bold text-gray-900">✅ Step 1: Understanding the Use Case</h3>
+          <p class="text-gray-600 mt-2">In real-world robotics, capturing exact joint movements is vital for automation. This module simulates "training by demonstration" where a human guides the robot, and the robot can replay the movements later.</p>
+        </div>
+        <div class="step">
+          <h3 class="text-lg font-bold text-gray-900">🧰 Step 2: Controller and Button Mapping</h3>
+          <p class="text-gray-600 mb-2">Configure your joysticks and buttons to serve two functions: joystick axes for servo control, and buttons for record and playback.</p>
+          <ul class="list-disc ml-6 text-gray-700 mb-2">
+            <li>Joystick 1: X → Base (GP26), Y → Shoulder (GP27)</li>
+            <li>Joystick 2: X → Elbow (GP28)</li>
+            <li>Button 1 → GP15</li>
+            <li>Button 2 → GP14</li>
+          </ul>
+          <p class="text-gray-600">Each joystick controls one or two servos (Base, Shoulder, Elbow). Pressing either button records the current arm pose. Pressing both buttons together starts playback.</p>
+        </div>
+        <div class="step">
+          <h3 class="text-lg font-bold text-gray-900">💻 Step 3: Initialize Hardware Interfaces</h3>
+          <div class="code-block"><pre><code>x1 = ADC(Pin(26))
+x2 = ADC(Pin(27))
+x3 = ADC(Pin(28))
+
+button1 = Pin(15, Pin.IN, Pin.PULL_UP)
+button2 = Pin(14, Pin.IN, Pin.PULL_UP)
+
+base_servo = PWM(Pin(2))
+shoulder_servo = PWM(Pin(3))
+elbow_servo = PWM(Pin(4))
+</code></pre></div>
+          <p class="text-gray-600 mt-2">Initialize ADCs for joysticks, buttons with pull-up configuration, and PWM pins for the servos.</p>
+        </div>
+        <div class="step">
+          <h3 class="text-lg font-bold text-gray-900">🔧 Step 4: Convert Angle to PWM and Smooth Motion</h3>
+          <div class="code-block"><pre><code>def angle_to_duty(angle):
+    us = 500 + (2000 * angle) // 180
+    return int(us * 65535 / 20000)
+
+def move_servo(servo, angle):
+    servo.duty_u16(angle_to_duty(angle))
+
+def smooth_move(current, target, servo):
+    step = 1 if target > current else -1
+    for angle in range(current, target + step, step):
+        move_servo(servo, angle)
+        sleep(0.01)
+    return target
+</code></pre></div>
+          <p class="text-gray-600 mt-2">Converts desired servo angle to duty cycle. <br> <code>smooth_move()</code> animates the transition from current to target angle, improving realism.</p>
+        </div>
+        <div class="step">
+          <h3 class="text-lg font-bold text-gray-900">🕹️ Step 5: Control the Servos Using Joystick Movement</h3>
+          <div class="code-block"><pre><code>if abs(x1_val - center) > dead_zone:
+    base_angle = smooth_move(base_angle, int(x1_val * 180 / 65535), base_servo)
+
+if abs(x2_val - center) > dead_zone:
+    shoulder_angle = smooth_move(shoulder_angle, int(x2_val * 180 / 65535), shoulder_servo)
+
+if abs(x3_val - center) > dead_zone:
+    elbow_angle = smooth_move(elbow_angle, int(x3_val * 180 / 65535), elbow_servo)
+</code></pre></div>
+          <p class="text-gray-600 mt-2">This reads the joystick axes and maps them to servo angles with a dead zone to avoid jitter.</p>
+        </div>
+        <div class="step">
+          <h3 class="text-lg font-bold text-gray-900">🎯 Step 6: Recording Movements with Button Press</h3>
+          <div class="code-block"><pre><code>if (b1 == 0 and button1_prev == 1) or (b2 == 0 and button2_prev == 1):
+    recorded_steps.append((base_angle, shoulder_angle, elbow_angle))
+    print("Recorded:", base_angle, shoulder_angle, elbow_angle)
+</code></pre></div>
+          <p class="text-gray-600 mt-2">Each button press records the current servo angles. It allows single-hand operation: use one hand to move the joystick, the other to press the button.</p>
+        </div>
+        <div class="step">
+          <h3 class="text-lg font-bold text-gray-900">▶️ Step 7: Playing Back the Sequence</h3>
+          <div class="code-block"><pre><code>if b1 == 0 and b2 == 0 and len(recorded_steps) > 0:
+    for step in recorded_steps:
+        base_angle = smooth_move(base_angle, step[0], base_servo)
+        shoulder_angle = smooth_move(shoulder_angle, step[1], shoulder_servo)
+        elbow_angle = smooth_move(elbow_angle, step[2], elbow_servo)
+        sleep(0.5)
+</code></pre></div>
+          <p class="text-gray-600 mt-2">Both buttons must be held to trigger playback. The robot arm smoothly replays each recorded pose in order.</p>
+        </div>
+        <div class="step">
+          <h3 class="text-lg font-bold text-gray-900">💡 Understanding Python Lists for Recording Steps</h3>
+          <p class="text-gray-600 mt-2">In this module, we use a Python <span class="font-mono">list</span> called <span class="font-mono">recorded_steps</span> to store each set of servo angles you record. A list in Python is a flexible container that can hold multiple items—in this case, each item is a <span class="font-mono">tuple</span> of three angles (base, shoulder, elbow). Every time you press a button to record, a new tuple is added to the list. Later, when you play back, the program loops through this list and moves the servos to each recorded position in order. This is a powerful way to store and replay sequences of actions in robotics and programming!</p>
+        </div>
+        <div class="step">
+          <h3 class="text-lg font-bold text-gray-900">🧪 Step 8: Testing and Demonstration</h3>
+          <ul class="list-disc ml-6 text-gray-700 mb-2">
+            <li>Power on the controller.</li>
+            <li>Use one joystick to position a servo.</li>
+            <li>Press the opposite joystick's button to record.</li>
+            <li>Repeat for all servos.</li>
+            <li>Press both buttons to play the full sequence.</li>
+          </ul>
+        </div>
+        <!-- Download Code Button -->
+        <div class="flex justify-center my-8">
+          <a href="https://github.com/Botronix-Labs/BotronixLabsCourses/blob/f641c80aad3e7d8ab587cba2ffc56c937329934f/Fundamentals/m10-recordingAndPlayback.py" target="_blank" rel="noopener" class="inline-flex items-center px-5 py-2 border border-transparent text-base font-semibold rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none transition">
+            <i class="fas fa-download mr-2"></i> View & Download Full Code
+          </a>
+        </div>
+        <!-- Complete Tutorial Video -->
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">Complete Tutorial Video</h2>
+          <div class="flex justify-center">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/7ZWPySwH9w4" title="Module 10: Recording and Playback of Robotic Arm Movements" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="rounded-lg shadow-lg w-full max-w-2xl aspect-video"></iframe>
+          </div>
+        </section>
+        <div class="recap-box">
+          <h4 class="font-bold text-blue-800 mb-2">Summary and Wrap-up</h4>
+          <p class="text-gray-700">In this module, we:</p>
+          <ul class="list-disc ml-6 text-gray-700 mb-2">
+            <li>Controlled three servos using joysticks.</li>
+            <li>Used button combinations to record and play back arm movements.</li>
+            <li>Developed user-friendly recording interaction logic.</li>
+          </ul>
+          <p class="text-gray-700">This is the foundation for gesture learning, motion sequencing, or robotic choreography systems.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
