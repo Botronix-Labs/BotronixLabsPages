@@ -7,6 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2366675854686882"
+     crossorigin="anonymous"></script>
     <style>
         body { font-family: 'Montserrat', sans-serif; scroll-behavior: smooth; text-size-adjust: 100%; }
         .hero-gradient { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); }
@@ -135,9 +137,9 @@ while True:
     dist = get_distance()  # Measure distance
     print("Distance:", dist, "cm")  # Print it for debugging
 
-    if dist < 30:  # If object is within 30 cm
-        if dist < 5:
-            # If object is very close (<5 cm), buzzer and LED stay ON
+    if dist &lt; 30:  # If object is within 30 cm
+        if dist &lt; 5:
+            # If object is very close (&lt;5 cm), buzzer and LED stay ON
             buzzer.value(1)
             led.value(1)
         else:
@@ -152,7 +154,7 @@ while True:
             led.value(0)
             time.sleep(delay)
     else:
-        # If object is far away (>30 cm), turn everything off
+        # If object is far away (&gt;30 cm), turn everything off
         buzzer.value(0)
         led.value(0)
 
