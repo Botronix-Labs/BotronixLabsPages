@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="google-adsense-account" content="ca-pub-2366675854686882">
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
@@ -104,17 +105,19 @@
                         </div>
                     </div>
                     <div class="hidden md:ml-8 md:flex md:space-x-8">
-                        <a href="#courses" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Courses</a>
-                        <a href="python/python.html" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Python</a>
-                        <a href="#3dprints" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">3D Prints</a>
-                        <a href="#videos" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Videos</a>
-                        <a href="#contact" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Contact</a>
+                        <a href="about.html" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-2 pt-1 border-b-2 text-sm font-medium">About</a>
+                        <a href="#courses" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-2 pt-1 border-b-2 text-sm font-medium">Courses</a>
+                        <a href="python/python.html" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-2 pt-1 border-b-2 text-sm font-medium">Python</a>
+                        <a href="#3dprints" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-2 pt-1 border-b-2 text-sm font-medium">3D Prints</a>
+                        <a href="#videos" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-2 pt-1 border-b-2 text-sm font-medium">Videos</a>
+                        <a href="#contact" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-2 pt-1 border-b-2 text-sm font-medium">Contact</a>
+                        <a href="privacy-policy.html" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-2 pt-1 border-b-2 text-sm font-medium">Privacy</a>
                     </div>
                 </div>
                 <div class="hidden md:ml-6 md:flex md:items-center space-x-4">
-                    <form id="subscribeForm" action="https://script.google.com/macros/s/AKfycbxn15R0u4wP1LQiTLVILjKLurW_-j1hi0a1IiEOwOvvqIwNJPQLUAMiWpKpaTb6aSQt/exec" method="POST" target="hidden_iframe" onsubmit="handleSubscribe(event)">
-                        <input type="email" id="emailInput" name="email" placeholder="Enter your email" required class="py-2 px-3 border border-gray-300 rounded-md text-sm focus:ring-blue-500 focus:border-blue-500" />
-                        <button id="subscribeButton" type="submit" class="ml-2 bg-purple-600 text-white px-4 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">Subscribe</button>
+                    <form id="subscribeForm" class="flex flex-row items-center space-x-2" action="https://script.google.com/macros/s/AKfycbxn15R0u4wP1LQiTLVILjKLurW_-j1hi0a1IiEOwOvvqIwNJPQLUAMiWpKpaTb6aSQt/exec" method="POST" target="hidden_iframe" onsubmit="handleSubscribe(event)">
+                        <input type="email" id="emailInput" name="email" placeholder="Enter your email" required class="py-2 px-2 border border-gray-300 rounded-md text-xs focus:ring-blue-500 focus:border-blue-500 w-36" />
+                        <button id="subscribeButton" type="submit" class="bg-purple-600 text-white px-3 py-2 rounded-md text-xs font-medium transition duration-150 ease-in-out">Subscribe</button>
                     </form>
                     <iframe name="hidden_iframe" style="display:none;"></iframe>
                     <script>
@@ -153,11 +156,13 @@
         <!-- Mobile menu -->
         <div class="hidden md:hidden" id="mobile-menu">
             <div class="pt-2 pb-3 space-y-1">
+                <a href="about.html" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50 hover:border-gray-300">About</a>
                 <a href="#courses" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50 hover:border-gray-300">Courses</a>
-                <a href="#python" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50 hover:border-gray-300">Python Code</a>
+                <a href="python/python.html" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50 hover:border-gray-300">Python Code</a>
                 <a href="#3dprints" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50 hover:border-gray-300">3D Prints</a>
                 <a href="#videos" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50 hover:border-gray-300">Videos</a>
                 <a href="#contact" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50 hover:border-gray-300">Contact</a>
+                <a href="privacy-policy.html" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50 hover:border-gray-300">Privacy Policy</a>
                 <div class="mt-4 pl-3 pr-4">
                     <button class="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-base font-medium transition duration-150 ease-in-out">Sign In</button>
                 </div>
@@ -730,12 +735,12 @@
     <!-- Footer -->
     <footer class="bg-gray-800">
         <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-2 md:grid-ccols-4 gap-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
                 <div>
                     <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">Courses</h3>
                     <ul class="mt-4 space-y-2">
-                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Beginner</a></li>
-                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Intermediate</a></li>
+                        <li><a href="courses/fundamentals/fundamentals.html" class="text-base text-gray-400 hover:text-white">Beginner</a></li>
+                        <li><a href="courses/intermediate/intermediate.html" class="text-base text-gray-400 hover:text-white">Intermediate</a></li>
                         <li><a href="#" class="text-base text-gray-400 hover:text-white">Advanced</a></li>
                         <li><a href="#" class="text-base text-gray-400 hover:text-white">Specializations</a></li>
                     </ul>
@@ -752,27 +757,7 @@
                 <div>
                     <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">Company</h3>
                     <ul class="mt-4 space-y-2">
-                        <li><a href="#" class="text-base text-gray-400 hover:text-white">About</a></li>
-                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Blog</a></li>
-                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Careers</a></li>
-                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Intermediate</a></li>
-                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Advanced</a></li>
-                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Specializations</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">Resources</h3>
-                    <ul class="mt-4 space-y-2">
-                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Documentation</a></li>
-                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Code Examples</a></li>
-                        <li><a href="#" class="text-base text-gray-400 hover:text-white">3D Models</a></li>
-                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Community</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">Company</h3>
-                    <ul class="mt-4 space-y-2">
-                        <li><a href="#" class="text-base text-gray-400 hover:text-white">About</a></li>
+                        <li><a href="about.html" class="text-base text-gray-400 hover:text-white">About</a></li>
                         <li><a href="#" class="text-base text-gray-400 hover:text-white">Blog</a></li>
                         <li><a href="#" class="text-base text-gray-400 hover:text-white">Careers</a></li>
                         <li><a href="#" class="text-base text-gray-400 hover:text-white">Partners</a></li>
@@ -781,7 +766,7 @@
                 <div>
                     <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">Legal</h3>
                     <ul class="mt-4 space-y-2">
-                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Privacy</a></li>
+                        <li><a href="privacy-policy.html" class="text-base text-gray-400 hover:text-white">Privacy</a></li>
                         <li><a href="#" class="text-base text-gray-400 hover:text-white">Terms</a></li>
                         <li><a href="#" class="text-base text-gray-400 hover:text-white">Cookie Policy</a></li>
                         <li><a href="#" class="text-base text-gray-400 hover:text-white">Contact</a></li>
