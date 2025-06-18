@@ -912,7 +912,23 @@
             document.getElementById('fundamentals-module-count').textContent = '';
           });
 
-        // Dynamic module count for Intermediate and Advanced
+        // Fetch and display module count for Intermediate Robotics
+        fetch('courses/intermediate/intermediate.html')
+          .then(response => response.text())
+          .then(html => {
+            const match = html.match(/const modules\s*=\s*(\[[\s\S]*?\]);/);
+            if (match) {
+              const modulesArray = eval(match[1]);
+              document.getElementById('intermediate-module-count').textContent = modulesArray.length + ' Modules';
+            } else {
+              document.getElementById('intermediate-module-count').textContent = '';
+            }
+          })
+          .catch(() => {
+            document.getElementById('intermediate-module-count').textContent = '';
+          });
+
+        // Dynamic module count for Advanced
         function getModuleCount(course, elementId) {
           fetch(`courses/${course}/`)
             .then(response => response.text())
@@ -927,7 +943,6 @@
               document.getElementById(elementId).textContent = '0 Modules';
             });
         }
-        getModuleCount('intermediate', 'intermediate-module-count');
         getModuleCount('advanced', 'advanced-module-count');
     </script>
 </body>
