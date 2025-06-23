@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 2: BLE-Controlled Smart Robot Tank with Obstacle Detection | Intermediate Robotics</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2366675854686882" crossorigin="anonymous"></script>
+  <style>
+    body { font-family: 'Montserrat', sans-serif; }
+    .section-title { color: #2563eb; font-weight: 700; margin-top: 2rem; margin-bottom: 1rem; font-size: 1.5rem; }
+    .table-auto th, .table-auto td { border-bottom: 1px solid #e5e7eb; padding: 0.25rem 0.75rem; }
+    .pros-cons { display: flex; gap: 2rem; margin-bottom: 1rem; }
+    .pros-cons ul { list-style: disc inside; }
+    .highlight { background: #e0f2fe; border-left: 4px solid #06b6d4; padding: 1rem; border-radius: 0.5rem; margin: 1rem 0; }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+  <header class="hero-gradient py-8 bg-gradient-to-r from-cyan-400 to-blue-700 text-white text-center">
+    <h1 class="text-3xl font-extrabold">Module 2: BLE-Controlled Smart Robot Tank with Obstacle Detection</h1>
+    <p class="mt-2 text-lg">Intermediate Robotics Course</p>
+  </header>
+  <main class="py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section class="mb-10">
+        <h2 class="text-2xl font-bold text-black mb-4">Module Overview</h2>
+        <p class="text-gray-700">This module introduces object-oriented design in MicroPython, BLE-based wireless communication between two Pico W boards, and obstacle avoidance using an IR sensor.</p>
+      </section>
+      <section class="mb-10">
+        <h2 class="text-2xl font-bold text-black mb-4">Required Components</h2>
+        <div class="space-y-2">
+          <div class="checklist-item"><i class="fas fa-microchip"></i> 2 × Raspberry Pi Pico W</div>
+          <div class="checklist-item"><i class="fas fa-microchip"></i> 1 × Dual DC motor driver (HW-354)</div>
+          <div class="checklist-item"><i class="fas fa-cogs"></i> 2 × DC geared motors</div>
+          <div class="checklist-item"><i class="fas fa-eye"></i> 1 × IR obstacle detection sensor (digital output)</div>
+          <div class="checklist-item"><i class="fas fa-lightbulb"></i> 1 × Blue LED + 330Ω resistor</div>
+          <div class="checklist-item"><i class="fas fa-tv"></i> 1 × Waveshare 1.3" Pico LCD Display (with joystick and buttons)</div>
+          <div class="checklist-item"><i class="fas fa-battery-full"></i> 1 × 18650 battery</div>
+          <div class="checklist-item"><i class="fas fa-bolt"></i> 1 × DC-DC 5V booster module</div>
+          <div class="checklist-item"><i class="fas fa-toggle-on"></i> 1 × Sliding switch</div>
+          <div class="checklist-item"><i class="fas fa-ethernet"></i> Jumper wires + breadboard + 3D printed case (optional)</div>
+        </div>
+      </section>
+      <section class="mb-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Step-by-Step Guide</h2>
+        <!-- Step 1 -->
+        <div class="step">
+          <h3 class="text-lg font-bold text-gray-900">Step 1: Object-Oriented Design for the Project</h3>
+          <p class="text-gray-600 mt-2">To maintain modularity and reusability, we define each hardware component as a Python class. This approach keeps logic modular and makes future enhancements easier (e.g., adding camera, GPS, more sensors).</p>
+          <div class="flex flex-col md:flex-row gap-6 my-4 items-center justify-center">
+            <img src="./Module_02/oop.png" alt="OOP Design Diagram" class="w-full max-w-4xl rounded-lg shadow">
+          </div>
+          <table class="table-auto text-base my-2 w-full">
+            <thead>
+              <tr>
+                <th class="text-left align-middle px-4 py-2 w-1/3 text-lg font-semibold">Class Name</th>
+                <th class="text-left align-middle px-4 py-2 text-lg font-semibold">Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="text-base">RobotTank</td><td class="text-base">Encapsulates motor control logic (forward, backward…)</td></tr>
+              <tr><td class="text-base">BLETankServer</td><td class="text-base">Advertises BLE name and handles command reception</td></tr>
+              <tr><td class="text-base">BLELED</td><td class="text-base">Handles LED indicator status for BLE state</td></tr>
+              <tr><td class="text-base">ObstacleSensor</td><td class="text-base">Monitors IR sensor and sends obstacle status</td></tr>
+              <tr><td class="text-base">ble_advertising.py</td><td class="text-base">Handles BLE advertising packets and settings (server-side utility)</td></tr>
+              <tr><td class="text-base">BLETankClient</td><td class="text-base">Scans, connects to server, sends commands</td></tr>
+              <tr><td class="text-base">LCDDisplay</td><td class="text-base">Displays UI, joystick control, status feedback</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- Step 2 -->
+        <div class="step">
+          <h3 class="text-lg font-bold text-gray-900">Step 2: Wiring and Circuit Connections</h3>
+          <p class="text-gray-600 mt-2">This section details the wiring and circuit connections for the BLE-controlled robot tank. Proper wiring ensures all components communicate and function as expected. Refer to the diagram below for a visual guide.</p>
+          <div class="flex flex-col md:flex-row items-center my-4 justify-center gap-8">
+            <div class="flex flex-col items-center w-full mt-8">
+              <img src="./Module_02/circuit_1.png" alt="Robot Tank Circuit Diagram" style="width: 100%; max-width: 1500px; height: auto; max-height: 900px; object-fit: contain;" class="rounded-lg shadow mb-2">
+              <span class="text-gray-700 font-medium mt-2">Robot Tank Circuit Diagram</span>
+            </div>
+          </div>
+          <p class="text-gray-600 mt-2"><b>Wiring Ports:</b></p>
+          <div class="flex flex-col items-center w-full my-4">
+            <img src="./Module_02/picow-pinout.png" alt="Raspberry Pi Pico W Pinout" style="width: 100%; max-width: 1500px; height: auto; max-height: 900px; object-fit: contain;" class="rounded-lg shadow mb-2">
+            <span class="text-gray-700 font-medium mt-2">Raspberry Pi Pico W Pinout</span>
+          </div>
+          <ul class="list-disc ml-6 text-gray-600 mb-2">
+            <li><b>Pico W (Tank)</b></li>
+            <ul class="ml-8">
+              <li>GPIO 2: Motor A IN1</li>
+              <li>GPIO 3: Motor A IN2</li>
+              <li>GPIO 4: Motor B IN1</li>
+              <li>GPIO 5: Motor B IN2</li>
+              <li>GPIO 17: IR Obstacle Sensor Output</li>
+              <li>GPIO 16: BLE LED</li>
+            </ul>
+            <li><b>HW-354 Motor Driver</b></li>
+            <ul class="ml-8">
+              <li>IN1, IN2, IN3, IN4: Connected to Pico GPIOs as above</li>
+              <li>VCC: 5V from booster module</li>
+              <li>GND: Common ground</li>
+              <li>Motor outputs: To DC motors</li>
+            </ul>
+            <li><b>IR Obstacle Sensor</b></li>
+            <ul class="ml-8">
+              <li>VCC: 3.3V or 5V</li>
+              <li>GND: Common ground</li>
+              <li>OUT: GPIO 17 (Tank)</li>
+            </ul>
+            <li><b>BLE LED (Tank)</b></li>
+            <ul class="ml-8">
+              <li>Signal: GPIO 16</li>
+              <li>VCC/GND: Power and ground</li>
+            </ul>
+            <li><b>LCD Display (Controller)</b></li>
+            <ul class="ml-8">
+              <li>SPI pins: Connect as per LCD documentation</li>
+              <li>VCC/GND: Power and ground</li>
+            </ul>
+            <li><b>Power</b></li>
+            <ul class="ml-8">
+              <li>18650 Battery → DC-DC Booster → 5V to motor driver and Pico</li>
+              <li>Sliding switch in series with battery for power control</li>
+            </ul>
+          </ul>
+        </div>
+        <!-- Step 3 -->
+        <div class="step">
+          <h3 class="text-lg font-bold text-gray-900">Step 3: IR Sensor Working Principle</h3>
+          <p class="text-gray-600 mt-2">An IR (Infrared) obstacle sensor is a simple electronic device that detects the presence of an object using infrared light. It typically consists of an IR LED (emitter) and a photodiode or phototransistor (receiver) placed side by side. The IR LED emits invisible infrared light, which bounces off nearby objects. If an object is present, the reflected IR light is detected by the receiver, causing a change in its output signal.</p>
+          <div class="flex flex-col md:flex-row gap-6 my-4 items-center justify-center">
+            <img src="./Module_02/ir_sensor.png" alt="IR Sensor Diagram" class="w-full max-w-md rounded-lg shadow">
+            <img src="./Module_02/ir_sensor_01.jpg" alt="IR Sensor Real Photo" class="w-full max-w-md rounded-lg shadow">
+            <img src="./Module_02/ir_senser.gif" alt="IR Sensor Working Animation" class="w-full max-w-md rounded-lg shadow">
+          </div>
+          <p class="text-gray-600 mt-2"><b>How It Works:</b></p>
+          <ul class="list-disc ml-6 text-gray-600 mb-2">
+            <li>The IR LED continuously emits infrared light.</li>
+            <li>When no object is present, the IR light does not reflect back to the receiver, so the output remains HIGH (logic 1).</li>
+            <li>When an object comes close, the IR light is reflected and detected by the receiver, causing the output to go LOW (logic 0).</li>
+            <li>This change in output can be read by a microcontroller to detect obstacles or trigger actions.</li>
+          </ul>
+          <div class="flex flex-row gap-8 my-4 items-center justify-center">
+            <div class="flex flex-col items-center">
+              <img src="./Module_02/ir_sensor_pros.png" alt="IR Sensor Pros" class="w-full max-w-md rounded-lg shadow mb-2">
+              <span class="text-sm text-gray-600">Pros: IR Sensor</span>
+            </div>
+            <div class="flex flex-col items-center">
+              <img src="./Module_02/ir_sensor_cons.png" alt="IR Sensor Cons" class="w-full max-w-md rounded-lg shadow mb-2">
+              <span class="text-sm text-gray-600">Cons: IR Sensor</span>
+            </div>
+          </div>
+          <p class="text-gray-600 mt-2"><b>Advantages:</b> Simple, inexpensive, and easy to use for short-range detection (2–30 cm). Works well for basic obstacle avoidance in robotics.</p>
+          <p class="text-gray-600"><b>Limitations:</b> Performance can be affected by ambient sunlight, reflective or transparent surfaces, and the angle of the object.</p>
+          <div class="flex flex-row gap-8 mt-2 mb-2">
+            <div><b>Pros</b><ul class="list-disc ml-5 text-gray-600"><li>Inexpensive & simple</li><li>Good for short-range (2–30cm)</li><li>Easy to use with digital pins</li></ul></div>
+            <div><b>Cons</b><ul class="list-disc ml-5 text-gray-600"><li>Poor accuracy in sunlight</li><li>Not effective for transparent objects</li><li>Angle sensitivity</li></ul></div>
+          </div>
+        </div>
+        <!-- Step 4 -->
+        <div class="step">
+          <h3 class="text-lg font-bold text-gray-900">Step 4: BLE Communication Overview</h3>
+          <p class="text-gray-600 mt-2">Bluetooth Low Energy (BLE) is a wireless communication protocol designed for short-range, low-power data exchange. BLE is widely used in IoT devices, wearables, and robotics because it allows devices to communicate efficiently while consuming minimal energy. BLE operates in the 2.4 GHz ISM band and is optimized for sending small amounts of data periodically, making it ideal for sensor data, control commands, and status updates.</p>
+          <img src="./Module_02/bluetooth_ble.png" alt="Bluetooth BLE Concept Diagram" class="w-full max-w-xl rounded-lg shadow my-4 mx-auto">
+          <p class="text-gray-600 mt-2"><b>BLE Concepts:</b></p>
+          <ul class="list-disc ml-6 text-gray-600 mb-2">
+            <li><b>Peripheral (Server):</b> A device that advertises its presence and waits for connections (e.g., the robot tank).</li>
+            <li><b>Central (Client):</b> A device that scans for peripherals and initiates connections (e.g., the controller).</li>
+            <li><b>Advertising:</b> The process by which a peripheral broadcasts its availability and basic information (such as its name or services) to nearby devices.</li>
+            <li><b>Connection:</b> Once a central connects to a peripheral, they can exchange data using defined services and characteristics.</li>
+            <li><b>Services & Characteristics:</b> BLE organizes data into services (groups of related data) and characteristics (individual data points or commands).</li>
+          </ul>
+          <img src="./Module_02/ble_communication.png" alt="BLE Communication Project Diagram" class="w-full max-w-xl rounded-lg shadow my-4 mx-auto">
+          <p class="text-gray-600 mt-2"><b>How BLE Works in This Project:</b></p>
+          <ul class="list-disc ml-6 text-gray-600 mb-2">
+            <li>The robot tank (server) advertises itself with the name "PicoRobotTank" and waits for a connection.</li>
+            <li>The controller (client) scans for BLE devices and connects to the tank when it finds the correct name.</li>
+            <li>Once connected, the controller sends commands (such as "F" for forward, "B" for backward, etc.) to the tank using BLE characteristics.</li>
+            <li>The tank receives these commands, executes the corresponding actions (move, stop, turn), and can send status updates back (such as "Obstacle Detected" or "Path Clear").</li>
+            <li>BLE ensures that communication is fast and energy-efficient, allowing for real-time control and feedback.</li>
+          </ul>
+          <p class="text-gray-600 mt-2">In summary, BLE enables reliable, low-power wireless control between the Pico W controller and the robot tank, making it possible to send commands and receive feedback instantly during operation.</p>
+        </div>
+        <!-- Step 5 -->
+        <div class="step">
+          <h3 class="text-lg font-bold text-gray-900">Step 5: Introduction to LCD and SPI Communication</h3>
+          <p class="text-gray-600 mt-2">The controller in this project uses a Waveshare 1.3" Pico LCD Display, which communicates with the Raspberry Pi Pico W using the SPI (Serial Peripheral Interface) protocol. Understanding how LCDs and SPI work is essential for displaying information and creating interactive user interfaces in robotics projects.</p>
+          <div class="flex flex-col md:flex-row gap-6 my-4 items-center justify-center">
+            <img src="./Module_02/pico_lcd_1.3.png" alt="Waveshare 1.3 inch Pico LCD" class="w-full max-w-xl rounded-lg shadow">
+            <img src="./Module_02/lcd_pinout.png" alt="LCD Pinout Diagram" class="w-full max-w-2xl rounded-lg shadow">
+          </div>
+          <p class="text-gray-600 mt-2"><b>What is SPI?</b> SPI is a high-speed, synchronous serial communication protocol commonly used to connect microcontrollers to peripherals such as displays, sensors, and memory devices. It uses four main lines: SCK (clock), MOSI (Master Out Slave In), MISO (Master In Slave Out), and CS (chip select).</p>
+          <ul class="list-disc ml-6 text-gray-600 mb-2">
+            <li><b>SCK:</b> Serial clock signal generated by the master (Pico W).</li>
+            <li><b>MOSI:</b> Data sent from master to slave (Pico W to LCD).</li>
+            <li><b>MISO:</b> Data sent from slave to master (not always used by LCDs).</li>
+            <li><b>CS:</b> Chip select, used to activate the LCD for communication.</li>
+          </ul>
+          <p class="text-gray-600 mt-2"><b>SPI Working Principle:</b> SPI (Serial Peripheral Interface) is a synchronous serial communication protocol used to transfer data between a microcontroller (master) and one or more peripheral devices (slaves). SPI uses separate lines for data and clock signals, allowing for full-duplex communication. The master generates the clock signal (SCK), and data is transmitted from the master to the slave via MOSI (Master Out Slave In) and from the slave to the master via MISO (Master In Slave Out). The CS (Chip Select) line is used to select which slave device is active. SPI is fast, simple, and ideal for short-distance communication with devices like LCDs, sensors, and memory chips.</p>
+          <div class="flex flex-col items-center my-4 justify-center">
+            <div class="flex flex-row gap-6 items-center justify-center">
+              <img src="./Module_02/spi_pros.jpg" alt="SPI Pros" class="w-[900px] h-[600px] object-cover rounded-lg shadow">
+              <img src="./Module_02/spi_protocol.png" alt="SPI Protocol Diagram" class="w-[900px] h-[600px] object-cover rounded-lg shadow">
+            </div>
+            <img src="./Module_02/spi_protocol.gif" alt="SPI Protocol Animation" class="w-full max-w-3xl rounded-lg shadow mt-4">
+          </div>
+          <p class="text-gray-600 mt-2"><b>How the LCD is Used:</b> The LCD displays real-time information such as robot status, BLE connection state, joystick direction, and obstacle alerts. The display is updated by sending commands and data over SPI from the Pico W to the LCD controller chip.</p>
+          <p class="text-gray-600 mt-2">Using an LCD with SPI allows for fast, efficient updates and enables the creation of graphical user interfaces for robotics projects. In this project, the LCD provides immediate feedback to the user, making the robot easier to control and monitor.</p>
+        </div>
+        <!-- Step 6 -->
+        <div class="step">
+          <h3 class="text-lg font-bold text-gray-900">Step 6: Controller (Client) Code Summary</h3>
+          <p class="text-gray-600 mt-2">Below is the main code for the BLE controller. This script manages the LCD display, BLE connection, joystick/button input, and obstacle status updates. It provides real-time feedback and control for the robot tank.</p>
+          <div class="bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto my-4">
+            <pre class="whitespace-pre-wrap"><code>from machine import Pin
+from lcd_display import LCDDisplay
+from ble_tank_client import BLETankClient
+import time
+
+# Initialize LCD
+lcd = LCDDisplay()
+
+# Define Buttons
+button_b = Pin(17, Pin.IN, Pin.PULL_UP)  # Connect
+button_x = Pin(19, Pin.IN, Pin.PULL_UP)  # Disconnect
+
+# Joystick pins
+up = Pin(2, Pin.IN, Pin.PULL_UP)
+down = Pin(18, Pin.IN, Pin.PULL_UP)
+left = Pin(16, Pin.IN, Pin.PULL_UP)
+right = Pin(20, Pin.IN, Pin.PULL_UP)
+ctrl = Pin(3, Pin.IN, Pin.PULL_UP)  # Center = Stop
+
+obstacle_status = "Unknown"
+
+def on_rx(msg):
+    global obstacle_status
+    print("📩 Received from tank:", msg)
+    if msg in ["Obstacle Detected", "Path Clear"]:
+        obstacle_status = msg
+        draw_gui(selected=last_command)# update the screen
+        
+  
+# Setup BLE
+ble = BLETankClient()
+ble.on_rx = on_rx
+last_command = ""
+connection_status = "Disconnected"
+tank_name = "PicoTank"
+
+def draw_gui(selected=""):
+    lcd.fill(lcd.white)
+    lcd.text("Pico BLE Controller", 20, 10, lcd.red)
+    lcd.text("Tank: " + tank_name, 20, 30, lcd.green)
+    lcd.text("B: Connect  X: Disconnect", 20, 50, lcd.blue)
+    lcd.text("Status: " + connection_status, 20, 70, lcd.red)
+
+    # Arrow layout
+    # Arrow color logic
+    # ASCII arrow alternatives
+    def color(key): return lcd.red if key == selected else lcd.black
+
+    lcd.text("^", 115, 100, color("F"))
+    lcd.text("v", 115, 140, color("B"))
+    lcd.text("<", 95, 120, color("L"))
+    lcd.text(">", 135, 120, color("R"))
+    lcd.text("X", 115, 120, color("S"))  # Stop
+    # Outline buttons (like a D-pad)
+    lcd.rect(114, 99, 10, 10, color("F"))  # Up
+    lcd.rect(114, 139, 10, 10, color("B"))  # Down
+    lcd.rect(94, 119, 10, 10, color("L"))   # Left
+    lcd.rect(134, 119, 10, 10, color("R"))  # Right
+    lcd.rect(114, 119, 10, 10, color("S"))  # Stop
+
+        # Obstacle status label
+    lcd.text("Obstacle:", 20, 180, lcd.black)
+    lcd.text(obstacle_status, 100, 180, lcd.red if obstacle_status == "Obstacle!" else lcd.green)
+    lcd.show()
+
+draw_gui()
+
+while True:
+    try:
+        # Handle Connect
+        if not button_b.value():
+            if not ble.connected:
+                print("🔗 Button B pressed: Connecting...")
+                connection_status = "Connecting..."
+                draw_gui()
+                ble.connect()
+                time.sleep(0.5)
+
+        # Handle Disconnect
+        if not button_x.value():
+            if ble.connected:
+                print("❌ Button X pressed: Disconnecting...")
+                ble.ble.gap_disconnect(ble.conn_handle)
+                connection_status = "Disconnected"
+                draw_gui()
+                time.sleep(0.5)
+
+        # Refresh status if changed externally
+        if ble.connected and connection_status != "Connected":
+            connection_status = "Connected"
+            print("✅ BLE connected")
+            draw_gui()
+        elif not ble.connected and connection_status != "Disconnected":
+            connection_status = "Disconnected"
+            print("🔌 BLE disconnected")
+            draw_gui()
+
+        # Handle joystick movement
+        command = ""
+        if not up.value():
+            command = "F"
+        elif not down.value():
+            command = "B"
+        elif not left.value():
+            command = "L"
+        elif not right.value():
+            command = "R"
+        elif not ctrl.value():
+            command = "S"
+
+        if command and command != last_command:
+            ble.send_command(command)
+            print(f"➡️ Sent command: {command}")
+            draw_gui(selected=command)
+            last_command = command
+
+        elif not command and last_command:
+            draw_gui(selected=None)
+            last_command = ""
+
+        time.sleep(0.1)
+
+    except KeyboardInterrupt:
+        print("🛑 Script interrupted")
+        if ble.connected:
+            ble.send_command("S")
+            ble.ble.gap_disconnect(ble.conn_handle)
+        break
+</code></pre>
+          </div>
+          <p class="text-gray-600 mt-4"><b>How the Code Works:</b></p>
+          <ul class="list-disc ml-6 text-gray-600 mb-2">
+            <li><b>LCD Initialization:</b> Sets up the LCD for displaying status, joystick arrows, and obstacle alerts.</li>
+            <li><b>Button and Joystick Setup:</b> Configures GPIO pins for connect/disconnect buttons and joystick directions.</li>
+            <li><b>BLE Client:</b> Initializes the BLE client and sets up a callback to handle messages from the tank.</li>
+            <li><b>draw_gui Function:</b> Updates the LCD with current status, joystick selection, and obstacle information.</li>
+            <li><b>Main Loop:</b> Continuously checks for button presses, joystick movement, and BLE connection status. Sends commands to the tank and updates the display in real time.</li>
+            <li><b>Obstacle Feedback:</b> When the tank sends "Obstacle Detected" or "Path Clear", the display updates immediately to alert the user.</li>
+            <li><b>Graceful Exit:</b> On keyboard interrupt, the robot stops and disconnects safely.</li>
+          </ul>
+        </div>
+        <!-- Step 7 -->
+        <div class="step">
+          <h3 class="text-lg font-bold text-gray-900">Step 7: Tank (Server) Main Code</h3>
+          <p class="text-gray-600 mt-2">Below is the main code for the BLE tank server. This script manages the robot's motors, obstacle sensor, BLE server, and command handling. It enables the tank to receive commands from the controller, drive the motors, and send obstacle status updates back to the controller in real time.</p>
+          <div class="bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto my-4">
+            <pre class="whitespace-pre-wrap"><code>from machine import Pin
+import bluetooth
+import time
+
+from robot_tank import RobotTank
+from ble_tank_server import BLETankServer
+from ble_led import BleLED
+from obstacle_sensor import ObstacleSensor
+
+# 🔧 Setup Components
+led = BleLED()
+tank = RobotTank(2, 3, 4, 5)
+obstacle = ObstacleSensor()
+
+# Store last command to restore after obstacle clears
+last_command = "S"
+
+def on_rx(command):
+    global last_command
+    
+    print("📩 Command received:", command)
+    led.toggle()  
+
+    try:
+        if command in ["F", "B", "L", "R"]:
+            last_command = command
+
+        if obstacle.is_obstacle():
+            print("⚔ Obstacle detected — stopping")
+            tank.stop()
+        else:
+            if command == "F":
+                tank.forward()
+            elif command == "B":
+                tank.backward()
+            elif command == "L":
+                tank.turn_left()
+            elif command == "R":
+                tank.turn_right()
+            elif command == "S":
+                tank.stop()
+                last_command = "S"
+            else:
+                print("⚠️ Unknown command")
+    except Exception as e:
+        print("❌ Error executing command:", e)
+
+# Setup BLE
+ble = bluetooth.BLE()
+ble_server = BLETankServer(ble, on_rx)
+
+print("🛡️ Pico Robot Tank is waiting for BLE connection...")
+connected = False
+
+try:
+    while True:
+        is_connected = bool(ble_server._connections)
+        if is_connected != connected:
+            connected = is_connected
+            if connected:
+                print("✅ BLE Connected.")
+                led.on()
+            else:
+                print("🔄 Waiting for BLE connection...")
+                led.off()
+
+        if not connected:
+            led.blink()
+        else:
+            changed, state = obstacle.has_changed()
+            if changed:
+                if state == 0:
+                    print("⚔ Obstacle Detected")
+                    tank.stop()
+                    ble_server.send("Obstacle Detected")
+                    print("📤 Message sent to client.")
+                else:
+                    print("✅ Path Clear")
+                    ble_server.send("Path Clear")
+                    print("📤 Message sent to client.")
+                    if last_command != "S":
+                        on_rx(last_command)
+        time.sleep(0.1)
+
+except KeyboardInterrupt:
+    print("🛑 Script stopped by user")
+    tank.stop()
+    led.off()
+</code></pre>
+          </div>
+          <p class="text-gray-600 mt-4"><b>How the Code Works:</b></p>
+          <ul class="list-disc ml-6 text-gray-600 mb-2">
+            <li><b>Component Setup:</b> Initializes the BLE LED, motor driver, and obstacle sensor for the tank.</li>
+            <li><b>BLE Server:</b> Sets up the BLE server and a callback to handle commands from the controller.</li>
+            <li><b>Command Handling:</b> When a command (F, B, L, R, S) is received, the tank moves accordingly and stores the last command for recovery after obstacles.</li>
+            <li><b>Obstacle Detection:</b> If an obstacle is detected, the tank stops and notifies the controller. When the path is clear, the last command is restored.</li>
+            <li><b>Status Feedback:</b> Sends "Obstacle Detected" or "Path Clear" to the controller for real-time updates.</li>
+            <li><b>Connection State:</b> The LED indicates BLE connection status (on, off, or blinking).</li>
+            <li><b>Graceful Exit:</b> On keyboard interrupt, the motors stop and the LED turns off safely.</li>
+          </ul>
+        </div>
+        <!-- Download Complete Code Button -->
+        <div class="flex justify-center my-8">
+          <a href="https://github.com/Botronix-Labs/BotronixLabsCourses/tree/039d80be8e0ef6833eb9779e9033b27c9dba32b0/Intermediate/M2" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none">
+            <i class="fas fa-download mr-2"></i>Download Complete Code
+          </a>
+        </div>
+        <!-- YouTube Tutorial Section -->
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold text-blue-700 mb-4">Complete YouTube Tutorial</h2>
+          <p class="text-gray-700 mb-4">Watch the full step-by-step video tutorial for this BLE-controlled smart robot tank project. The video covers hardware setup, wiring, coding, BLE communication, obstacle detection, and live demonstrations. Follow along for a complete build and test experience!</p>
+          <div class="flex justify-center">
+            <iframe width="900" height="506" src="https://www.youtube.com/embed/2sjpiUn0Z60" title="BLE Robot Tank Full Tutorial" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="rounded-lg shadow"></iframe>
+          </div>
+        </section>
+      </section>
+    </div>
+  </main>
+  <footer class="bg-gray-800 py-6 mt-8">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+      <p class="text-sm text-gray-400">&copy; 2025 Botronix Labs. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
