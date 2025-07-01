@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 3: BLE-Controlled Robot Arm & Tank (Multi-Peripheral Control) | Intermediate Robotics</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { font-family: 'Montserrat', sans-serif; }
+    .section-title { color: #2563eb; font-weight: 700; margin-top: 2rem; margin-bottom: 1rem; font-size: 1.5rem; }
+    .step-title { color: #0ea5e9; font-weight: 600; font-size: 1.2rem; margin-top: 1.5rem; }
+    .highlight { background: #e0f2fe; border-left: 4px solid #06b6d4; padding: 1rem; border-radius: 0.5rem; margin: 1rem 0; }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+  <header class="hero-gradient py-8 bg-gradient-to-r from-cyan-400 to-blue-700 text-white text-center">
+    <h1 class="text-3xl font-extrabold">Module 3: BLE-Controlled Robot Arm & Tank (Multi-Peripheral Control)</h1>
+    <p class="mt-2 text-lg">Intermediate Robotics Course</p>
+  </header>
+  <main class="py-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section class="mb-10">
+        <h2 class="text-2xl font-bold text-black mb-4">Project Overview</h2>
+        <p>Use one BLE controller (with joystick and buttons) to switch between and control two different robots:</p>
+        <ul class="list-disc ml-8 mt-2 text-gray-700">
+          <li><b>Robot Tank:</b> Movement (forward, backward, left, right)</li>
+          <li><b>Robot Arm:</b> 4-DOF (base, shoulder, elbow, gripper)</li>
+        </ul>
+      </section>
+      <section class="mb-10">
+        <h2 class="section-title">Learning Objectives</h2>
+        <ul class="list-disc ml-8 text-gray-700">
+          <li>Understand how to control multiple BLE peripherals from a single controller</li>
+          <li>Design OOP-based BLE communication for multi-device interaction</li>
+          <li>Apply joystick + button combo logic for controlling servos interactively</li>
+          <li>Switch between different BLE devices and handle GUI state updates</li>
+          <li>Send commands and receive feedback over BLE UART services</li>
+          <li>Integrate two physical projects into a combined robotic platform</li>
+        </ul>
+      </section>
+      <section class="mb-10">
+        <h2 class="section-title">Required Components</h2>
+        <ul class="list-disc ml-8 text-gray-700">
+          <li>3 × Raspberry Pi Pico W boards (1 for controller, 1 for tank base, 1 for robot arm)</li>
+          <li>1 × Waveshare 1.3" Pico LCD Display (with joystick and buttons, for controller)</li>
+          <li>4 × Servo motors (for 4-DOF robot arm: base, shoulder, elbow, gripper)</li>
+          <li>1 × HW-354 Dual DC Motor Driver (for tank base)</li>
+          <li>2 × DC geared motors (for tank movement)</li>
+          <li>1 × Blue LED (BLE indicator for tank)</li>
+          <li>1 × Yellow LED (BLE indicator for arm)</li>
+          <li>Power supply: 18650 battery, DC-DC booster, or USB power banks</li>
+          <li>Jumper wires, breadboard, and connectors</li>
+          <li>3D printed enclosures and mounting hardware for stacking arm on tank</li>
+        </ul>
+      </section>
+      <section class="mb-10">
+        <h2 class="section-title">Step-by-Step Course Breakdown</h2>
+        <div class="mb-6">
+          <div class="step-title">Step 1: Design Overview & Project Setup</div>
+          <div class="text-gray-700 ml-8">
+            <p>On the hardware side, we’ve made some key changes to integrate the two previous projects:</p>
+            <ul class="list-disc ml-8">
+              <li>For the robot tank, the IR sensor has been removed to simplify the platform and free up GPIO pins.</li>
+              <li>The robot arm now uses a Raspberry Pi Pico W for wireless BLE communication.</li>
+              <li>The robot arm is physically stacked on the tank, with each having its own dedicated Pico W board. The tank serves as a mobile base, while the arm provides 4 degrees of freedom for grabbing and manipulating objects.</li>
+            </ul>
+            <div class="flex flex-col items-center my-4">
+              <img src="./Module_03/design_hw.png" alt="Hardware Design Overview" class="w-full max-w-2xl rounded-lg shadow mb-2">
+              <span class="text-gray-700 font-medium mt-2">Hardware Design Overview: Stacked Robot Arm on Tank</span>
+            </div>
+            <p class="mt-2">On the software side, the controller Pico W acts as a BLE central device, while both the tank and the arm act as separate BLE servers (peripherals), each advertising a unique name and UUID. The controller can scan for both devices, display their status, and connect to either one at a time. With a simple button press, you can switch the controller’s BLE connection from the tank to the arm, or vice versa, without needing to restart or re-pair. This modular design makes it easy to expand or adapt the system for more robots or new features in the future.</p>
+            <div class="flex flex-col items-center my-4">
+              <img src="./Module_03/design_sw.png" alt="Software Design Overview" class="w-full max-w-2xl rounded-lg shadow mb-2">
+              <span class="text-gray-700 font-medium mt-2">Software Design Overview: BLE Central & Multi-Peripheral Switching</span>
+            </div>
+          </div>
+        </div>
+        <div class="mb-6">
+          <div class="step-title">Step 2: BLE Service Architecture</div>
+          <div class="flex flex-col md:flex-row gap-8 items-center justify-center my-4">
+            <div class="flex flex-col items-center">
+              <img src="./Module_03/screen1.png" alt="BLE Device Selection Screen" class="w-full max-w-xl rounded-lg shadow mb-2">
+              <span class="text-gray-700 font-medium mt-2">BLE Device Selection Screen</span>
+            </div>
+          </div>
+          <div class="text-gray-700 ml-8">
+            <p>Each robot—the tank and the arm—acts as a separate BLE server, advertising its own unique name and a dedicated set of BLE UART service UUIDs (e.g., tank: 6E4000xx..., arm: 7E4000xx...). This separation ensures that the controller can easily distinguish between the two devices during scanning.</p>
+            <div class="flex flex-col items-center my-4">
+              <img src="./Module_03/screen2.png" alt="BLE Connection Status Screen" class="w-full max-w-xl rounded-lg shadow mb-2">
+              <span class="text-gray-700 font-medium mt-2">BLE Connection Status Screen</span>
+            </div>
+            <p>When the controller scans for BLE devices, it filters the results by both advertised name and UUID, so it only shows or connects to the intended robots. Once a connection is established, the controller communicates with the selected robot using the BLE UART service—sending commands and receiving feedback in real time. With a button press, it can disconnect from one and connect to the other, updating the user interface accordingly. This architecture not only allows seamless switching between the tank and the arm, but also lays the groundwork for scaling up to even more robots or peripherals in the future.</p>
+          </div>
+        </div>
+        <div class="mb-6">
+          <div class="step-title">Step 3: Tank BLE Server Implementation</div>
+          <div class="flex flex-col items-center my-4">
+            <img src="./Module_03/screen4.png" alt="Tank BLE Server LCD Screen" class="w-full max-w-xl rounded-lg shadow mb-2">
+            <span class="text-gray-700 font-medium mt-2">Tank BLE Server: Robot Tank Commands</span>
+          </div>
+          <div class="text-gray-700 ml-8">
+            <p>The tank’s Pico W is programmed to act as a BLE peripheral, advertising a unique name and UUID. Once connected, the tank listens for simple movement commands—forward, backward, left, right, and stop—sent over the BLE UART service. The code is organized using classes for modularity. The main class handles BLE setup, command parsing, and motor control. When a command is received, the tank’s motors respond instantly.</p>
+            <div class="flex flex-col items-center my-4">
+              <img src="./Module_03/blinky_blue.gif" alt="Tank BLE Status LED Blinking" class="w-full max-w-lg rounded-lg shadow mb-2">
+              <span class="text-gray-700 font-medium mt-2">Tank BLE Status: Blinking Blue LED</span>
+            </div>
+            <p>A blue LED on the tank acts as a BLE status indicator: it blinks while waiting for a connection and turns solid when connected. Since the IR sensor was removed, the tank’s design is streamlined for mobility and easy integration with the robot arm, making it a robust, mobile base for the combined platform.</p>
+          </div>
+        </div>
+        <div class="mb-6">
+          <div class="step-title">Step 4: Arm BLE Server Implementation</div>
+          <div class="flex flex-col items-center my-4">
+            <img src="./Module_03/screen6.png" alt="Arm BLE Server LCD Screen" class="w-full max-w-xl rounded-lg shadow mb-2">
+            <span class="text-gray-700 font-medium mt-2">Arm BLE Server: Commands</span>
+          </div>
+          <div class="text-gray-700 ml-8">
+            <p>The arm’s Pico W also acts as a BLE peripheral, but with its own unique name and UUID. The software uses an object-oriented approach, with a dedicated class to abstract servo control for each joint: base, shoulder, elbow, and gripper. Commands are sent over BLE UART in a simple format, like “B90” to set the base to 90 degrees, or “G0” to open the gripper. The BLE server parses these commands and updates the servos accordingly.</p>
+            <div class="flex flex-col items-center my-4">
+              <img src="./Module_03/blinky_yellow.gif" alt="Arm BLE Status LED Blinking" class="w-full max-w-lg rounded-lg shadow mb-2">
+              <span class="text-gray-700 font-medium mt-2">Arm BLE Status: Blinking Yellow LED</span>
+            </div>
+            <p>A yellow LED on the arm provides BLE connection feedback—lighting up when the arm is connected to the controller. This modular BLE server design makes it easy to add more joints or features in the future, and ensures smooth, real-time control of the robot arm from the central controller.</p>
+          </div>
+        </div>
+        <div class="mb-6">
+          <div class="step-title">Step 5: BLE Controller with Mode Switching and GUI</div>
+          <div class="flex flex-col items-center my-4">
+            <img src="./Module_03/GUI_screen.gif" alt="BLE Controller GUI Demo" class="w-full max-w-2xl rounded-lg shadow mb-2">
+            <span class="text-gray-700 font-medium mt-2">BLE Controller: GUI Demo</span>
+          </div>
+          <div class="text-gray-700 ml-8">
+            <p>The controller Pico W acts as a BLE central device, scanning for both the tank and arm servers. The user interface, displayed on the LCD, shows which robot is currently selected, connection status, and available controls. You can use Button A to toggle between the tank and the arm. Button B connects, Button X disconnects, and Button Y—combined with the joystick—lets you incrementally control each servo on the arm. Pressing Y alone resets all servos, and the Ctrl button toggles the gripper open or closed.</p>
+            <p>The GUI updates in real time, highlighting active buttons, showing directional arrows, and providing feedback from the robots. Internally, the controller tracks which device is connected and manages BLE switching by disconnecting from one server and connecting to the other, updating the interface and internal state so you always know which robot you’re controlling. This flexible design not only makes the system easy to use, but also sets the stage for future expansion—like adding more robots or new control modes.</p>
+          </div>
+        </div>
+        <div class="mb-6">
+          <div class="step-title">Step 6: Testing, Demo & Wiring</div>
+          <div class="flex flex-col items-center my-4">
+            <img src="./Module_03/circuit.png" alt="Wiring/Circuit Diagram" class="w-full max-w-2xl rounded-lg shadow mb-2">
+            <span class="text-gray-700 font-medium mt-2">Wiring/Circuit Diagram: BLE Controller, Tank, and Arm</span>
+          </div>
+          <div class="text-gray-700 ml-8">
+            <p>Power on all three devices: the controller, the tank, and the robot arm. The controller’s LCD will show the available robots and their connection status. Start by connecting to the tank. Use the joystick to drive the tank forward, backward, left, and right. Notice how the blue LED on the tank lights up solid when connected, giving you instant feedback.</p>
+            <p>Next, press Button A on the controller to switch modes. The controller will disconnect from the tank and connect to the robot arm. The LCD updates to show you’re now controlling the arm, and the yellow LED on the arm lights up. Use the joystick and Button Y to move each servo joint incrementally—base, shoulder, elbow, and gripper. Pressing Y alone resets all servos to their default positions, and pressing Ctrl toggles the gripper open or closed. You can switch back and forth between the tank and the arm at any time, with the controller handling all the BLE connections and GUI updates seamlessly.</p>
+            <p>This demo shows how you can mobilize your robot, then instantly switch to manipulation mode to grab or move objects—all with a single, wireless controller.</p>
+          </div>
+        </div>
+      </section>
+      <!-- Download Complete Code Button -->
+      <div class="flex justify-center my-8">
+        <a href="https://github.com/Botronix-Labs/BotronixLabsCourses/tree/9ca27dc7d4456c268baff466cc7c20277370b1d8/Intermediate/M3" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none">
+          <i class="fas fa-download mr-2"></i>Download Complete Code
+        </a>
+      </div>
+      <section class="mb-10">
+        <h2 class="section-title">Complete YouTube Tutorial</h2>
+        <div class="flex flex-col items-center my-8">
+          <iframe width="900" height="506" src="https://www.youtube.com/embed/oXYvNDjrqR4" title="Module 3: BLE-Controlled Robot Arm & Tank Tutorial" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="rounded-lg shadow"></iframe>
+          <p class="mt-4 text-gray-700 text-lg text-center max-w-2xl">Watch the full step-by-step video tutorial for Module 3: BLE-Controlled Robot Arm & Tank. This video covers the hardware setup, wiring, BLE software, and a live demonstration of the combined platform in action.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
