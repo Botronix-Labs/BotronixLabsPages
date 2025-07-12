@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 4: Driving Stepper Motors with A4988 and Pico W</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { font-family: 'Montserrat', sans-serif; }
+    .code-block { background-color: #1e293b; color: #f8fafc; padding: 1rem; border-radius: 0.5rem; font-family: monospace; margin-bottom: 1rem; }
+    .table-auto th, .table-auto td { border: 1px solid #d1d5db; padding: 0.5rem; }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <header class="hero-gradient py-8 text-center bg-gradient-to-r from-cyan-400 to-blue-700">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-2">🤖 Module 4: Driving Stepper Motors with A4988 and Pico W</h1>
+    <p class="text-lg text-blue-100">Controlling NEMA 17 Stepper Motors in Multiple Modes with A4988 and Pico W (OOP Structured)</p>
+  </header>
+  <main class="py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section class="mb-10">
+        <h2 class="text-2xl font-bold text-black mb-4">🎯 Learning Objectives</h2>
+        <ul class="list-disc ml-6 text-gray-700">
+          <li>Understand how stepper motors work and their role in robotics.</li>
+          <li>Learn A4988 driver operation and its pin configuration.</li>
+          <li>Explore different microstepping modes (full, half, quarter, eighth, sixteenth).</li>
+          <li>Drive a NEMA 17 motor using Pico W in various stepping resolutions.</li>
+          <li>Apply object-oriented programming (OOP) principles for motor control.</li>
+          <li>Develop modular MicroPython code to manage hardware cleanly.</li>
+        </ul>
+      </section>
+      <section class="mb-10">
+        <h2 class="text-2xl font-bold text-black mb-4">🧱 Hardware Used</h2>
+        <ul class="list-disc ml-6 text-gray-700">
+          <li>Raspberry Pi Pico W</li>
+          <li>A4988 Stepper Motor Driver</li>
+          <li>NEMA 17 Stepper Motor</li>
+          <li>7.4V Battery Pack</li>
+          <li>DC-DC Booster (for 12V power source for stepper motor)</li>
+          <li>5V Logic Booster or Regulator (for VDD of A4988)</li>
+        </ul>
+      </section>
+      <section class="mb-10">
+        <h2 class="text-2xl font-bold text-black mb-4">🔌 Step 1: Understand Stepper Motor and A4988</h2>
+        <p class="mb-2 text-gray-700">Stepper motors are brushless DC motors designed for precise control. Inside, multiple coils are arranged in phases. By energizing these coils in a specific sequence, the motor rotates in small, fixed increments called steps. This step-by-step movement allows for accurate positioning and repeatable motion, making stepper motors ideal for robotics, CNC machines, and 3D printers.</p>
+        <div class="flex flex-col items-center my-4">
+          <img src="Module_04/stepper_motors_1.gif" alt="Stepper Motor Working Principle" class="w-full max-w-md rounded shadow mb-2">
+          <span class="text-gray-700 font-medium mt-2">Stepper Motor Working Principle Animation</span>
+        </div>
+        <p class="mb-2 text-gray-700">A stepper motor like the NEMA 17 moves in precise, fixed steps—typically 1.8° per step, giving 200 steps per revolution. This makes it ideal for robotics and CNC projects where accurate positioning is needed. Unlike regular DC motors, steppers rotate incrementally with each pulse, allowing for repeatable, controlled movement without extra sensors.</p>
+        <div class="flex flex-col items-center my-4">
+          <img src="Module_04/stepper_motors_2.png" alt="NEMA 17 Stepper Motor" class="w-full max-w-md rounded shadow mb-2">
+          <span class="text-gray-700 font-medium mt-2">NEMA 17 Stepper Motor Example</span>
+        </div>
+        <div class="flex flex-col items-center my-4">
+          <img src="Module_04/stepper_motors_3.gif" alt="Stepper Motor Step Animation" class="w-full max-w-md rounded shadow mb-2">
+          <span class="text-gray-700 font-medium mt-2">Stepper Motor Step-by-Step Movement Animation</span>
+        </div>
+        <p class="mb-2 text-gray-700">The A4988 is a popular stepper motor driver used in robotics and 3D printers. It allows you to control the direction, speed, and microstepping of stepper motors with just a few signals from your microcontroller. The A4988 makes it easy to achieve smooth, precise motion and supports multiple microstepping modes for fine control.</p>
+        <div class="flex flex-col items-center my-4">
+          <img src="Module_04/a4988_pinout.jpg" alt="A4988 Driver Pinout" class="w-full max-w-md rounded shadow mb-2">
+          <span class="text-gray-700 font-medium mt-2">A4988 Driver Pinout Diagram</span>
+        </div>
+        <ul class="list-disc ml-6 text-gray-700 mb-2">
+          <li><b>Step angle</b> (e.g., 1.8° per step for NEMA 17)</li>
+          <li>Full step vs. microstepping</li>
+          <li><b>A4988 inputs:</b> STEP (triggered high for each microstep), DIR (rotation direction), MS1/MS2/MS3 (microstepping), ENABLE (optional)</li>
+        </ul>
+        <div class="overflow-x-auto mb-4">
+          <table class="table-auto text-sm">
+            <thead><tr class="bg-gray-200"><th>MS1</th><th>MS2</th><th>MS3</th><th>Mode</th><th>Microsteps/step</th></tr></thead>
+            <tbody>
+              <tr><td>0</td><td>0</td><td>0</td><td>Full Step</td><td>1</td></tr>
+              <tr><td>1</td><td>0</td><td>0</td><td>Half Step</td><td>2</td></tr>
+              <tr><td>0</td><td>1</td><td>0</td><td>Quarter Step</td><td>4</td></tr>
+              <tr><td>1</td><td>1</td><td>0</td><td>Eighth Step</td><td>8</td></tr>
+              <tr><td>1</td><td>1</td><td>1</td><td>Sixteenth Step</td><td>16</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <section class="mb-10">
+        <h2 class="text-2xl font-bold text-black mb-4">🛠️ Step 2: Wiring the A4988 with Pico W</h2>
+        <div class="overflow-x-auto mb-4">
+          <table class="table-auto text-sm">
+            <thead><tr class="bg-gray-200"><th>A4988 Pin</th><th>Connects To</th></tr></thead>
+            <tbody>
+              <tr><td>VDD</td><td>5V Regulator Output</td></tr>
+              <tr><td>GND</td><td>GND</td></tr>
+              <tr><td>VMOT</td><td>12V Motor Power (+)</td></tr>
+              <tr><td>GND (Power)</td><td>GND (Power Supply)</td></tr>
+              <tr><td>STEP</td><td>Pico GP15</td></tr>
+              <tr><td>DIR</td><td>Pico GP14</td></tr>
+              <tr><td>MS1</td><td>Pico GP10</td></tr>
+              <tr><td>MS2</td><td>Pico GP11</td></tr>
+              <tr><td>MS3</td><td>Pico GP12</td></tr>
+              <tr><td>Enable (optional)</td><td>GND or control pin</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="flex flex-col items-center my-4">
+          <img src="Module_04/circuit.png" alt="A4988 Pico W Wiring Diagram" class="w-full max-w-2xl rounded shadow mb-2">
+          <span class="text-gray-700 font-medium mt-2">A4988 and Pico W Wiring Diagram</span>
+        </div>
+        <div class="text-red-600 font-semibold mb-2">⚠️ Important: A4988 requires 5V VDD logic; use level shifting if needed.</div>
+      </section>
+      <section class="mb-10">
+        <h2 class="text-2xl font-bold text-black mb-4">🧱 Step 3: Setting Up Stepping Modes (<code>stepping_mode.py</code>)</h2>
+        <div class="code-block"><pre>FULL_STEP = (0, 0, 0)
+HALF_STEP = (1, 0, 0)
+QUARTER_STEP = (0, 1, 0)
+EIGHTH_STEP = (1, 1, 0)
+SIXTEENTH_STEP = (1, 1, 1)</pre></div>
+        <p class="text-gray-700">This file defines tuples for each microstepping mode supported by the A4988 driver. By organizing stepping modes this way, you can easily switch between full, half, quarter, eighth, and sixteenth steps in your code, making your motor control flexible and modular.</p>
+      </section>
+      <section class="mb-10">
+        <h2 class="text-2xl font-bold text-black mb-4">🧠 Step 4: Create a Stepper Motor Control Class (<code>stepper_motor.py</code>)</h2>
+        <div class="code-block"><pre>from machine import Pin
+from time import sleep_us
+import stepping_mode
+
+class StepperMotor:
+    def __init__(self, step_pin, dir_pin, ms1_pin, ms2_pin, ms3_pin):
+        self.step_pin = Pin(step_pin, Pin.OUT)
+        self.dir_pin = Pin(dir_pin, Pin.OUT)
+        self.ms1 = Pin(ms1_pin, Pin.OUT)
+        self.ms2 = Pin(ms2_pin, Pin.OUT)
+        self.ms3 = Pin(ms3_pin, Pin.OUT)
+
+    def set_stepping_mode(self, mode):
+        self.ms1.value(mode[0])
+        self.ms2.value(mode[1])
+        self.ms3.value(mode[2])
+
+    def set_direction(self, clockwise=True):
+        self.dir_pin.value(1 if clockwise else 0)
+
+    def rotate_steps(self, steps, delay_us=1000):
+        for _ in range(steps):
+            self.step_pin.high()
+            sleep_us(delay_us)
+            self.step_pin.low()
+            sleep_us(delay_us)
+
+    def rotate_degrees(self, degrees, steps_per_rev=200):
+        microsteps = self.calculate_microsteps(steps_per_rev)
+        steps_needed = int((degrees / 360.0) * microsteps)
+        self.rotate_steps(steps_needed)
+
+    def calculate_microsteps(self, base_steps=200):
+        mode_state = (self.ms1.value(), self.ms2.value(), self.ms3.value())
+        microstep_table = {
+            (0, 0, 0): 1,
+            (1, 0, 0): 2,
+            (0, 1, 0): 4,
+            (1, 1, 0): 8,
+            (1, 1, 1): 16
+        }
+        return base_steps * microstep_table.get(mode_state, 1)
+</pre></div>
+        <p class="text-gray-700">This class abstracts the control of a stepper motor. It lets you set the microstepping mode, direction, and rotate the motor by steps or degrees. The code is modular and reusable, making it easy to manage hardware and experiment with different settings. The <code>rotate_degrees</code> method automatically calculates the number of steps needed for a given angle, based on the current microstepping mode.</p>
+      </section>
+      <section class="mb-10">
+        <h2 class="text-2xl font-bold text-black mb-4">🧪 Step 5: Testing Stepper in All Modes (<code>main.py</code>)</h2>
+        <div class="code-block overflow-x-auto"><pre>from stepper_motor import StepperMotor
+import stepping_mode
+import time
+
+motor = StepperMotor(step_pin=15, dir_pin=14, ms1_pin=10, ms2_pin=11, ms3_pin=12)
+
+for mode_name, mode in [
+    ("Full Step", stepping_mode.FULL_STEP),
+    ("Half Step", stepping_mode.HALF_STEP),
+    ("Quarter Step", stepping_mode.QUARTER_STEP),
+    ("Eighth Step", stepping_mode.EIGHTH_STEP),
+    ("Sixteenth Step", stepping_mode.SIXTEENTH_STEP)
+]:
+    print(f"Testing {mode_name}")
+    motor.set_stepping_mode(mode)
+    motor.set_direction(clockwise=True)
+    motor.rotate_degrees(360)
+    time.sleep(1)
+</pre></div>
+        <p class="text-gray-700">This script demonstrates how to test your stepper motor in all available microstepping modes. It loops through each mode, sets the driver accordingly, and rotates the motor a full 360 degrees. This helps you observe the difference in smoothness and precision for each mode, and verify that your wiring and code are working correctly.</p>
+      </section>
+      <section class="mb-10">
+        <h2 class="text-2xl font-bold text-black mb-4">🧑‍🔬 Step 6: Mini Challenges</h2>
+        <ul class="list-disc ml-6 text-gray-700">
+          <li><b>Mini Challenge 1:</b> Modify the <code>rotate_degrees()</code> to rotate back and forth 90° for each step mode.</li>
+          <li><b>Mini Challenge 2:</b> Add a push-button to switch stepping modes dynamically.</li>
+          <li><b>Mini Challenge 3:</b> Experiment with different <code>sleep_us()</code> values to understand speed control.</li>
+        </ul>
+      </section>
+      <section class="mb-10">
+        <h2 class="text-2xl font-bold text-black mb-4">📌 Summary</h2>
+        <ul class="list-disc ml-6 text-gray-700">
+          <li>How stepping modes affect motor precision.</li>
+          <li>Real motor wiring and current needs.</li>
+          <li>Abstracting hardware into classes (OOP).</li>
+          <li>Preparing foundational knowledge for PID motor control and balancing logic in future modules.</li>
+        </ul>
+      </section>
+      <!-- Download Complete Code Button -->
+      <div class="flex justify-center my-8">
+        <a href="https://github.com/Botronix-Labs/BotronixLabsCourses/tree/7cf7c58505b9e9ab9c90c799025b942a9ff942cd/Intermediate/M4" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-6 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none">
+          <i class="fas fa-download mr-2"></i>Download Complete Code
+        </a>
+      </div>
+
+      <section class="mb-10">
+        <h2 class="section-title">Complete YouTube Tutorial</h2>
+        <div class="flex flex-col items-center my-8">
+          <iframe width="900" height="506" src="https://www.youtube.com/embed/b6R0arMrFBs" title="Module 4: Stepper Motor & A4988 Tutorial" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="rounded-lg shadow"></iframe>
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
