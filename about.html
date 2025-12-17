@@ -1,47 +1,305 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About | Botronix Labs</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2366675854686882"
-     crossorigin="anonymous"></script>
-  <style>body { font-family: 'Montserrat', sans-serif; }</style>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>About Botronix Labs</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;family=Noto+Sans:wght@300..800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                        "surface-dark": "#1c1f27",
+                        "accent-blue": "#3b82f6",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, #1f2937 1px, transparent 1px), linear-gradient(to bottom, #1f2937 1px, transparent 1px)",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom Utilities */
+        .glass-card {
+            background: rgba(28, 31, 39, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 67, 84, 0.5);
+        }
+        
+        .tech-grid-bg {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(59, 67, 84, 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(59, 67, 84, 0.1) 1px, transparent 1px);
+        }
+
+        .glow-text {
+            text-shadow: 0 0 20px rgba(19, 91, 236, 0.5);
+        }
+        
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
 </head>
-<body class="bg-gray-50 min-h-screen flex flex-col">
-  <main class="flex-1 max-w-3xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-    <div class="flex flex-col items-center mb-8">
-      <img src="assets/logo.jpeg" alt="Botronix Labs Logo" class="h-20 w-auto rounded shadow mb-2">
-      <span class="text-xl font-bold text-gray-900">Botronix Labs</span>
-      <span class="text-blue-700 font-semibold mt-1">Empowering Robotics Education</span>
-      <p class="mt-3 text-center text-base text-gray-700 max-w-xl">Empowering the next generation through hands-on robotics, coding, and innovation—bridging education and real-world technology.</p>
-    </div>
-    <nav class="mb-8 flex flex-wrap gap-4 justify-center text-sm">
-      <a href="#offer" class="text-blue-600 underline">What We Offer</a>
-      <a href="#values" class="text-blue-600 underline">Our Values</a>
-      <a href="#contact" class="text-blue-600 underline">Contact</a>
-      <a href="index.html" class="text-gray-500 hover:text-blue-700">Back to Home</a>
-    </nav>
-    <h1 class="text-3xl font-extrabold text-blue-700 mb-6">About Botronix Labs</h1>
-    <p class="mb-4">Botronix Labs is dedicated to making robotics and coding accessible to everyone. Our mission is to empower students, educators, and hobbyists with hands-on learning resources, open-source projects, and step-by-step tutorials.</p>
-    <h2 id="offer" class="text-2xl font-bold text-gray-900 mt-8 mb-2 flex items-center"><span class="mr-2"><i class="fa fa-robot text-blue-600"></i></span>What We Offer</h2>
-    <ul class="list-disc ml-6 mb-4">
-      <li>Free robotics courses for all skill levels</li>
-      <li>3D-printable robot designs and downloadable resources</li>
-      <li>Video tutorials and project-based learning</li>
-      <li>Open-source code and community support</li>
-    </ul>
-    <h2 id="values" class="text-2xl font-bold text-gray-900 mt-8 mb-2 flex items-center"><span class="mr-2"><i class="fa fa-heart text-pink-600"></i></span>Our Values</h2>
-    <ul class="list-disc ml-6 mb-4">
-      <li>Accessibility: Learning should be free and open to all</li>
-      <li>Creativity: We encourage experimentation and innovation</li>
-      <li>Community: Collaboration and sharing knowledge</li>
-      <li>Integrity: Honest, high-quality educational content</li>
-    </ul>
-    <h2 id="contact" class="text-2xl font-bold text-gray-900 mt-8 mb-2 flex items-center"><span class="mr-2"><i class="fa fa-envelope text-blue-600"></i></span>Contact</h2>
-    <p>Questions or feedback? Visit our <a href="contacts/contactTest.html" class="text-blue-600 underline">Contact</a> page.</p>
-  </main>
-</body>
-</html>
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-white antialiased selection:bg-primary selection:text-white">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Navbar -->
+<header class="sticky top-0 z-50 w-full border-b border-[#282e39] bg-background-dark/90 backdrop-blur-md">
+<div class="flex items-center justify-between px-6 py-4 lg:px-20 max-w-[1440px] mx-auto w-full">
+<div class="flex items-center gap-4 text-white">
+<div class="size-8 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl">smart_toy</span>
+</div>
+<h2 class="text-white text-xl font-bold leading-tight tracking-[-0.015em]">Botronix Labs</h2>
+</div>
+<div class="hidden md:flex flex-1 justify-end gap-8">
+<nav class="flex items-center gap-8">
+<a class="text-gray-300 hover:text-white hover:text-primary transition-colors text-sm font-medium" href="#">Home</a>
+<a class="text-white text-sm font-medium" href="about.html">About</a>
+<a class="text-gray-300 hover:text-white hover:text-primary transition-colors text-sm font-medium" href="#">Courses</a>
+<a class="text-gray-300 hover:text-white hover:text-primary transition-colors text-sm font-medium" href="#">R&amp;D</a>
+</nav>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-6 bg-primary hover:bg-blue-600 transition-colors text-white text-sm font-bold shadow-[0_0_15px_rgba(19,91,236,0.3)]">
+<span class="truncate">Join the Future</span>
+</button>
+</div>
+<!-- Mobile Menu Button -->
+<button class="md:hidden text-white">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</header>
+<main class="flex-1 flex flex-col items-center w-full">
+<!-- Hero Section -->
+<section class="relative w-full tech-grid-bg border-b border-[#282e39]">
+<div class="absolute inset-0 bg-gradient-to-b from-transparent to-background-dark pointer-events-none"></div>
+<div class="max-w-[1200px] mx-auto px-6 py-20 lg:py-32 flex flex-col items-center text-center z-10 relative">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/30 text-primary text-xs font-bold uppercase tracking-wider mb-6">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+</span>
+                        Establish 2015
+                    </div>
+<h1 class="text-white text-5xl md:text-7xl font-black leading-tight tracking-[-0.033em] mb-6 glow-text max-w-4xl">
+                        Engineering <br/> <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-cyan-400">The Future</span>
+</h1>
+<p class="text-gray-400 text-lg md:text-xl font-normal leading-relaxed max-w-2xl mb-10">
+                        Where code meets kinetic energy. From a humble embedded studio to a global force empowering the next generation of innovators and robotics engineers.
+                    </p>
+<div class="w-full max-w-[1000px] h-[300px] md:h-[400px] rounded-2xl overflow-hidden relative shadow-2xl border border-gray-800 group">
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent opacity-60 z-10"></div>
+<img alt="Close up of a robotic arm working on precise circuit board assembly in a dark high-tech lab" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxkH7TqBA5ogvei2us8Y5GmwnO7j3Xf3jUzrhFb342FkbT_qbkZFK5hPuWvuaY0TOFTtXbCmdgYWSSSLCvjXlIOjQiLucgz1o3sT24DX2F5aio_h7FltsBVNhr4SpQCUVHsI1wBbqIKLbHCYeSgAEr32CnbrWQbB4lUCwLUDXwVOj5oP4Is8rz_nvSAdxoZOAck02uaDAjNhS-hxet46sb8JzYOEQPYmtVx_fcWBlSO0kIGobpgNgbRRkb-gpaXszMewMl3WzY_OI"/>
+<div class="absolute bottom-6 left-6 z-20">
+<p class="text-primary text-xs font-mono mb-1">SYSTEM STATUS: ONLINE</p>
+<h3 class="text-white text-xl font-bold">Botronix R&amp;D Lab - Toronto, CA</h3>
+</div>
+</div>
+</div>
+</section>
+<!-- Mission & Stats -->
+<section class="w-full bg-background-dark py-16 px-6 border-b border-[#282e39]">
+<div class="max-w-[1000px] mx-auto">
+<div class="flex flex-col gap-10">
+<div class="flex flex-col md:flex-row gap-10 justify-between items-start md:items-end border-b border-gray-800 pb-10">
+<div class="flex flex-col gap-4 max-w-xl">
+<h2 class="text-white text-3xl md:text-4xl font-bold leading-tight">
+                                    Our Mission
+                                </h2>
+<p class="text-gray-400 text-base md:text-lg leading-relaxed">
+                                    To demystify robotics and embedded systems, providing accessible, high-quality technical education while pushing the boundaries of R&amp;D in automation and AI.
+                                </p>
+</div>
+<div class="flex gap-8">
+<div>
+<p class="text-3xl font-bold text-white">50k+</p>
+<p class="text-sm text-gray-500 uppercase tracking-wider">Students</p>
+</div>
+<div>
+<p class="text-3xl font-bold text-white">120+</p>
+<p class="text-sm text-gray-500 uppercase tracking-wider">Patents</p>
+</div>
+</div>
+</div>
+<!-- Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<div class="glass-card rounded-xl p-6 flex flex-col gap-4 hover:border-primary/50 transition-colors group">
+<div class="size-12 rounded-lg bg-primary/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined">lightbulb</span>
+</div>
+<div>
+<h3 class="text-white text-lg font-bold mb-2">Innovation</h3>
+<p class="text-gray-400 text-sm">Constantly pushing boundaries in Research &amp; Development to solve tomorrow's problems today.</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="glass-card rounded-xl p-6 flex flex-col gap-4 hover:border-primary/50 transition-colors group">
+<div class="size-12 rounded-lg bg-primary/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined">groups</span>
+</div>
+<div>
+<h3 class="text-white text-lg font-bold mb-2">Empowerment</h3>
+<p class="text-gray-400 text-sm">Equipping the next generation of engineers with the tools and knowledge to build their dreams.</p>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="glass-card rounded-xl p-6 flex flex-col gap-4 hover:border-primary/50 transition-colors group">
+<div class="size-12 rounded-lg bg-primary/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+<span class="material-symbols-outlined">precision_manufacturing</span>
+</div>
+<div>
+<h3 class="text-white text-lg font-bold mb-2">Precision</h3>
+<p class="text-gray-400 text-sm">Maintaining the highest standards in engineering practices and corporate technical training.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Timeline Section -->
+<section class="w-full py-20 px-6 bg-[#0c1018] relative overflow-hidden">
+<!-- Decorative BG Elements -->
+<div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-primary/5 to-transparent pointer-events-none"></div>
+<div class="max-w-[960px] mx-auto relative z-10">
+<h2 class="text-white text-3xl font-bold mb-12 text-center">Our Evolution</h2>
+<div class="grid grid-cols-[60px_1fr] gap-x-6">
+<!-- Item 1 -->
+<div class="flex flex-col items-center gap-1 pt-2">
+<div class="size-10 rounded-full bg-surface-dark border border-gray-700 flex items-center justify-center text-primary shadow-[0_0_10px_rgba(19,91,236,0.2)]">
+<span class="material-symbols-outlined text-[20px]">memory</span>
+</div>
+<div class="w-[2px] bg-gradient-to-b from-gray-700 to-gray-700 h-24 grow"></div>
+</div>
+<div class="flex flex-1 flex-col py-2 pb-12">
+<span class="text-primary text-sm font-bold tracking-wider mb-1">2015</span>
+<h3 class="text-white text-xl font-bold leading-normal">Origins: The Embedded Studio</h3>
+<p class="text-gray-400 text-base font-normal leading-normal mt-2">
+                                Founded in a small garage in Montreal, we started as a specialized embedded systems consulting firm for IoT startups.
+                            </p>
+</div>
+<!-- Item 2 -->
+<div class="flex flex-col items-center gap-1">
+<div class="w-[2px] bg-gray-700 h-full"></div>
+<div class="size-10 rounded-full bg-surface-dark border border-gray-700 flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-[20px]">school</span>
+</div>
+<div class="w-[2px] bg-gradient-to-b from-gray-700 to-gray-700 h-24 grow"></div>
+</div>
+<div class="flex flex-1 flex-col py-2 pb-12">
+<span class="text-gray-500 text-sm font-bold tracking-wider mb-1">2017</span>
+<h3 class="text-white text-xl font-bold leading-normal">Education Expansion</h3>
+<p class="text-gray-400 text-base font-normal leading-normal mt-2">
+                                Realizing the gap in practical robotics education, we launched our first "hands-on" workshops which sold out in 48 hours.
+                            </p>
+</div>
+<!-- Item 3 -->
+<div class="flex flex-col items-center gap-1">
+<div class="w-[2px] bg-gray-700 h-full"></div>
+<div class="size-10 rounded-full bg-surface-dark border border-gray-700 flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-[20px]">business_center</span>
+</div>
+<div class="w-[2px] bg-gradient-to-b from-gray-700 to-primary h-24 grow"></div>
+</div>
+<div class="flex flex-1 flex-col py-2 pb-12">
+<span class="text-gray-500 text-sm font-bold tracking-wider mb-1">2019</span>
+<h3 class="text-white text-xl font-bold leading-normal">Corporate Training</h3>
+<p class="text-gray-400 text-base font-normal leading-normal mt-2">
+                                Partnered with Fortune 500 manufacturing firms to retrain their workforce in modern automation and PLC programming.
+                            </p>
+</div>
+<!-- Item 4 -->
+<div class="flex flex-col items-center gap-1">
+<div class="w-[2px] bg-primary h-full shadow-[0_0_8px_rgba(19,91,236,0.6)]"></div>
+<div class="size-10 rounded-full bg-primary flex items-center justify-center text-white shadow-[0_0_15px_rgba(19,91,236,0.6)] z-10">
+<span class="material-symbols-outlined text-[20px]">biotech</span>
+</div>
+</div>
+<div class="flex flex-1 flex-col py-2">
+<span class="text-primary text-sm font-bold tracking-wider mb-1">2023 - Present</span>
+<h3 class="text-white text-xl font-bold leading-normal">R&amp;D Focus</h3>
+<p class="text-gray-400 text-base font-normal leading-normal mt-2">
+                                We returned to our roots, establishing a dedicated lab for advanced prototyping in soft robotics and AI-driven control systems.
+                            </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Engineers section removed as requested -->
+<!-- R&D Showcase CTA -->
+<section class="w-full py-20 px-6 bg-gradient-to-r from-[#0a0e17] to-[#121826] border-t border-[#282e39] text-center">
+<div class="max-w-3xl mx-auto flex flex-col items-center gap-6">
+<span class="material-symbols-outlined text-5xl text-primary animate-pulse">rocket_launch</span>
+<h2 class="text-3xl md:text-5xl font-bold text-white tracking-tight">Ready to Innovate?</h2>
+<p class="text-gray-400 text-lg">
+                        Join us in shaping the future of robotics. Whether you're here to learn or to collaborate on R&amp;D, we have a place for you.
+                    </p>
+<div class="flex flex-col sm:flex-row gap-4 mt-4">
+<button class="flex items-center justify-center rounded-lg h-12 px-8 bg-primary hover:bg-blue-600 text-white font-bold shadow-lg shadow-blue-900/50 transition-all">
+                            Explore Courses
+                        </button>
+<button class="flex items-center justify-center rounded-lg h-12 px-8 border border-gray-600 hover:border-white text-white font-bold transition-all bg-transparent hover:bg-white/5">
+                            Contact R&amp;D Team
+                        </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-background-dark border-t border-[#282e39] py-12 px-6">
+<div class="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 text-sm">
+<div class="col-span-1 md:col-span-2 flex flex-col gap-4">
+<div class="flex items-center gap-2 text-white">
+<span class="material-symbols-outlined text-primary">smart_toy</span>
+<span class="font-bold text-lg">Botronix Labs</span>
+</div>
+<p class="text-gray-500 max-w-xs">
+                        Empowering the world through robotics education and cutting-edge embedded systems research.
+                    </p>
+<div class="flex gap-4 mt-2">
+<a class="text-gray-400 hover:text-white" href="#"><i class="fa-brands fa-twitter"></i> Twitter</a>
+<a class="text-gray-400 hover:text-white" href="#">LinkedIn</a>
+<a class="text-gray-400 hover:text-white" href="#">GitHub</a>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="text-white font-bold">Company</h4>
+<a class="text-gray-400 hover:text-primary transition-colors" href="about.html">About Us</a>
+<a class="text-gray-400 hover:text-primary transition-colors" href="#">Careers</a>
+<a class="text-gray-400 hover:text-primary transition-colors" href="#">Partners</a>
+<a class="text-gray-400 hover:text-primary transition-colors" href="#">News</a>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="text-white font-bold">Resources</h4>
+<a class="text-gray-400 hover:text-primary transition-colors" href="#">Course Catalog</a>
+<a class="text-gray-400 hover:text-primary transition-colors" href="#">Documentation</a>
+<a class="text-gray-400 hover:text-primary transition-colors" href="#">Community Forum</a>
+<a class="text-gray-400 hover:text-primary transition-colors" href="#">Open Source</a>
+</div>
+</div>
+<div class="max-w-[1200px] mx-auto mt-12 pt-8 border-t border-gray-800 text-center text-gray-600 text-xs">
+                © 2023 Botronix Labs. All rights reserved. <br/> Designed for the Future.
+            </div>
+</footer>
+</div>
+</body></html>

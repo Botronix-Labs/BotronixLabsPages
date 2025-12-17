@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Botronix Labs - Robotics Education</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="google-adsense-account" content="ca-pub-2366675854686882">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2366675854686882"
+     crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            scroll-behavior: smooth;
+             -webkit-text-size-adjust: 100%; /* Existing property */
+            text-size-adjust: 100%; /* Added for broader browser support */
+        }
+        html, :host {
+            text-size-adjust: 100%; /* Added for broader browser compatibility */
+            -webkit-text-size-adjust: 100%;
+            
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        }
+        .course-card:hover, .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .contact-form {
+            background-color: #f8fafc;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .contact-info-card {
+            transition: all 0.3s ease;
+        }
+        .contact-info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .robot-logo {
+            color: #3b82f6;
+            font-size: 1.75rem;
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .nav-link.active {
+            border-bottom: 2px solid #3b82f6;
+            color: #1d4ed8;
+        }
+        #subscribeButton {
+            background-color: #3b82f6; /* Blue color */
+        }
+        .video-section .grid {
+            display: flex;
+            flex-direction: row; /* Ensure horizontal layout */
+            overflow-x: auto; /* Enable horizontal scrolling */
+            gap: 1rem; /* Add spacing between cards */
+        }
+        .video-section .grid > div {
+            flex: 0 0 auto; /* Prevent cards from shrinking */
+            width: 300px; /* Set a fixed width for cards */
+        }
+        .project-card img {
+            height: auto; /* Adjust height to auto for proper aspect ratio */
+            max-height: 200px; /* Set a maximum height for images */
+            object-fit: contain; /* Ensure the image fits within the card without distortion */
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <div class="flex items-center">
+                            <img src="assets/logo.jpeg" alt="Botronix Labs Logo" style="height: 2.5rem; width: auto; border-radius: 0.25rem;" />
+                            <span class="ml-2 text-xl font-bold text-gray-900">Botronix Labs</span>
+                        </div>
+                    </div>
+                    <div class="hidden md:ml-8 md:flex md:space-x-8">
+                        <a href="about.html" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-2 pt-1 border-b-2 text-sm font-medium">About</a>
+                        <a href="#courses" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-2 pt-1 border-b-2 text-sm font-medium">Courses</a>
+                        <a href="python/python.html" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-2 pt-1 border-b-2 text-sm font-medium">Python</a>
+                        <a href="#videos" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-2 pt-1 border-b-2 text-sm font-medium">Videos</a>
+                        <a href="contact.html" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-2 pt-1 border-b-2 text-sm font-medium">Contact</a>
+                        <a href="privacy-policy.html" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-2 pt-1 border-b-2 text-sm font-medium">Privacy</a>
+                    </div>
+                </div>
+                <div class="hidden md:ml-6 md:flex md:items-center space-x-4">
+                    <form id="subscribeForm" class="flex flex-row items-center space-x-2" action="https://script.google.com/macros/s/AKfycbxn15R0u4wP1LQiTLVILjKLurW_-j1hi0a1IiEOwOvvqIwNJPQLUAMiWpKpaTb6aSQt/exec" method="POST" target="hidden_iframe" onsubmit="handleSubscribe(event)">
+                        <input type="email" id="emailInput" name="email" placeholder="Enter your email" required class="py-2 px-2 border border-gray-300 rounded-md text-xs focus:ring-blue-500 focus:border-blue-500 w-36" />
+                        <button id="subscribeButton" type="submit" class="bg-purple-600 text-white px-3 py-2 rounded-md text-xs font-medium transition duration-150 ease-in-out">Subscribe</button>
+                    </form>
+                    <iframe name="hidden_iframe" style="display:none;"></iframe>
+                    <script>
+                        function handleSubscribe(event) {
+                            const emailInput = document.getElementById('emailInput');
+                            const subscribeButton = document.getElementById('subscribeButton');
+
+                            // Ensure the form submits to the Google Apps Script
+                            setTimeout(() => {
+                                subscribeButton.textContent = 'Subscribed';
+                                subscribeButton.disabled = true;
+
+                                // Clear the email input field
+                                emailInput.value = '';
+
+                                // Revert button text after 3 seconds
+                                setTimeout(() => {
+                                    subscribeButton.textContent = 'Subscribe';
+                                    subscribeButton.disabled = false;
+                                }, 3000);
+                            }, 500); // Allow form submission to complete
+                        }
+                    </script>
+                </div>
+                <div class="-mr-2 flex items-center md:hidden">
+                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500" aria-controls="mobile-menu" aria-expanded="false" id="mobile-menu-button">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div class="hidden md:hidden" id="mobile-menu">
+            <div class="pt-2 pb-3 space-y-1">
+                <a href="about.html" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50 hover:border-gray-300">About</a>
+                <a href="#courses" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50 hover:border-gray-300">Courses</a>
+                <a href="python/python.html" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50 hover:border-gray-300">Python Code</a>
+                <a href="#videos" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50 hover:border-gray-300">Videos</a>
+                <a href="#contact" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50 hover:border-gray-300">Contact</a>
+                <a href="privacy-policy.html" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50 hover:border-gray-300">Privacy Policy</a>
+                <div class="mt-4 pl-3 pr-4">
+                    <button class="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-base font-medium transition duration-150 ease-in-out">Sign In</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-gradient">
+        <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl">
+                    <span class="block">Welcome to Botronix Labs</span>
+                    <span class="block">Empowering Robotics Education</span>
+                </h1>
+                <p class="mt-3 max-w-md mx-auto text-base text-blue-100 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
+                    Learn, build, and innovate with our comprehensive robotics courses, resources, and community support.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Courses Section -->
+    <div id="courses" class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center">
+                <h2 class="text-base text-blue-600 font-semibold tracking-wide uppercase">Education</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    Our Robotics Courses
+                </p>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                    From beginner to advanced levels, we have courses to suit every learning stage.
+                </p>
+            </div>
+
+            <div class="mt-10">
+                <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                    <!-- Course Card 1 -->
+                    <div class="course-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out" onclick="location.href='courses/fundamentals/fundamentals.html'">
+                        <div class="px-4 py-5 sm:p-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 bg-blue-100 rounded-md p-3">
+                                    <i class="fas fa-baby text-blue-600 text-xl"></i>
+                                </div>
+                                <div class="ml-5 w-0 flex-1">
+                                    <h3 class="text-lg font-medium text-gray-900">Fundamentals of Robotics</h3>
+                                    <p class="mt-1 text-sm text-gray-500">Beginner Level</p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <p class="text-sm text-gray-600">
+                                    Learn the basics of robotics, including components, simple circuits, and introductory programming concepts.
+                                </p>
+                            </div>
+                            <div class="mt-5 flex items-center justify-between">
+                                <span id="fundamentals-module-count" class="text-sm font-medium text-blue-600"></span>
+                                <button class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none" onclick="location.href='courses/fundamentals/fundamentals.html'">
+                                    Learn More
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Course Card 2 -->
+                    <div class="course-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out" onclick="location.href='courses/intermediate/intermediate.html'">
+                        <div class="px-4 py-5 sm:p-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 bg-blue-100 rounded-md p-3">
+                                    <i class="fas fa-microchip text-blue-600 text-xl"></i>
+                                </div>
+                                <div class="ml-5 w-0 flex-1">
+                                    <h3 class="text-lg font-medium text-gray-900">Intermediate Robotics</h3>
+                                    <p class="mt-1 text-sm text-gray-500">Intermediate Level</p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <p class="text-sm text-gray-600">
+                                    Build and program RPI Pico-based robots with sensors, motors, and wireless communication modules.
+                                </p>
+                            </div>
+                            <div class="mt-5 flex items-center justify-between">
+                                <span id="intermediate-module-count" class="text-sm font-medium text-blue-600"></span>
+                                <button class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none" onclick="location.href='courses/intermediate/intermediate.html'">
+                                    Learn More
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Course Card 3 -->
+                    <div class="course-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out" onclick="location.href='courses/advanced/advanced.html'">
+                        <div class="px-4 py-5 sm:p-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 bg-blue-100 rounded-md p-3">
+                                    <i class="fas fa-robot text-blue-600 text-xl"></i>
+                                </div>
+                                <div class="ml-5 w-0 flex-1">
+                                    <h3 class="text-lg font-medium text-gray-900">Advanced Robotics</h3>
+                                    <p class="mt-1 text-sm text-gray-500">Advanced Level</p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <p class="text-sm text-gray-600">
+                                    Implement machine learning and computer vision in robotics using Python and Raspberry Pi.
+                                </p>
+                            </div>
+                            <div class="mt-5 flex items-center justify-between">
+                                <span id="advanced-module-count" class="text-sm font-medium text-blue-600"></span>
+                                <button class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none" onclick="location.href='courses/advanced/advanced.html'">
+                                    Learn More
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-10 text-center">
+                    <a href="#" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                        View All Courses
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Python Code Section -->
+    <div id="python" class="py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center">
+                <h2 class="text-base text-blue-600 font-semibold tracking-wide uppercase">Python GUI with Tkinter</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    Build GUI Applications to Control Your Robots
+                </p>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                    Learn how to create powerful graphical user interfaces (GUIs) in Python using Tkinter. Design custom control panels and dashboards to interact with robots like Pico Otto and bring your robotics projects to life!
+                </p>
+            </div>
+            <div class="mt-10 text-center">
+                <!-- Pico Otto GUI Project Card using course-card style -->
+                <div class="course-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out max-w-md mx-auto mb-8">
+                  <div class="video-container">
+                    <iframe width="100%" height="220" src="https://www.youtube.com/embed/videoseries?list=PLCmvNYmqSchBx2jH-7ti2fMVuzOympka6" title="Pico Otto GUI Project Playlist" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="rounded-t-md w-full"></iframe>
+                  </div>
+                  <div class="px-4 py-5 sm:p-6 flex flex-col items-center">
+                    <h3 class="text-lg font-bold text-gray-900 mb-1">Pico Otto GUI</h3>
+                    <p class="text-gray-700 text-sm text-center mb-3">Step-by-step video series to build a modern robot controller interface for Pico Otto using Python and Tkinter. Learn GUI layouts, images, controls, and styling.</p>
+                    <a href="courses/python/python.html" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-semibold rounded shadow hover:bg-blue-700 transition text-sm mt-2">
+                      Learn More
+                    </a>
+                  </div>
+                </div>
+                <a href="courses/python/python.html" class="inline-flex items-center px-6 py-3 border border-transparent textbase font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                    Explore Tkinter Courses
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Videos Section -->
+    <div id="videos" class="py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center">
+                <h2 class="text-base text-blue-600 font-semibold tracking-wide uppercase">Tutorials</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    Instructional Videos by Course Level
+                </p>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                    Explore our categorized video tutorials to learn robotics concepts at your own pace.
+                </p>
+            </div>
+
+            <div class="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                <!-- Beginner Level -->
+                <div class="course-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/videoseries?list=PLCmvNYmqSchD2PjgRpErZ-RimLSKOv4RQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="px-4 py-5 sm:p-6">
+                        <h3 class="text-lg font-medium text-gray-900">Fundamentals of Robotics</h3>
+                        <p class="mt-1 text-sm text-gray-500">
+                            Learn the basics of robotics, including components, simple circuits, and introductory programming concepts.
+                        </p>
+                        <div class="mt-4">
+                            <a href="courses/fundamentals/fundamentals.html" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                Learn More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Intermediate Level -->
+                <div class="course-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/videoseries?list=PLCmvNYmqSchDlZB-vgDqClJ6gU6Mdh4d6" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="px-4 py-5 sm:p-6">
+                        <h3 class="text-lg font-medium text-gray-900">Intermediate Robotics</h3>
+                        <p class="mt-1 text-sm text-gray-500">
+                            Build and program RPI Pico-based robots with sensors, motors, and wireless communication modules.
+                        </p>
+                        <div class="mt-4">
+                            <a href="courses/intermediate/intermediate.html" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                Learn More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advanced Level -->
+                <div class="course-card bg-white overflow-hidden shadow rounded-lg transition duration-300 ease-in-out">
+                    <div class="px-4 py-5 sm:p-6">
+                        <h3 class="text-lg font-medium text-gray-900">Advanced Robotics</h3>
+                        <p class="mt-1 text-sm text-gray-500">
+                            Implement machine learning and computer vision in robotics using Python and Raspberry Pi.
+                        </p>
+                        <div class="mt-4">
+                            <a href="courses/advanced/advanced.html" class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                                Learn More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add View All Videos Button -->
+            <div class="mt-10 text-center">
+                <a href="#videos" class="inline-flex items-center px-6 py-3 border border-transparent textbase font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+                    View All Videos
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div id="contact" class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center mb-12">
+                <h2 class="text-base text-blue-600 font-semibold tracking-wide uppercase">Support</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    We'd Love to Hear From You
+                </p>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                    Whether you have questions about our courses or need technical support, our team is here to help.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
+                <!-- Contact Form -->
+                <div class="contact-form p-6 sm:p-8">
+                    <h3 class="text-lg font-medium text-gray-900 mb-6">Send us a message</h3>
+                    <form id="contactForm" action="https://script.google.com/macros/s/AKfycbxn15R0u4wP1LQiTLVILjKLurW_-j1hi0a1IiEOwOvvqIwNJPQLUAMiWpKpaTb6aSQt/exec" method="POST" target="hidden_iframe" onsubmit="handleContactSubmit(event)">
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                            <div class="mt-1">
+                                <input type="email" name="email" id="email" required class="py-3 px-4 block w-full shadow-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+                            <div class="mt-1">
+                                <input type="text" name="username" id="username" required class="py-3 px-4 block w-full shadow-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-700">Subject</label>
+                            <div class="mt-1">
+                                <select name="subject" id="subject" required class="py-3 px-4 block w-full shadow-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md">
+                                    <option value="General Inquiry">General Inquiry</option>
+                                    <option value="Course Information">Course Information</option>
+                                    <option value="Technical Support">Technical Support</option>
+                                    <option value="Feedback">Feedback</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+                            <div class="mt-1">
+                                <textarea id="message" name="message" rows="4" required class="py-3 px-4 block w-full shadow-sm focus:ring-blue-500 focus:border-blue-500 border-gray-300 rounded-md"></textarea>
+                            </div>
+                        </div>
+
+                        <div>
+                            <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out">
+                                Send Message
+                            </button>
+                        </div>
+                    </form>
+
+                    <iframe name="hidden_iframe" style="display:none;"></iframe>
+                    <script>
+                        function handleContactSubmit(event) {
+                            event.preventDefault();
+
+                            const email = document.getElementById('email').value;
+                            const username = document.getElementById('username').value;
+                            const subject = document.getElementById('subject').value;
+                            const message = document.getElementById('message').value;
+
+                            // Create a form data object to send to Google Sheets
+                            const formData = new FormData();
+                            formData.append('email', email);
+                            formData.append('username', username);
+                            formData.append('subject', subject);
+                            formData.append('message', message);
+
+                            // Submit the form data to the Google Apps Script
+                            fetch('https://script.google.com/macros/s/AKfycbxn15R0u4wP1LQiTLVILjKLurW_-j1hi0a1IiEOwOvvqIwNJPQLUAMiWpKpaTb6aSQt/exec', {
+                                method: 'POST',
+                                body: formData
+                            }).then(response => {
+                                if (response.ok) {
+                                    alert('Your message has been sent successfully!');
+                                    document.getElementById('contactForm').reset();
+                                } else {
+                                    alert('There was an error sending your message. Please try again later.');
+                                }
+                            }).catch(error => {
+                                console.error('Error:', error);
+                                alert('There was an error sending your message. Please try again later.');
+                            });
+                        }
+                    </script>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="space-y-6">
+                    <div class="contact-info-card bg-white p-6 rounded-lg shadow">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-blue-100 p-3 rounded-full">
+                                <i class="fas fa-map-marker-alt text-blue-600 text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-medium text-gray-900">Our Location</h3>
+                                <p class="mt-1 text-sm text-gray-500">
+                                    Ashton Drive, Vaughan, ON, Canada L6A 2L4
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-card bg-white p-6 rounded-lg shadow">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-blue-100 p-3 rounded-full">
+                                <i class="fas fa-phone-alt text-blue-600 text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-medium text-gray-900">Phone & Email</h3>
+                                <p class="mt-1 text-sm text-gray-500">
+                                    <span class="block">+1 (647)-862-8160</span>
+                                    <span class="block">info@botronixlabs.com</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-card bg-white p-6 rounded-lg shadow">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-blue-100 p-3 rounded-full">
+                                <i class="fas fa-clock text-blue-600 text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-medium text-gray-900">Support Hours</h3>
+                                <p class="mt-1 text-sm text-gray-500">
+                                    <span class="block">Monday - Friday: 9am - 6pm EST</span>
+                                    <span class="block">Saturday: 10am - 2pm EST</span>
+                                    <span class="block">Sunday: Closed</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-card bg-white p-6 rounded-lg shadow">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Connect With Us</h3>
+                        <div class="flex space-x-4">
+                            <a href="#" class="bg-gray-100 hover:bg-gray-200 p-3 rounded-full text-gray-700 transition duration-150 ease-in-out">
+                                <i class="fab fa-twitter text-lg"></i>
+                            </a>
+                            <a href="#" class="bg-gray-100 hover:bg-gray-200 p-3 rounded-full text-gray-700 transition duration-150 ease-in-out">
+                                <i class="fab fa-facebook-f text-lg"></i>
+                            </a>
+                            <a href="#" class="bg-gray-100 hover:bg-gray-200 p-3 rounded-full text-gray-700 transition duration-150 ease-in-out">
+                                <i class="fab fa-linkedin-in text-lg"></i>
+                            </a>
+                            <a href="#" class="bg-gray-100 hover:bg-gray-200 p-3 rounded-full text-gray-700 transition duration-150 ease-in-out">
+                                <i class="fab fa-youtube text-lg"></i>
+                            </a>
+                            <a href="#" class="bg-gray-100 hover:bg-gray-200 p-3 rounded-full text-gray-700 transition duration-150 ease-in-out">
+                                <i class="fab fa-github text-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="bg-gray-50 py-12">
+    <!-- FAQ Section -->
+    <div class="bg-gray-50 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center mb-12">
+                <h2 class="text-base text-blue-600 font-semibold tracking-wide uppercase">Support</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    Frequently Asked Questions
+                </p>
+            </div>
+
+            <div class="max-w-3xl mx-auto">
+                <div class="space-y-4">
+                    <div class="bg-white shadow overflow-hidden rounded-lg">
+                        <div class="px-4 py-5 sm:p-6">
+                            <button class="w-full flex justify-between items-center text-left focus:outline-none" id="faq1">
+                                <span class="text-lg font-medium text-gray-900">How do I enroll in a course?</span>
+                                <i class="fas fa-chevron-down text-blue-500 transition-transform duration-200 transform"></i>
+                            </button>
+                            <div class="mt-4 hidden" id="faq1-content">
+                                <p class="text-gray-600">
+                                    To enroll in any of our courses, simply click the "Enroll Now" button on the course page. You'll be guided through the registration process where you can create an account or sign in if you already have one.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white shadow overflow-hidden rounded-lg">
+                        <div class="px-4 py-5 sm:p-6">
+                            <button class="w-full flex justify-between items-center text-left focus:outline-none" id="faq2">
+                                <span class="text-lg font-medium text-gray-900">What prerequisites do I need?</span>
+                                <i class="fas fa-chevron-down text-blue-500 transition-transform duration-200 transform"></i>
+                            </button>
+                            <div class="mt-4 hidden" id="faq2-content">
+                                <p class="text-gray-600">
+                                    Our beginner courses require no prior knowledge. For intermediate and advanced courses, we recommend basic programming knowledge (especially Python) and some understanding of electronics. Each course page lists specific prerequisites.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white shadow overflow-hidden rounded-lg">
+                        <div class="px-4 py-5 sm:p-6">
+                            <button class="w-full flex justify-between items-center text-left focus:outline-none" id="faq3">
+                                <span class="text-lg font-medium text-gray-900">Do you offer certificates?</span>
+                                <i class="fas fa-chevron-down text-blue-500 transition-transform duration-200 transform"></i>
+                            </button>
+                            <div class="mt-4 hidden" id="faq3-content">
+                                <p class="text-gray-600">
+                                    Yes! Upon successful completion of any course, including all assignments and projects, you'll receive a digital certificate that you can share on LinkedIn or include in your resume.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white shadow overflow-hidden rounded-lg">
+                        <div class="px-4 py-5 sm:p-6">
+                            <button class="w-full flex justify-between items-center text-left focus:outline-none" id="faq4">
+                                <span class="text-lg font-medium text-gray-900">What hardware do I need?</span>
+                                <i class="fas fa-chevron-down text-blue-500 transition-transform duration-200 transform"></i>
+                            </button>
+                            <div class="mt-4 hidden" id="faq4-content">
+                                <p class="text-gray-600">
+                                    For most courses, you'll need a computer with internet access. Some advanced courses may require specific hardware like Raspberry Pi, Arduino, or robotic kits. These requirements are clearly listed on each course page.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 mt-12">
+        <div class="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-5 gap-8">
+            <div>
+                <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">Courses</h3>
+                <ul class="mt-4 space-y-2">
+                    <li><a href="courses/fundamentals/fundamentals.html" class="text-base text-gray-400 hover:text-white">Beginner</a></li>
+                    <li><a href="courses/intermediate/intermediate.html" class="text-base text-gray-400 hover:text-white">Intermediate</a></li>
+                    <li><a href="#" class="text-base text-gray-400 hover:text-white">Advanced</a></li>
+                    <li><a href="#" class="text-base text-gray-400 hover:text-white">Specializations</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">Resources</h3>
+                <ul class="mt-4 space-y-2">
+                    <li><a href="#" class="text-base text-gray-400 hover:text-white">Documentation</a></li>
+                    <li><a href="#" class="text-base text-gray-400 hover:text-white">Code Examples</a></li>
+                    <li><a href="#" class="text-base text-gray-400 hover:text-white">3D Models</a></li>
+                    <li><a href="#" class="text-base text-gray-400 hover:text-white">Community</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">Company</h3>
+                <ul class="mt-4 space-y-2">
+                    <li><a href="about.html" class="text-base text-gray-400 hover:text-white">About</a></li>
+                    <li><a href="#" class="text-base text-gray-400 hover:text-white">Blog</a></li>
+                    <li><a href="#" class="text-base text-gray-400 hover:text-white">Careers</a></li>
+                    <li><a href="#" class="text-base text-gray-400 hover:text-white">Partners</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">Legal</h3>
+                <ul class="mt-4 space-y-2">
+                    <li><a href="privacy-policy.html" class="text-base text-gray-400 hover:text-white">Privacy</a></li>
+                    <li><a href="#" class="text-base text-gray-400 hover:text-white">Terms</a></li>
+                    <li><a href="#" class="text-base text-gray-400 hover:text-white">Cookie Policy</a></li>
+                    <li><a href="#" class="text-base text-gray-400 hover:text-white">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-sm font-semibold tracking-wider uppercase">Connect</h3>
+                <div class="flex space-x-6 mt-4">
+                    <a href="#" class="text-gray-400 hover:text-white"><span class="sr-only">Twitter</span><i class="fab fa-twitter text-lg"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><span class="sr-only">GitHub</span><i class="fab fa-github text-lg"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><span class="sr-only">YouTube</span><i class="fab fa-youtube text-lg"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><span class="sr-only">LinkedIn</span><i class="fab fa-linkedin-in text-lg"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="mt-8 border-t border-gray-700 pt-8 md:flex md:items-center md:justify-between">
+            <!-- Social media icons removed from here; only in Connect column above -->
+            <p class="mt-8 text-base text-gray-400 md:mt-0 md:order-1">&copy; 2023 Botronix Labs. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // FAQ accordion functionality
+        const faqButtons = document.querySelectorAll('[id^="faq"]:not([id$="content"])');
+        faqButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const contentId = this.id + '-content';
+                const content = document.getElementById(contentId);
+                const icon = this.querySelector('i');
+                
+                // Toggle content visibility
+                content.classList.toggle('hidden');
+                
+                // Rotate icon
+                if (content.classList.contains('hidden')) {
+                    icon.classList.remove('rotate-180');
+                } else {
+                    icon.classList.add('rotate-180');
+                }
+            });
+        });
+
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            // Here you would typically send this data to a server
+            console.log('Form submitted:', { name, email, subject, message });
+            
+            // Show success message
+            alert('Thank you for your message! We will get back to you soon.');
+            
+            // Reset form
+            this.reset();
+        });
+
+        // Tab functionality for Python section
+        const tabButtons = document.querySelectorAll('.tab-button');
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons and tabs
+                document.querySelectorAll('.tab-button').forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.classList.remove('border-blue-500');
+                    btn.classList.add('border-transparent');
+                });
+                
+                document.querySelectorAll('.tab-content').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                
+                // Add active class to clicked button and corresponding tab
+                this.classList.add('active', 'border-blue-500');
+                this.classList.remove('border-transparent');
+                
+                const tabId = this.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // Highlight active nav link on scroll
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= (sectionTop - 300)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active', 'text-blue-600');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active', 'text-blue-600');
+                }
+            });
+        });
+
+        // Fetch and display module count for Fundamentals of Robotics
+        fetch('courses/fundamentals/fundamentals.html')
+          .then(response => response.text())
+          .then(html => {
+            const match = html.match(/const modules\s*=\s*(\[[\s\S]*?\]);/);
+            if (match) {
+              const modulesArray = eval(match[1]);
+              document.getElementById('fundamentals-module-count').textContent = modulesArray.length + ' Modules';
+            } else {
+              document.getElementById('fundamentals-module-count').textContent = '';
+            }
+          })
+          .catch(() => {
+            document.getElementById('fundamentals-module-count').textContent = '';
+          });
+
+        // Fetch and display module count for Intermediate Robotics
+        fetch('courses/intermediate/intermediate.html')
+          .then(response => response.text())
+          .then(html => {
+            const match = html.match(/const modules\s*=\s*(\[[\s\S]*?\]);/);
+            if (match) {
+              const modulesArray = eval(match[1]);
+              document.getElementById('intermediate-module-count').textContent = modulesArray.length + ' Modules';
+            } else {
+              document.getElementById('intermediate-module-count').textContent = '';
+            }
+          })
+          .catch(() => {
+            document.getElementById('intermediate-module-count').textContent = '';
+          });
+
+        // Dynamic module count for Advanced
+        function getModuleCount(course, elementId) {
+          fetch(`courses/${course}/`)
+            .then(response => response.text())
+            .then(html => {
+              // Count .html files that start with 'module' (case-insensitive)
+              const matches = html.match(/module\d+\.html/gi);
+              const unique = matches ? Array.from(new Set(matches)) : [];
+              const count = unique.length;
+              document.getElementById(elementId).textContent = count + (count === 1 ? ' Module' : ' Modules');
+            })
+            .catch(() => {
+              document.getElementById(elementId).textContent = '0 Modules';
+            });
+        }
+        getModuleCount('advanced', 'advanced-module-count');
+    </script>
+</body>
+</html>
