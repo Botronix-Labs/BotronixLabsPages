@@ -1,0 +1,30 @@
+[
+    {
+        "src":  "../assets/Images/program images/python images/cv.png",
+        "alt":  "Cv"
+    },
+    {
+        "src":  "../assets/Images/program images/python images/data.png",
+        "alt":  "Data"
+    },
+    {
+        "src":  "../assets/Images/program images/python images/game.png",
+        "alt":  "Game"
+    },
+    {
+        "src":  "../assets/Images/program images/python images/gui.png",
+        "alt":  "Gui"
+    },
+    {
+        "src":  "../assets/Images/program images/python images/ml.png",
+        "alt":  "Ml"
+    },
+    {
+        "src":  "../assets/Images/program images/python images/python applications.png",
+        "alt":  "Python Applications"
+    },
+    {
+        "src":  "../assets/Images/program images/python images/web.png",
+        "alt":  "Web"
+    }
+]

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>After School Program - Botronix Labs</title>
+    <meta name="description" content="Engaging weekly STEM and robotics sessions for students. Build engineering skills alongside school. Ages 8 to 14.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Montserrat', 'sans-serif'] },
+                    colors: { 
+                        primary: '#9333ea', 
+                        secondary: '#7e22ce',
+                        accent: '#f97316'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Montserrat', sans-serif; }
+        .hero-gradient { background: radial-gradient(circle at top right, #faf5ff 0%, #ffffff 100%); }
+        .spec-card { @apply bg-white p-6 rounded-2xl border border-gray-100 shadow-sm transition-all hover:shadow-md; }
+        .timeline-step { @apply relative pl-8 pb-12 last:pb-0 border-l-2 border-purple-100 last:border-0; }
+        .timeline-dot { @apply absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-primary border-4 border-white shadow-sm; }
+        .project-card:hover img { transform: scale(1.05); }
+        @keyframes bounce-slow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-bounce-slow { animation: bounce-slow 3s ease-in-out infinite; }
+        .swiper-slide { height: auto !important; }
+    </style>
+</head>
+<body class="bg-white text-gray-900 antialiased">
+
+    <!-- Navigation -->
+    <nav class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20">
+                <div class="flex items-center">
+                    <a href="../index.html" class="flex items-center gap-3">
+                        <img src="../assets/logo.jpeg" alt="Botronix Labs Logo" width="40" height="40" class="h-10 w-auto rounded-lg">
+                        <span class="text-2xl font-extrabold tracking-tight">Botronix<span class="text-primary">Labs</span></span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="../index.html#programs" class="text-sm font-semibold text-gray-600 hover:text-primary transition-colors">All Programs</a>
+                    <a href="../index.html#about" class="text-sm font-semibold text-gray-600 hover:text-primary transition-colors">About</a>
+                    <a href="../index.html#contact" class="bg-primary text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-purple-700 shadow-lg shadow-purple-200 transition-all">Enroll Now</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient pt-20 pb-24 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
+                <div>
+                    <nav class="flex mb-8 text-xs font-bold uppercase tracking-widest text-gray-400 gap-2">
+                        <a href="../index.html" class="hover:text-primary">Home</a>
+                        <span>/</span>
+                        <a href="../index.html#programs" class="hover:text-primary">Programs</a>
+                        <span>/</span>
+                        <span class="text-primary">After School</span>
+                    </nav>
+                    <h1 class="text-5xl lg:text-7xl font-extrabold text-gray-900 leading-tight mb-8">
+                        The Ultimate <span class="text-primary">After School</span> Lab.
+                    </h1>
+                    <p class="text-xl text-gray-600 mb-10 leading-relaxed max-w-xl">
+                        Weekly hands-on sessions where creativity meets engineering. The perfect way to develop problem-solving skills alongside regular school.
+                    </p>
+                    <div class="flex flex-wrap gap-4 mb-12 lg:mb-0">
+                        <a href="../index.html#contact" class="bg-primary text-white px-8 py-4 rounded-full font-bold hover:bg-purple-700 shadow-xl shadow-purple-200 transition-all flex items-center gap-2">
+                            Reserve a Weekly Spot <i class="fas fa-clock text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="swiper hero-swiper rounded-[3rem] shadow-2xl border-8 border-white overflow-hidden">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <img src="../assets/Images/classroom images/IMG_4354.jpeg" alt="After School Session" class="w-full h-[500px] object-cover">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="../assets/Images/classroom images/26.JPG" alt="STEM Project" class="w-full h-[500px] object-cover">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="../assets/Images/classroom images/27.JPG" alt="Robotics Building" class="w-full h-[500px] object-cover">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="../assets/Images/classroom images/23.JPG" alt="Coding Lab" class="w-full h-[500px] object-cover">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute -bottom-12 -left-6 bg-white p-6 rounded-2xl shadow-xl border border-gray-50 flex items-center gap-4 animate-bounce-slow z-10">
+                        <div class="bg-purple-100 p-3 rounded-full text-primary">
+                            <i class="fas fa-graduation-cap text-2xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-400 uppercase font-bold tracking-widest text-nowrap">Program Goal</p>
+                            <p class="text-sm font-bold text-gray-900">STEM Leadership</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Specs Grid -->
+    <section class="py-12 bg-white relative z-20 -mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="spec-card group hover:border-primary/30 transition-all">
+                    <i class="fas fa-user-graduate text-primary mb-4 block text-xl group-hover:scale-110 transition-transform"></i>
+                    <h6 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Age Group</h6>
+                    <p class="font-bold text-gray-900">8 - 14 Years</p>
+                </div>
+                <div class="spec-card group hover:border-primary/30 transition-all">
+                    <i class="fas fa-calendar-alt text-primary mb-4 block text-xl group-hover:scale-110 transition-transform"></i>
+                    <h6 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Schedule</h6>
+                    <p class="font-bold text-gray-900 text-sm">Weekly Afternoons</p>
+                </div>
+                <div class="spec-card group hover:border-primary/30 transition-all">
+                    <i class="fas fa-clock text-primary mb-4 block text-xl group-hover:scale-110 transition-transform"></i>
+                    <h6 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Session Length</h6>
+                    <p class="font-bold text-gray-900">90 Minutes</p>
+                </div>
+                <div class="spec-card group hover:border-primary/30 transition-all">
+                    <i class="fas fa-tag text-primary mb-4 block text-xl group-hover:scale-110 transition-transform"></i>
+                    <h6 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Program Price</h6>
+                    <p class="font-bold text-gray-900">$450 / 10 Sessions</p>
+                </div>
+            </div>
+            <div class="mt-8 flex flex-wrap justify-center gap-4 text-xs font-bold text-gray-400 uppercase tracking-widest">
+                <span class="flex items-center gap-2"><i class="fas fa-check-circle text-primary"></i> Enrichment Program</span>
+                <span class="flex items-center gap-2"><i class="fas fa-check-circle text-primary"></i> Small Class Sizes</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Personalized Learning Section -->
+    <section class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-20">
+                <div>
+                    <h2 class="text-primary font-bold uppercase tracking-widest text-sm mb-4">Hands-On Learning</h2>
+                    <h3 class="text-4xl font-extrabold text-gray-900 mb-8 leading-tight">Beyond the <span class="text-primary">Classroom</span></h3>
+                    <p class="text-lg text-gray-600 mb-12">
+                        Our after-school program provides a consistent, high-energy environment for students to dive deep into technology. We adapt to each student's pace and existing knowledge.
+                    </p>
+                    
+                    <div class="mt-8 space-y-8">
+                        <div class="flex gap-6">
+                            <div class="w-12 h-12 shrink-0 rounded-2xl bg-purple-100 flex items-center justify-center text-primary">
+                                <i class="fas fa-lightbulb text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-2 text-gray-900">STEM Foundations Track</h4>
+                                <p class="text-gray-600 text-sm leading-relaxed">Introduction to mechanical engineering, structural stability, and the logic of automated systems.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6">
+                            <div class="w-12 h-12 shrink-0 rounded-2xl bg-blue-100 flex items-center justify-center text-blue-600">
+                                <i class="fas fa-robot text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-2 text-gray-900">Robotics Exploration Track</h4>
+                                <p class="text-gray-600 text-sm leading-relaxed">Work with VEX IQ and other platforms. Build robots that can navigate mazes and interact with the environment.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6">
+                            <div class="w-12 h-12 shrink-0 rounded-2xl bg-emerald-100 flex items-center justify-center text-emerald-600">
+                                <i class="fas fa-laptop-code text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold mb-2 text-gray-900">Creative Coding Track</h4>
+                                <p class="text-gray-600 text-sm leading-relaxed">From block-based logic to text-based Python. Create animations, simple games, and control your hardware.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Student-Friendly Tools Section -->
+                    <div class="mt-16 pt-12 border-t border-gray-200">
+                        <h5 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6 text-center lg:text-left">Tools We Use</h5>
+                        <div class="flex flex-wrap justify-center lg:justify-start gap-x-10 gap-y-6 opacity-80 hover:opacity-100 transition-opacity duration-500">
+                            <div class="flex flex-col items-center gap-2 group">
+                                <div class="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300 shadow-sm">
+                                    <i class="fas fa-cubes text-2xl"></i>
+                                </div>
+                                <span class="text-[10px] font-bold text-gray-500 uppercase tracking-tighter">VEX IQ</span>
+                            </div>
+                            <div class="flex flex-col items-center gap-2 group">
+                                <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300 shadow-sm">
+                                    <i class="fab fa-python text-2xl"></i>
+                                </div>
+                                <span class="text-[10px] font-bold text-gray-500 uppercase tracking-tighter">Python</span>
+                            </div>
+                            <div class="flex flex-col items-center gap-2 group">
+                                <div class="w-12 h-12 rounded-xl bg-orange-50 flex items-center justify-center text-orange-500 group-hover:bg-orange-500 group-hover:text-white transition-all duration-300 shadow-sm">
+                                    <i class="fas fa-brain text-2xl"></i>
+                                </div>
+                                <span class="text-[10px] font-bold text-gray-500 uppercase tracking-tighter">Algorithm</span>
+                            </div>
+                            <div class="flex flex-col items-center gap-2 group">
+                                <div class="w-12 h-12 rounded-xl bg-gray-50 flex items-center justify-center text-gray-700 group-hover:bg-gray-700 group-hover:text-white transition-all duration-300 shadow-sm">
+                                    <i class="fas fa-desktop text-2xl"></i>
+                                </div>
+                                <span class="text-[10px] font-bold text-gray-500 uppercase tracking-tighter">Thonny</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-10 lg:p-16 rounded-[3rem] shadow-2xl shadow-purple-100 border border-gray-100 self-center">
+                    <h4 class="text-2xl font-bold mb-8 flex items-center gap-3">
+                        <i class="fas fa-award text-primary"></i> Learning Outcomes
+                    </h4>
+                    <ul class="space-y-6">
+                        <li class="flex gap-4">
+                            <div class="w-6 h-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center shrink-0 mt-1">
+                                <i class="fas fa-check text-[10px]"></i>
+                            </div>
+                            <p class="text-gray-600 font-medium text-sm lg:text-base leading-relaxed">Build and program complex robots using VEX IQ components.</p>
+                        </li>
+                        <li class="flex gap-4">
+                            <div class="w-6 h-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center shrink-0 mt-1">
+                                <i class="fas fa-check text-[10px]"></i>
+                            </div>
+                            <p class="text-gray-600 font-medium text-sm lg:text-base leading-relaxed">Understand core computer science concepts through project building.</p>
+                        </li>
+                        <li class="flex gap-4">
+                            <div class="w-6 h-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center shrink-0 mt-1">
+                                <i class="fas fa-check text-[10px]"></i>
+                            </div>
+                            <p class="text-gray-600 font-medium text-sm lg:text-base leading-relaxed">Develop critical thinking and teamwork through group challenges.</p>
+                        </li>
+                        <li class="flex gap-4">
+                            <div class="w-6 h-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center shrink-0 mt-1">
+                                <i class="fas fa-check text-[10px]"></i>
+                            </div>
+                            <p class="text-gray-600 font-medium text-sm lg:text-base leading-relaxed">Regular project presentations to build public speaking confidence.</p>
+                        </li>
+                    </ul>
+                    <div class="mt-12 pt-8 border-t border-gray-100">
+                        <p class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6 text-center italic">Enrich your learning</p>
+                        <a href="../index.html#contact" class="block w-full text-center bg-gray-900 text-white py-4 rounded-2xl font-bold hover:bg-black transition-all shadow-xl shadow-gray-200">Request a Program Tour</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Swiper Initialization -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            new Swiper('.hero-swiper', {
+                loop: true,
+                autoplay: {
+                    delay: 3000,
+                    disableOnInteraction: false,
+                },
+                effect: 'fade',
+                fadeEffect: {
+                    crossFade: true
+                },
+            });
+        });
+    </script>
+
+    <!-- Lab Showcase -->
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-primary font-bold uppercase tracking-widest text-sm mb-4">Hands-On Experience</h2>
+                <h3 class="text-4xl font-extrabold text-gray-900 mb-6">The After School Lab</h3>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="rounded-3xl overflow-hidden aspect-[4/5] relative group">
+                    <img src="../assets/Images/classroom images/21.JPG" alt="After School Activity" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-8 flex flex-col justify-end">
+                        <h5 class="text-white font-bold text-lg">Fun & Learning</h5>
+                        <p class="text-gray-300 text-sm">Where science becomes a hobby.</p>
+                    </div>
+                </div>
+                <div class="rounded-3xl overflow-hidden aspect-[4/5] relative group">
+                    <img src="../assets/Images/classroom images/22.JPG" alt="Robotics Collaboration" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-8 flex flex-col justify-end">
+                        <h5 class="text-white font-bold text-lg">Social Tech</h5>
+                        <p class="text-gray-300 text-sm">Building projects with new friends.</p>
+                    </div>
+                </div>
+                <div class="rounded-3xl overflow-hidden aspect-[4/5] relative group">
+                    <img src="../assets/Images/classroom images/18.JPG" alt="STEM Exploration" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-8 flex flex-col justify-end">
+                        <h5 class="text-white font-bold text-lg">Expert Mentorship</h5>
+                        <p class="text-gray-300 text-sm">Guidance from real engineers.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-100 pt-24 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-12 mb-20">
+                <div class="col-span-2">
+                    <a href="../index.html" class="flex items-center gap-3 mb-8" aria-label="Botronix Labs Home">
+                        <img src="../assets/logo.jpeg" alt="Botronix Labs Logo" width="40" height="40" class="h-10 w-auto rounded-lg">
+                        <span class="text-2xl font-extrabold tracking-tight text-gray-900">Botronix<span class="text-primary">Labs</span></span>
+                    </a>
+                    <p class="text-gray-500 text-sm max-w-sm leading-relaxed mb-8">
+                        Empowering the next generation of engineers through world-class robotics education and innovative R&D. A family-owned business since 2024.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" aria-label="X" class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-black hover:bg-black hover:text-white transition-all"><i class="fa-brands fa-x-twitter"></i></a><a href="#" aria-label="Instagram" class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-[#E4405F] hover:bg-[#E4405F] hover:text-white transition-all"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn" class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-[#0A66C2] hover:bg-[#0A66C2] hover:text-white transition-all"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="GitHub" class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-[#181717] hover:bg-[#181717] hover:text-white transition-all"><i class="fab fa-github"></i></a>
+                        <a href="https://www.youtube.com/@BotronixLabs" target="_blank" rel="noopener noreferrer" aria-label="YouTube Channel" class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-[#FF0000] hover:bg-[#FF0000] hover:text-white transition-all"><i class="fab fa-youtube"></i></a>
+                                                <a href="http://xhslink.com/m/7Fydpo5ILOI" target="_blank" rel="noopener noreferrer" aria-label="Rednote" class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-[#FF2442] hover:bg-[#FF2442] hover:text-white transition-all">
+                            <span aria-hidden="true" class="w-6 h-6 inline-block bg-current" style="mask-image: url('https://cdn.jsdelivr.net/npm/simple-icons@16/icons/xiaohongshu.svg'); mask-repeat: no-repeat; mask-position: center; mask-size: contain; -webkit-mask-image: url('https://cdn.jsdelivr.net/npm/simple-icons@16/icons/xiaohongshu.svg'); -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; -webkit-mask-size: contain;"></span>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h6 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Programs</h6>
+                    <ul class="space-y-4 text-sm font-medium text-gray-600">
+                        <li><a href="python.html" class="hover:text-primary">Python Coding</a></li>
+                        <li><a href="physical-computing.html" class="hover:text-primary">Physical Computing</a></li>
+                        <li><a href="vex-robotics.html" class="hover:text-primary">VEX Robotics</a></li>
+                        <li><a href="seasonal-camps.html" class="hover:text-primary">Seasonal Camps</a></li>
+                        <li><a href="after-school.html" class="hover:text-primary">After School</a></li>
+                        <li><a href="rd-innovation.html" class="hover:text-primary">R&D Innovation</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h6 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Company</h6>
+                    <ul class="space-y-4 text-sm font-medium text-gray-600">
+                        <li><a href="../index.html#about" class="hover:text-primary">About Us</a></li>
+                        <li><a href="../privacy-policy.html" class="hover:text-primary">Privacy Policy</a></li>
+                        <li><a href="../index.html#contact" class="hover:text-primary">Contact</a></li>
+                        <li><a href="../rd-lab/product_development.html" class="hover:text-primary">R&D Lab</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-gray-50 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-bold text-gray-400 uppercase tracking-widest">
+                <p>&copy; 2024 Botronix Labs. All rights reserved.</p>
+                <div class="flex gap-8">
+                    <a href="#" class="hover:text-gray-900">Terms</a>
+                    <a href="#" class="hover:text-gray-900">Cookies</a>
+                    <a href="#" class="hover:text-gray-900 text-primary">Family Owned</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+
+
+

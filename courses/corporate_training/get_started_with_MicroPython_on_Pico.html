@@ -1,0 +1,2732 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Custom Curriculum Template - Botronix Labs</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "primary-dark": "#0b3d9e",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111722",
+                        "surface-dark": "#1a2332",
+                        "border-blue": "#232f48",
+                        "accent-blue": "#3b82f6",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                        "mono": ["JetBrains Mono", "monospace"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .blueprint-grid {
+            background-size: 40px 40px;
+            background-image:
+                linear-gradient(to right, rgba(35, 47, 72, 0.4) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(35, 47, 72, 0.4) 1px, transparent 1px);
+        }
+        /* Custom scrollbar for code block */
+        .code-scroll::-webkit-scrollbar {
+            height: 8px;
+            width: 8px;
+        }
+        .code-scroll::-webkit-scrollbar-track {
+            background: #111722; 
+        }
+        .code-scroll::-webkit-scrollbar-thumb {
+            background: #232f48; 
+            border-radius: 4px;
+        }
+        .code-scroll::-webkit-scrollbar-thumb:hover {
+            background: #3b4d6b; 
+        }
+    </style>
+</head>
+<body class="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display overflow-x-hidden selection:bg-primary selection:text-white">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#232f48] bg-[#111722]/95 backdrop-blur-md px-4 md:px-10 py-3">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-white">
+<div class="size-8 text-primary">
+<span class="material-symbols-outlined text-3xl">precision_manufacturing</span>
+</div>
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">Botronix Labs</h2>
+</div>
+<div class="hidden lg:flex items-center gap-9">
+<a class="text-white hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Curriculum</a>
+<a class="text-white hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Corporate Training</a>
+<a class="text-white hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Resources</a>
+<a class="text-white hover:text-primary transition-colors text-sm font-medium leading-normal" href="#">Support</a>
+</div>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<label class="hidden md:flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full ring-1 ring-[#232f48] focus-within:ring-primary transition-all">
+<div class="text-[#92a4c9] flex border-none bg-[#1a2332] items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-0 border-none bg-[#1a2332] focus:border-none h-full placeholder:text-[#92a4c9] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search modules..." value=""/>
+</div>
+</label>
+<div class="flex gap-2">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary hover:bg-primary-dark transition-colors text-white text-sm font-bold leading-normal tracking-[0.015em]">
+<span class="truncate">Dashboard</span>
+</button>
+<div class="size-10 bg-[#232f48] rounded-full flex items-center justify-center cursor-pointer hover:bg-[#324467] transition-colors">
+<span class="material-symbols-outlined text-white">notifications</span>
+</div>
+<div class="size-10 bg-gradient-to-br from-primary to-purple-600 rounded-full flex items-center justify-center cursor-pointer">
+<span class="text-xs font-bold text-white">JD</span>
+</div>
+</div>
+</div>
+</header>
+<div class="layout-container flex h-full grow flex-col">
+<div class="px-4 md:px-10 lg:px-40 flex flex-1 justify-center py-5">
+<div class="layout-content-container flex flex-col max-w-[1100px] flex-1 w-full">
+<!-- Breadcrumbs -->
+<nav class="flex flex-wrap gap-2 p-4 text-sm">
+<a class="text-[#92a4c9] hover:text-white transition-colors font-medium leading-normal" href="#">Home</a>
+<span class="text-[#92a4c9] font-medium leading-normal">/</span>
+<a class="text-[#92a4c9] hover:text-white transition-colors font-medium leading-normal" href="#">Corporate Training</a>
+<span class="text-[#92a4c9] font-medium leading-normal">/</span>
+<span class="text-white font-medium leading-normal">Embedded Systems Level 2</span>
+</nav>
+<!-- Quick in-page navigation -->
+<div class="flex gap-4 items-center p-2 text-sm">
+    <a class="text-primary no-underline font-medium" href="#chapter-1">Chapter 1</a>
+    <a class="text-primary no-underline font-medium" href="#chapter-2">Chapter 2</a>
+    <a class="text-primary no-underline font-medium" href="#chapter-3">Chapter 3</a>
+    <a class="text-primary no-underline font-medium" href="#chapter-4">Chapter 4</a>
+    <a class="text-primary no-underline font-medium" href="#chapter-5">Chapter 5</a>
+    <a class="text-primary no-underline font-medium" href="#chapter-6">Chapter 6</a>
+    <a class="text-primary no-underline font-medium" href="#chapter-7">Chapter 7</a>
+    <a class="text-primary no-underline font-medium" href="#chapter-8">Chapter 8</a>
+    <a class="text-primary no-underline font-medium" href="#chapter-9">Chapter 9</a>
+    <a class="text-primary no-underline font-medium" href="#chapter-10">Chapter 10</a>
+    <a class="text-primary no-underline font-medium" href="#chapter-11">Chapter 11</a>
+    <a class="text-primary no-underline font-medium" href="#chapter-12">Chapter 12</a>
+</div>
+<!-- Page Heading & Actions -->
+<div class="flex flex-col md:flex-row justify-between gap-6 p-4 border-b border-[#232f48] pb-8 mb-8 relative overflow-hidden rounded-xl bg-surface-dark/50">
+<!-- Background decoration -->
+<div class="absolute top-0 right-0 w-64 h-full bg-gradient-to-l from-primary/10 to-transparent pointer-events-none"></div>
+<div class="flex min-w-72 flex-col gap-4 z-10">
+    <!-- chapter/eta labels removed as requested -->
+    <h1 class="text-white text-3xl md:text-5xl font-bold leading-tight tracking-[-0.033em]">Get Started with MicroPython on Pico</h1>
+</div>
+<div class="flex flex-col gap-3 justify-end z-10">
+    <a href="#chapter-1" class="flex items-center justify-center gap-2 rounded-lg h-10 px-6 bg-[#232f48] hover:bg-[#324467] border border-[#3b4d6b] text-white text-sm font-bold transition-all no-underline">
+        <span class="material-symbols-outlined text-[18px]">menu</span>
+        <span class="truncate">Contents</span>
+    </a>
+    <button class="flex items-center justify-center gap-2 rounded-lg h-10 px-6 bg-[#232f48] hover:bg-[#324467] border border-[#3b4d6b] text-white text-sm font-bold transition-all">
+        <span class="material-symbols-outlined text-[18px]">download</span>
+        <span class="truncate">Resources</span>
+    </button>
+    <button class="flex items-center justify-center gap-2 rounded-lg h-10 px-6 bg-primary hover:bg-primary-dark text-white text-sm font-bold shadow-lg shadow-primary/25 transition-all">
+        <span class="material-symbols-outlined text-[18px]">play_arrow</span>
+        <span class="truncate">Resume Module</span>
+    </button>
+</div>
+</div>
+<!-- Progress -->
+<div class="flex flex-col gap-3 p-4 mb-10">
+    <div class="flex gap-6 justify-between items-end">
+        <div class="flex flex-col">
+            <p class="text-white text-base font-bold leading-normal">Course Progress</p>
+            <p id="course-progress-text" class="text-[#92a4c9] text-sm font-normal">2 of 8 sections completed</p>
+        </div>
+        <p id="course-progress-percent" class="text-primary text-xl font-bold font-mono">25%</p>
+    </div>
+    <div class="rounded-full bg-[#232f48] h-2 overflow-hidden">
+        <div id="course-progress-bar" class="h-full rounded-full bg-gradient-to-r from-primary to-purple-500 relative" style="width: 25%;">
+            <div class="absolute right-0 top-0 bottom-0 w-2 bg-white/50 animate-pulse"></div>
+        </div>
+    </div>
+</div>
+<!-- Main Content Grid -->
+<div class="flex flex-col gap-12 px-4">
+<!-- Section 1: Learning Points -->
+<section id="chapter-1">
+<div class="flex items-center gap-3 mb-6">
+<div class="size-8 rounded bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-xl">lightbulb</span>
+</div>
+</div>
+<div class="mb-4">
+    <h2 class="text-white text-2xl font-bold">Chapter 1 — Get to Know Your Raspberry Pi Pico</h2>
+    <p class="text-[#92a4c9] text-sm mt-2">Chapter overview and objectives</p>
+</div>
+<div class="flex items-center gap-3 mb-6">
+    <div class="size-8 rounded bg-primary/20 flex items-center justify-center text-primary">
+        <span class="material-symbols-outlined text-xl">lightbulb</span>
+    </div>
+    <h2 class="text-white text-2xl font-bold">Learning Points</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Card 1: Core outcomes -->
+<div class="group bg-surface-dark border border-[#232f48] hover:border-primary/50 p-6 rounded-xl transition-all duration-300 hover:-translate-y-1 relative overflow-hidden">
+    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+        <span class="material-symbols-outlined text-6xl text-primary">school</span>
+    </div>
+    <h3 class="text-white text-lg font-bold mb-3">After this Chapter</h3>
+    <ul class="text-[#92a4c9] text-sm list-disc pl-5 space-y-1">
+        <li>Understand what a microcontroller is vs a single-board computer</li>
+        <li>Identify major hardware components on a Pico / Pico 2</li>
+        <li>Explain purpose of GPIO, power, and special pins</li>
+        <li>Describe castellated edges and why boards ship without headers</li>
+    </ul>
+</div>
+<!-- Card 2: Board basics -->
+<div class="group bg-surface-dark border border-[#232f48] hover:border-primary/50 p-6 rounded-xl transition-all duration-300 hover:-translate-y-1 relative overflow-hidden">
+    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+        <span class="material-symbols-outlined text-6xl text-primary">memory</span>
+    </div>
+    <h3 class="text-white text-lg font-bold mb-3">Board Basics</h3>
+    <p class="text-[#92a4c9] text-sm leading-relaxed">RP2040 (Pico / Pico W) or RP2350 (Pico 2 / Pico 2 W). Micro USB, BOOTSEL button, GPIO pins GP0–GP28, power pins (3V3, VBUS, VSYS), and debug pads.</p>
+</div>
+<!-- Card 3: Practical skills -->
+<div class="group bg-surface-dark border border-[#232f48] hover:border-primary/50 p-6 rounded-xl transition-all duration-300 hover:-translate-y-1 relative overflow-hidden">
+    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+        <span class="material-symbols-outlined text-6xl text-primary">build</span>
+    </div>
+    <h3 class="text-white text-lg font-bold mb-3">Skills & Safety</h3>
+    <ul class="text-[#92a4c9] text-sm list-disc pl-5 space-y-1">
+        <li>Safely solder 2×20 2.54mm pin headers for prototyping</li>
+        <li>Enter BOOTSEL mode and install MicroPython UF2</li>
+        <li>Verify the Pico is ready for programming via REPL</li>
+    </ul>
+</div>
+</div>
+    <div class="mt-4 flex items-center justify-between">
+        <a href="#chapter-1" class="text-primary no-underline">Jump to Chapter 1</a>
+        <div class="text-[#92a4c9] text-sm">10–20 min</div>
+    </div>
+</section>
+<!-- Section 3.1: GPIO Labels & Headers -->
+<section>
+    <div class="flex items-center gap-3 mb-6">
+        <div class="size-8 rounded bg-primary/20 flex items-center justify-center text-primary">
+            <span class="material-symbols-outlined text-xl">pin</span>
+        </div>
+        <h2 class="text-white text-2xl font-bold">GPIO Pins &amp; Why Headers Are Not Pre-Soldered</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 text-[#92a4c9]">
+            <h4 class="text-white font-bold mb-2">GPIO Pins & Labels</h4>
+            <p class="text-sm">Pins are labeled on the underside. GPIO pins are named GP0–GP28. Important power & control pins include: <strong>3V3</strong>, <strong>VBUS</strong>, <strong>VSYS</strong>, <strong>GND</strong>, and <strong>RUN</strong>. Note: numbering starts at 0.</p>
+        </div>
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 text-[#92a4c9]">
+            <h4 class="text-white font-bold mb-2">Why Headers Aren't Pre-Soldered</h4>
+            <p class="text-sm">Pico boards ship flat so they can be soldered directly onto other PCBs (lower profile for embedded systems). For prototyping with breadboards, solder 2.54 mm male pin headers.</p>
+        </div>
+    </div>
+</section>
+<!-- Section 2: Core Concepts -->
+<section class="relative">
+    <div class="flex items-center gap-3 mb-6">
+        <div class="size-8 rounded bg-primary/20 flex items-center justify-center text-primary">
+            <span class="material-symbols-outlined text-xl">menu_book</span>
+        </div>
+        <h2 class="text-white text-2xl font-bold">Core Concepts: What is Raspberry Pi Pico?</h2>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+        <div class="space-y-4 text-[#92a4c9] font-body leading-relaxed text-base">
+            <p>
+                Raspberry Pi Pico is a microcontroller development board designed for physical computing and embedded control tasks. It runs bare-metal firmware (no operating system) and boots extremely quickly with low power consumption.
+            </p>
+            <div class="p-4 bg-primary/10 border-l-4 border-primary rounded-r-lg">
+                <h4 class="text-white font-bold text-sm mb-1 flex items-center gap-2"><span class="material-symbols-outlined text-sm">info</span> Key Distinctions</h4>
+                <p class="text-sm">Unlike a Raspberry Pi computer (which runs Linux and supports desktop peripherals), the Pico runs a single program and is optimized for sensors, LEDs, motors, and other embedded tasks.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="bg-surface-dark border border-[#232f48] rounded-xl p-4 text-[#92a4c9]">
+                    <h4 class="text-white font-bold mb-2">Powered by</h4>
+                    <ul class="list-disc pl-5 text-sm space-y-1">
+                        <li>RP2040 — Pico / Pico W</li>
+                        <li>RP2350 — Pico 2 / Pico 2 W</li>
+                    </ul>
+                </div>
+                <div class="bg-surface-dark border border-[#232f48] rounded-xl p-4 text-[#92a4c9]">
+                    <h4 class="text-white font-bold mb-2">Use Cases</h4>
+                    <ul class="list-disc pl-5 text-sm space-y-1">
+                        <li>Controlling LEDs, buttons, sensors, motors, displays</li>
+                        <li>Low-power embedded control and rapid prototyping</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Hardware Tour -->
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 text-[#92a4c9]">
+            <h4 class="text-white font-bold mb-2">Hardware Tour</h4>
+            <ul class="list-disc pl-5 space-y-1 text-sm">
+                <li><strong>Micro USB:</strong> Power and UF2 file transfer</li>
+                <li><strong>BOOTSEL button:</strong> Hold while plugging in to enter UF2 flashing mode</li>
+                <li><strong>RP2040 / RP2350:</strong> The main processor</li>
+                <li><strong>GPIO:</strong> GP0–GP28 for digital I/O</li>
+                <li><strong>Power pins:</strong> 3V3, VBUS, VSYS and GND</li>
+                <li><strong>Castellated edges & debug pads:</strong> For embedded mounting and professional debugging</li>
+                <li><strong>Wireless modules:</strong> Pico W / Pico 2 W add Wi‑Fi/Bluetooth</li>
+            </ul>
+            <div class="mt-4">
+                <img alt="Close-up of Raspberry Pi Pico board" src="pico_course.png" class="relative z-10 w-full h-36 object-cover rounded-2xl border border-[#232f48]"/>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Section 3: Practical Procedure -->
+<section>
+    <div class="flex items-center gap-3 mb-6">
+        <div class="size-8 rounded bg-primary/20 flex items-center justify-center text-primary">
+            <span class="material-symbols-outlined text-xl">construction</span>
+        </div>
+        <h2 class="text-white text-2xl font-bold">Practical Procedure: Installing MicroPython</h2>
+    </div>
+    <div class="rounded-xl overflow-hidden border border-[#232f48] bg-[#0d1117] shadow-2xl p-6">
+        <h4 class="text-white font-bold mb-3">Enter BOOTSEL Mode</h4>
+        <ol class="list-decimal pl-5 text-[#92a4c9] space-y-2">
+            <li><strong>Hold down BOOTSEL</strong> while plugging the Pico into your computer via USB. Release after 2–3 seconds. The Pico appears as a USB mass storage device.</li>
+            <li><strong>Open the Pico drive</strong> and follow the INDEX.HTM link to Raspberry Pi documentation if unsure which UF2 to use.</li>
+            <li><strong>Download the correct .uf2</strong> for your board (Pico, Pico W, Pico 2, Pico 2 W) and drag it onto the Pico drive.</li>
+            <li><strong>Flash:</strong> Pico will automatically reboot and the drive will disappear once flashing completes.</li>
+        </ol>
+        <div class="mt-4 bg-black/30 rounded p-3 border border-[#232f48] flex items-center gap-3">
+            <span class="material-symbols-outlined text-yellow-500">warning</span>
+            <span class="text-xs text-[#92a4c9]">Note: MicroPython will remain installed until a different firmware replaces it.</span>
+        </div>
+    </div>
+</section>
+<!-- Section 4: Hands-on Practices -->
+<section class="pb-20">
+<div class="flex items-center gap-3 mb-6">
+<div class="size-8 rounded bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-xl">build</span>
+</div>
+<h2 class="text-white text-2xl font-bold">Hands-on Practice: Hardware Skills</h2>
+</div>
+<div class="flex flex-col gap-6 relative">
+<!-- Connecting Line -->
+<div class="absolute left-6 top-6 bottom-6 w-0.5 bg-[#232f48] -z-10"></div>
+<!-- Step 1 -->
+<div class="flex gap-4">
+<div class="size-12 min-w-12 rounded-full bg-surface-dark border-2 border-primary flex items-center justify-center text-white font-bold z-10 shadow-[0_0_15px_rgba(19,91,236,0.3)]">
+                                    1
+                                </div>
+<div class="flex-1 bg-surface-dark border border-[#232f48] rounded-xl p-5">
+<h4 class="text-white text-lg font-bold mb-2">Solder Pin Headers (If Required)</h4>
+<p class="text-[#92a4c9] text-sm mb-4">Tools: Soldering iron + stand, lead-free solder, sponge/cleaner, two 20-pin 2.54 mm male headers, breadboard or Blu Tack.</p>
+<ol class="list-decimal pl-5 text-[#92a4c9] space-y-2 mb-3">
+    <li>Place the header on the Pico and secure with a breadboard or putty.</li>
+    <li>Heat the pad and pin together, feed solder to the joint — avoid cold joints and solder bridges.</li>
+    <li>Inspect joints visually and clean the tip between pins.</li>
+</ol>
+<div class="bg-black/30 rounded p-3 border border-[#232f48] flex items-center gap-3">
+<span class="material-symbols-outlined text-yellow-500">warning</span>
+<span class="text-xs text-[#92a4c9]">Safety: Work in a ventilated area, never touch the hot iron, and return the iron to its stand when idle.</span>
+</div>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="flex gap-4">
+<div class="size-12 min-w-12 rounded-full bg-surface-dark border-2 border-[#232f48] flex items-center justify-center text-[#92a4c9] font-bold z-10">
+                                    2
+                                </div>
+<div class="flex-1 bg-surface-dark border border-[#232f48] rounded-xl p-5">
+<h4 class="text-white text-lg font-bold mb-2">Enter BOOTSEL & Flash MicroPython</h4>
+            <p class="text-[#92a4c9] text-sm">Hold BOOTSEL while plugging the Pico into USB. When the Pico drive appears, drag the appropriate <code class="inline-code bg-[#08101a] text-white px-1 py-0.5 rounded text-xs font-mono">.uf2</code> MicroPython file onto the drive. The Pico will reboot when flashing is done.</p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="flex gap-4">
+<div class="size-12 min-w-12 rounded-full bg-surface-dark border-2 border-[#232f48] flex items-center justify-center text-[#92a4c9] font-bold z-10">
+                                    3
+                                </div>
+<div class="flex-1 bg-surface-dark border border-[#232f48] rounded-xl p-5">
+<h4 class="text-white text-lg font-bold mb-2">Verify the Board (REPL)</h4>
+<p class="text-[#92a4c9] text-sm">Open Thonny or your chosen REPL and connect to the Pico. Confirm the MicroPython prompt appears and try a simple REPL command (e.g., <code class="inline-code bg-[#08101a] text-white px-1 py-0.5 rounded text-xs font-mono">print('hello')</code>).</p>
+</div>
+</div>
+</div>
+<!-- Completion Action -->
+<div class="mt-12 flex justify-center">
+<button id="mark-ch1-complete" class="flex items-center justify-center gap-3 rounded-xl h-14 px-10 bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary text-white text-lg font-bold shadow-lg shadow-primary/30 transform transition-all hover:scale-105">
+<span>Mark Chapter 1 Complete</span>
+<span class="material-symbols-outlined">check_circle</span>
+</button>
+</div>
+</section>
+<!-- Chapter 2: Programming with MicroPython -->
+<section id="chapter-2" class="pt-12">
+    <div class="flex items-center gap-3 mb-6">
+        <div class="size-8 rounded bg-primary/20 flex items-center justify-center text-primary">
+            <span class="material-symbols-outlined text-xl">code</span>
+        </div>
+        <h2 class="text-white text-2xl font-bold">Chapter 2 — Programming with MicroPython</h2>
+    </div>
+
+    <!-- Learning Points -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white text-lg font-bold mb-3">Learning Points</h3>
+            <ul class="text-[#92a4c9] text-sm list-disc pl-5 space-y-1">
+                <li>Understand what MicroPython is and why it's used on microcontrollers</li>
+                <li>Use Thonny IDE and switch interpreters between Local Python and MicroPython (Pico)</li>
+                <li>Write & run code in REPL and Script mode, save files to the Pico</li>
+                <li>Use print(), variables, loops, indentation, and conditionals</li>
+            </ul>
+        </div>
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white text-lg font-bold mb-3">Key Routines</h3>
+            <p class="text-[#92a4c9] text-sm">Interactive REPL for experiments; script mode for saved programs; Stop in Thonny to interrupt running code.</p>
+        </div>
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white text-lg font-bold mb-3">Estimated Time</h3>
+            <p class="text-[#92a4c9] text-sm">~30–45 minutes depending on practice time.</p>
+        </div>
+    </div>
+
+    <!-- Core Concepts & Thonny -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-6">
+        <div class="space-y-4 text-[#92a4c9] font-body leading-relaxed text-base">
+            <h4 class="text-white font-bold">What is MicroPython?</h4>
+            <p>MicroPython is a lightweight, Python-compatible language designed to run directly on the RP2040/RP2350 microcontroller with hardware-specific libraries and reduced memory footprint.</p>
+            <h4 class="text-white font-bold">Thonny IDE Overview</h4>
+            <ul class="list-disc pl-5 text-sm space-y-1 text-[#92a4c9]">
+                <li><strong>Toolbar:</strong> Run, Save, Stop</li>
+                <li><strong>Script Area:</strong> Write full programs</li>
+                <li><strong>Python Shell (REPL):</strong> Run commands interactively</li>
+                <li><strong>Interpreter Selector:</strong> Choose Local Python or MicroPython (Raspberry Pi Pico)</li>
+            </ul>
+            <h4 class="text-white font-bold">Connect Thonny to Pico</h4>
+            <ol class="list-decimal pl-5 text-[#92a4c9] space-y-2">
+                <li>Plug Pico into USB</li>
+                <li>Open Thonny</li>
+                <li>Click the interpreter selector and choose <em>MicroPython (Raspberry Pi Pico)</em></li>
+                <li>Confirm the shell shows MicroPython running on the Pico</li>
+            </ol>
+        </div>
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 text-[#92a4c9]">
+            <h4 class="text-white font-bold mb-2">Examples & Notes</h4>
+            <div class="text-sm space-y-3">
+                <div>
+                    <p class="text-[#92a4c9] mb-2">REPL (Shell) — executes immediately:</p>
+                    <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48]"><code class="language-python">print("Hello, World!")</code></pre>
+                </div>
+                <div>
+                    <p class="text-[#92a4c9] mb-2">Script mode — save and run on the Pico:</p>
+                    <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48]"><code class="language-python"># hello.py
+print("Hello, World!")</code></pre>
+                    <p class="text-xs text-[#92a4c9] mt-1">Save this as <code class="inline-code bg-[#08101a] text-white px-1 py-0.5 rounded text-xs font-mono">hello.py</code> on the Raspberry Pi Pico and click <strong>Run</strong> in Thonny.</p>
+                </div>
+            </div>
+            <div class="mt-4 bg-black/30 rounded p-3 border border-[#232f48]">
+                <h5 class="text-white text-sm font-bold mb-1">Loop example</h5>
+                <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48]"><code class="language-python">for i in range(10):
+    print("Loop number", i)
+</code></pre>
+                <h5 class="text-white text-sm font-bold mb-1 mt-3">Infinite loop example</h5>
+                <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48]"><code class="language-python">import time
+print("Loop starting!")
+while True:
+    print("Loop running!")
+    time.sleep(1)
+</code></pre>
+                <p class="text-xs text-[#92a4c9] mt-2">Tip: Use the <strong>Stop</strong> button in Thonny to interrupt an infinite loop.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hands-on Practice -->
+    <div class="rounded-xl overflow-hidden border border-[#232f48] bg-[#0d1117] shadow-2xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-3">Hands-On: First Programs</h4>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-[#92a4c9]">
+            <div>
+                <h5 class="text-white font-bold">REPL Mode</h5>
+                <p class="text-sm text-[#92a4c9] mb-2">Type the following in the Shell and press Enter:</p>
+                <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48]"><code class="language-python">print("Hello, World!")</code></pre>
+            </div>
+            <div>
+                <h5 class="text-white font-bold">Script Mode</h5>
+                <p class="text-sm text-[#92a4c9] mb-2">Write this in the Script Area, save to the Pico (e.g., <code class="inline-code bg-[#08101a] text-white px-1 py-0.5 rounded text-xs font-mono">hello.py</code>), then click <strong>Run</strong>:</p>
+                <pre class="text-sm font-mono bg-transparent p-2 text-[#92a4c9]"><code>print("Hello, World!")</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Variables & Conditionals -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 text-[#92a4c9]">
+            <h4 class="text-white font-bold mb-2">Variables & User Input</h4>
+            <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48]"><code class="language-python">user_name = input("What is your name? ")
+print("Hello", user_name)
+</code></pre>
+            <p class="text-sm">Input comes from the Shell and is stored as a string.</p>
+        </div>
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 text-[#92a4c9]">
+            <h4 class="text-white font-bold mb-2">Conditionals & Comparisons</h4>
+            <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48]"><code class="language-python">if user_name == "Clark Kent":
+    print("You are Superman!")
+else:
+    print("You are not Superman!")
+</code></pre>
+            <p class="text-sm">Remember: <code>=</code> assignment vs <code>==</code> comparison. Comparison operators: ==, !=, &lt;, &gt;, &lt;=, &gt;=.</p>
+        </div>
+    </div>
+
+    <!-- Mini Challenges -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 text-[#92a4c9] mb-6">
+        <h4 class="text-white font-bold mb-2">Mini Challenges</h4>
+        <ul class="list-disc pl-5 space-y-2 text-sm">
+            <li>Message Editing: change printed messages and observe syntax errors.</li>
+            <li>Loop Variations: convert infinite loops to definite loops and nest loops.</li>
+            <li>Logic Practice: ask multiple questions and compare numbers.</li>
+        </ul>
+    </div>
+
+    <!-- Completion Action for Chapter 2 -->
+    <div class="mt-6 flex justify-center">
+        <button id="mark-ch2-complete" class="flex items-center justify-center gap-3 rounded-xl h-14 px-10 bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary text-white text-lg font-bold shadow-lg shadow-primary/30 transform transition-all hover:scale-105">
+            <span>Mark Chapter 2 Complete</span>
+            <span class="material-symbols-outlined">check_circle</span>
+        </button>
+    </div>
+</section>
+
+<!-- Chapter 3: Physical Computing -->
+<section id="chapter-3" class="pt-12">
+    <div class="flex items-center gap-3 mb-6">
+        <div class="size-8 rounded bg-primary/20 flex items-center justify-center text-primary">
+            <span class="material-symbols-outlined text-xl">sensors</span>
+        </div>
+        <h2 class="text-white text-2xl font-bold">Chapter 3 — Physical Computing</h2>
+    </div>
+
+    <!-- Learning Points -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white text-lg font-bold mb-3">Learning Points</h3>
+            <ul class="text-[#92a4c9] text-sm list-disc pl-5 space-y-1">
+                <li>Explain what physical computing is and how it differs from pure software programming</li>
+                <li>Identify and understand the different types of pins on the Raspberry Pi Pico</li>
+                <li>Safely use GPIO pins for input and output</li>
+                <li>Recognize and select common electronic components used in Pico projects</li>
+                <li>Understand voltage levels (3.3V vs 5V) and why they matter</li>
+                <li>Read and interpret resistor colour codes</li>
+                <li>Choose appropriate components for simple physical computing projects</li>
+            </ul>
+        </div>
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white text-lg font-bold mb-3">Core Concepts</h3>
+            <p class="text-[#92a4c9] text-sm">Physical computing uses code to sense and control the real world via hardware. The Pico bridges software logic (MicroPython) and devices like LEDs, buttons, sensors, displays and motors.</p>
+        </div>
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white text-lg font-bold mb-3">Estimated Time</h3>
+            <p class="text-[#92a4c9] text-sm">~20–40 minutes (mostly conceptual; prepares for hands-on wiring in later chapters)</p>
+        </div>
+    </div>
+
+    <!-- Pins Overview -->
+    <div class="mb-6">
+        <h4 class="text-white font-bold mb-2">Raspberry Pi Pico: Pins Overview</h4>
+        <p class="text-[#92a4c9] text-sm mb-3">The Pico exposes pins grouped by function rather than sequential physical numbers. Key categories and purposes:</p>
+        <div class="overflow-x-auto mb-4">
+            <table class="w-full text-sm text-[#92a4c9] border-collapse">
+                <thead>
+                    <tr class="text-left text-[#cbd7f7]"><th class="pb-2">Pin Type</th><th class="pb-2">Purpose</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="pt-2">3V3 (OUT)</td><td class="pt-2">Regulated 3.3V output</td></tr>
+                    <tr><td class="pt-2">VBUS</td><td class="pt-2">5V from USB</td></tr>
+                    <tr><td class="pt-2">VSYS</td><td class="pt-2">Main system power input (2–5V)</td></tr>
+                    <tr><td class="pt-2">GND</td><td class="pt-2">Ground (0V reference)</td></tr>
+                    <tr><td class="pt-2">GP0–GP28</td><td class="pt-2">GPIO (digital input/output)</td></tr>
+                    <tr><td class="pt-2">GPxx_ADCx</td><td class="pt-2">GPIO with analogue input (ADC)</td></tr>
+                    <tr><td class="pt-2">ADC_VREF</td><td class="pt-2">Analogue reference voltage</td></tr>
+                    <tr><td class="pt-2">AGND</td><td class="pt-2">Analogue ground</td></tr>
+                    <tr><td class="pt-2">RUN</td><td class="pt-2">Enable / disable Pico (reset control)</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="text-xs text-[#92a4c9]">Key ideas: GPIO numbering starts at <strong>GP0</strong>, GPIO numbers are not the same as physical pin numbers, some GPIOs support analogue input, and <strong>never exceed 3.3V on GPIO inputs.</strong></p>
+    </div>
+
+    <!-- GPIO Pins -->
+    <div class="mb-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 text-[#92a4c9]">
+            <h4 class="text-white font-bold mb-2">GPIO Pins (Digital I/O)</h4>
+            <p class="text-sm">GPIO pins can be programmed as outputs (e.g., LEDs, buzzers) or inputs (e.g., buttons, sensors). They have no fixed role until defined in MicroPython. Important: Pico GPIOs are <strong>3.3V logic only</strong>.</p>
+        </div>
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 text-[#92a4c9]">
+            <h4 class="text-white font-bold mb-2">Electronic Components Introduced</h4>
+            <table class="w-full text-sm text-[#92a4c9] border-collapse">
+                <thead><tr class="text-left text-[#cbd7f7]"><th>Component</th><th>Role</th><th>Input / Output</th></tr></thead>
+                <tbody>
+                    <tr><td class="pt-2">Resistor</td><td class="pt-2">Limits current</td><td class="pt-2">Passive</td></tr>
+                    <tr><td class="pt-2">Jumper wires</td><td class="pt-2">Electrical connections</td><td class="pt-2">Passive</td></tr>
+                    <tr><td class="pt-2">LED</td><td class="pt-2">Light indicator</td><td class="pt-2">Output</td></tr>
+                    <tr><td class="pt-2">PIR sensor</td><td class="pt-2">Motion detection</td><td class="pt-2">Input</td></tr>
+                    <tr><td class="pt-2">Breadboard</td><td class="pt-2">Prototyping</td><td class="pt-2">Passive</td></tr>
+                    <tr><td class="pt-2">OLED display</td><td class="pt-2">Visual output</td><td class="pt-2">Output</td></tr>
+                    <tr><td class="pt-2">Piezo buzzer</td><td class="pt-2">Sound output</td><td class="pt-2">Output</td></tr>
+                    <tr><td class="pt-2">Potentiometer</td><td class="pt-2">Adjustable voltage</td><td class="pt-2">Input</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Component Concepts & Resistor Colour Code -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 text-[#92a4c9]">
+            <h4 class="text-white font-bold mb-2">Key Component Concepts</h4>
+            <ul class="list-disc pl-5 space-y-2 text-sm">
+                <li><strong>Resistors:</strong> measured in ohms (Ω); protect LEDs and GPIO pins. Common values: <em>330Ω</em> for LED protection; <em>8.2kΩ–20kΩ</em> for sensors and pull-ups.</li>
+                <li><strong>LEDs:</strong> polarity matters (long leg = +); always use a resistor; use LEDs rated for 3.3V.</li>
+                <li><strong>Buzzers:</strong> active buzzers are simpler and can be driven directly by GPIO.</li>
+                <li><strong>Potentiometers:</strong> variable resistor (2 pins) or voltage divider (3 pins); use with ADC pins.</li>
+            </ul>
+        </div>
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 text-[#92a4c9]">
+            <h4 class="text-white font-bold mb-2">Resistor Colour Code System</h4>
+            <p class="text-sm">Read bands left → right. First two bands = digits, next = multiplier, final = tolerance.</p>
+            <div class="mt-2 text-sm text-[#92a4c9]">
+                <p class="mb-1"><strong>Example:</strong> Orange – Orange – Brown – Gold → 33 × 10¹ = <strong>330Ω</strong></p>
+                <p class="mb-0">Common units: 1,000Ω = 1kΩ, 1,000,000Ω = 1MΩ.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hands-on Practice -->
+    <div class="rounded-xl overflow-hidden border border-[#232f48] bg-[#0d1117] shadow-2xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-3">Hands-on Practice (Conceptual)</h4>
+        <p class="text-[#92a4c9] text-sm mb-3">Although Chapter 3 is mostly theory, these activities prepare learners for Chapter 4's practical wiring exercises.</p>
+        <ul class="list-disc pl-5 space-y-2 text-sm text-[#92a4c9]">
+            <li>Identify all pin types on a real Pico board</li>
+            <li>Match physical components to their schematic symbols</li>
+            <li>Sort resistors by value using colour codes</li>
+            <li>Place components correctly on a breadboard (no power yet)</li>
+            <li>Identify which GPIO pins support ADC</li>
+        </ul>
+    </div>
+
+    <!-- Completion Action for Chapter 3 -->
+    <div class="mt-6 flex justify-center">
+        <button id="mark-ch3-complete" class="flex items-center justify-center gap-3 rounded-xl h-14 px-10 bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary text-white text-lg font-bold shadow-lg shadow-primary/30 transform transition-all hover:scale-105">
+            <span>Mark Chapter 3 Complete</span>
+            <span class="material-symbols-outlined">check_circle</span>
+        </button>
+    </div>
+</section>
+
+<!-- Chapter 4: Physical Computing with Raspberry Pi Pico -->
+<section id="chapter-4" class="pt-12">
+    <div class="flex items-center gap-3 mb-6">
+        <div class="size-8 rounded bg-primary/20 flex items-center justify-center text-primary">
+            <span class="material-symbols-outlined text-xl">devices</span>
+        </div>
+        <h2 class="text-white text-2xl font-bold">Chapter 4 — Physical Computing with Raspberry Pi Pico</h2>
+    </div>
+
+    <!-- Learning Points -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white text-lg font-bold mb-3">Learning Points</h3>
+            <ul class="text-[#92a4c9] text-sm list-disc pl-5 space-y-1">
+                <li>Understand physical computing and how software interacts with hardware</li>
+                <li>Use the <code class="inline-code bg-[#08101a] text-white px-1 py-0.5 rounded text-xs font-mono">machine</code> library to control GPIO pins</li>
+                <li>Configure GPIO pins as outputs and inputs</li>
+                <li>Control the on-board LED and external LEDs</li>
+                <li>Safely build circuits using a breadboard and current-limiting resistors</li>
+                <li>Read input from a push-button and combine inputs and outputs</li>
+                <li>Understand pull-up resistors and write continuous programs with <code class="inline-code bg-[#08101a] text-white px-1 py-0.5 rounded text-xs font-mono">while True</code></li>
+            </ul>
+        </div>
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white text-lg font-bold mb-3">Key Concepts</h3>
+            <p class="text-[#92a4c9] text-sm">Physical computing here focuses on connecting electronic components and controlling them with MicroPython using the <code class="inline-code bg-[#08101a] text-white px-1 py-0.5 rounded text-xs font-mono">machine</code> library (Pin API).</p>
+        </div>
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white text-lg font-bold mb-3">Estimated Time</h3>
+            <p class="text-[#92a4c9] text-sm">~30–60 minutes depending on practice and setup</p>
+        </div>
+    </div>
+
+    <!-- Machine library & Output examples -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-6">
+        <div class="space-y-4 text-[#92a4c9] font-body leading-relaxed text-base">
+            <h4 class="text-white font-bold">The <code class="inline-code bg-[#08101a] text-white px-1 py-0.5 rounded text-xs font-mono">machine</code> Library</h4>
+            <p class="text-sm">MicroPython's <code class="inline-code bg-[#08101a] text-white px-1 py-0.5 rounded text-xs font-mono">machine</code> library provides hardware access (Pin class) required to control GPIO pins.</p>
+
+            <h4 class="text-white font-bold">GPIO as Outputs</h4>
+            <p class="text-sm">Use <code class="inline-code bg-[#08101a] text-white px-1 py-0.5 rounded text-xs font-mono">machine.Pin</code> to configure outputs. Example for the on-board LED:</p>
+            <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48]"><code class="language-python">import machine
+
+led_onboard = machine.Pin("LED", machine.Pin.OUT)
+led_onboard.value(1)  # turn on
+led_onboard.value(0)  # turn off</code></pre>
+
+            <h4 class="text-white font-bold">Timing & Loops</h4>
+            <p class="text-sm">Use <code class="inline-code bg-[#08101a] text-white px-1 py-0.5 rounded text-xs font-mono">time.sleep()</code> and loops to make visible LED behavior.</p>
+        </div>
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 text-[#92a4c9]">
+            <h4 class="text-white font-bold mb-2">Using a Breadboard (Safety)</h4>
+            <p class="text-sm">Breadboards connect rows and have a center gap; Pico should straddle the gap. Use power rails for VCC/GND. <strong>Warnings:</strong> never short pins, never force bent pins, disconnect USB power when wiring.</p>
+        </div>
+    </div>
+
+    <!-- Projects -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 text-[#92a4c9]">
+            <h4 class="text-white font-bold mb-2">Project 1 — Hello, LED! (On-board LED)</h4>
+            <p class="text-sm mb-2">Turn the Pico's built-in LED on and off.</p>
+            <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48]"><code class="language-python">import machine
+
+led_onboard = machine.Pin("LED", machine.Pin.OUT)
+led_onboard.value(1)  # on
+# to turn off
+led_onboard.value(0)</code></pre>
+        </div>
+
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 text-[#92a4c9]">
+            <h4 class="text-white font-bold mb-2">Project 2 — External LED (GP15)</h4>
+            <p class="text-sm mb-2">Use a 330Ω resistor to protect the LED.</p>
+            <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48]"><code class="language-python">import machine
+
+led_external = machine.Pin(15, machine.Pin.OUT)
+led_external.value(1)  # turn external LED on</code></pre>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 text-[#92a4c9]">
+            <h4 class="text-white font-bold mb-2">Project 3 — Reading a Push-Button (GP14)</h4>
+            <p class="text-sm mb-2">Configure input with a pull-up resistor; button press pulls input LOW (0).</p>
+            <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48]"><code class="language-python">import machine
+
+button = machine.Pin(14, machine.Pin.IN, machine.Pin.PULL_UP)
+print(button.value())</code></pre>
+            <p class="text-sm mt-2">Continuous reading example:</p>
+            <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48]"><code class="language-python">import machine
+import time
+
+button = machine.Pin(14, machine.Pin.IN, machine.Pin.PULL_UP)
+
+while True:
+    if button.value() == 0:
+        print("You pressed the button!")
+        time.sleep(2)</code></pre>
+        </div>
+
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 text-[#92a4c9]">
+            <h4 class="text-white font-bold mb-2">Project 4 — Input + Output Together</h4>
+            <p class="text-sm mb-2">Use a button to control an LED (LED on GP15, Button on GP14).</p>
+            <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48]"><code class="language-python">import machine
+import time
+
+led_external = machine.Pin(15, machine.Pin.OUT)
+button = machine.Pin(14, machine.Pin.IN, machine.Pin.PULL_UP)
+
+while True:
+    if button.value() == 0:
+        led_external.value(1)
+        time.sleep(2)
+    led_external.value(0)</code></pre>
+        </div>
+    </div>
+
+    <!-- Challenges -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 text-[#92a4c9] mb-6">
+        <h4 class="text-white font-bold mb-2">Challenges & Extensions</h4>
+        <ul class="list-disc pl-5 space-y-2 text-sm">
+            <li>Light multiple LEDs</li>
+            <li>Reverse button logic (normally ON)</li>
+            <li>Print messages AND control LEDs</li>
+            <li>Add more buttons and outputs</li>
+        </ul>
+    </div>
+
+    <!-- Completion Action for Chapter 4 -->
+    <div class="mt-6 flex justify-center">
+        <button id="mark-ch4-complete" class="flex items-center justify-center gap-3 rounded-xl h-14 px-10 bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary text-white text-lg font-bold shadow-lg shadow-primary/30 transform transition-all hover:scale-105">
+            <span>Mark Chapter 4 Complete</span>
+            <span class="material-symbols-outlined">check_circle</span>
+        </button>
+    </div>
+</section>
+
+<!-- Chapter 5: Traffic Light Controller -->
+<section id="chapter-5" class="pt-12">
+    <div class="flex items-center gap-3 mb-6">
+        <div class="size-8 rounded bg-primary/20 flex items-center justify-center text-primary">
+            <span class="material-symbols-outlined text-xl">traffic</span>
+        </div>
+        <h2 class="text-white text-2xl font-bold">Chapter 5 — Traffic Light Controller</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white text-lg font-bold mb-3">Learning Points</h3>
+            <ul class="text-[#92a4c9] text-sm list-disc pl-5 space-y-1">
+                <li>Control multiple output devices (LEDs, buzzer) with MicroPython</li>
+                <li>Implement timed state machines using <code class="inline-code bg-[#08101a] text-white px-1 py-0.5 rounded text-xs font-mono">time.sleep()</code></li>
+                <li>Use push-button input with internal pull-up resistors</li>
+                <li>Understand and apply hardware interrupts (IRQs)</li>
+                <li>Safely manage shared state between interrupt handlers and main loops</li>
+                <li>Simulate a real-world embedded system (pedestrian traffic lights)</li>
+            </ul>
+        </div>
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white text-lg font-bold mb-3">Key Concepts</h3>
+            <p class="text-[#92a4c9] text-sm">Traffic light controllers are finite state machines. The pedestrian crossing introduces an event-driven override triggered by a button press; interrupts provide an immediate, non-blocking way to handle that event.</p>
+        </div>
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white text-lg font-bold mb-3">Hardware Required</h3>
+            <ul class="text-[#92a4c9] text-sm list-disc pl-5 space-y-1">
+                <li>Raspberry Pi Pico</li>
+                <li>Breadboard</li>
+                <li>Red, Amber, Green LEDs</li>
+                <li>3 × 330 Ω resistors</li>
+                <li>Push-button switch</li>
+                <li>Active piezo buzzer</li>
+                <li>Jumper wires, Micro USB cable</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-2">Traffic Light Logic (State-Based Systems)</h4>
+        <p class="text-[#92a4c9] text-sm mb-2">A traffic light controller cycles through: <strong>Red → Red + Amber → Green → Amber → Repeat</strong>. A pedestrian button press requests a crossing and triggers an interrupt-driven response.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 text-[#92a4c9]">
+            <h4 class="text-white font-bold mb-2">GPIO Outputs — LEDs</h4>
+            <ul class="list-disc pl-5 space-y-1 text-sm">
+                <li>Red LED — GP15</li>
+                <li>Amber LED — GP14</li>
+                <li>Green LED — GP13</li>
+                <li>Use 330 Ω current-limiting resistors</li>
+            </ul>
+        </div>
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 text-[#92a4c9]">
+            <h4 class="text-white font-bold mb-2">Button & Buzzer</h4>
+            <ul class="list-disc pl-5 space-y-1 text-sm">
+                <li>Push button to GND on GP16; configure as <code class="inline-code bg-[#08101a] text-white px-1 py-0.5 rounded text-xs font-mono">Pin.IN, Pin.PULL_UP</code></li>
+                <li>Active buzzer on GP12</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="mb-6">
+        <h4 class="text-white font-bold mb-2">Wiring Summary</h4>
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm text-[#92a4c9] border-collapse">
+                <thead><tr class="text-left text-[#cbd7f7]"><th class="pb-2">Component</th><th class="pb-2">GPIO Pin</th></tr></thead>
+                <tbody>
+                    <tr><td class="pt-2">Red LED</td><td class="pt-2">GP15</td></tr>
+                    <tr><td class="pt-2">Amber LED</td><td class="pt-2">GP14</td></tr>
+                    <tr><td class="pt-2">Green LED</td><td class="pt-2">GP13</td></tr>
+                    <tr><td class="pt-2">Push Button</td><td class="pt-2">GP16</td></tr>
+                    <tr><td class="pt-2">Buzzer</td><td class="pt-2">GP12</td></tr>
+                    <tr><td class="pt-2">Ground</td><td class="pt-2">GND</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-2">Core MicroPython Code (Pedestrian Crossing)</h4>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto"><code class="language-python">import machine
+import time
+
+# LEDs
+led_red = machine.Pin(15, machine.Pin.OUT)
+led_amber = machine.Pin(14, machine.Pin.OUT)
+led_green = machine.Pin(13, machine.Pin.OUT)
+
+# Button and buzzer
+button = machine.Pin(16, machine.Pin.IN, machine.Pin.PULL_UP)
+buzzer = machine.Pin(12, machine.Pin.OUT)
+
+button_pressed = False
+
+# Interrupt handler
+def btn_handler(pin):
+    global button_pressed
+    if not button_pressed:
+        button_pressed = True
+
+# Enable interrupt
+button.irq(trigger=machine.Pin.IRQ_FALLING, handler=btn_handler)
+
+while True:
+    # Pedestrian crossing
+    if button_pressed:
+        led_red.value(1)
+        for i in range(20):
+            buzzer.value(1)
+            time.sleep(0.05)
+            buzzer.value(0)
+            time.sleep(0.2)
+        button_pressed = False
+
+    # Traffic light cycle
+    led_red.value(1)
+    time.sleep(5)
+
+    led_amber.value(1)
+    time.sleep(2)
+
+    led_red.value(0)
+    led_amber.value(0)
+    led_green.value(1)
+    time.sleep(5)
+
+    led_green.value(0)
+    led_amber.value(1)
+    time.sleep(5)
+
+    led_amber.value(0)
+</code></pre>
+        <p class="text-xs text-[#92a4c9] mt-2">This mimics a UK-style puffin crossing where the red light stays on after the buzzer stops to allow pedestrians time to finish crossing.</p>
+    </div>
+
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-2">What This Program Demonstrates</h4>
+        <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+            <li>Concurrent behavior using interrupts</li>
+            <li>Non-blocking input handling</li>
+            <li>Time-based sequencing</li>
+            <li>Safe shared-variable design</li>
+            <li>Real-world embedded modeling</li>
+        </ul>
+    </div>
+
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-2">In-Chapter Challenges (Exercises)</h4>
+        <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+            <li><strong>Basic:</strong> Increase pedestrian crossing time; change LED timing values</li>
+            <li><strong>Intermediate:</strong> Add a second pedestrian button; modify sequence to match another country's traffic system</li>
+            <li><strong>Advanced:</strong> Replace delays with a full state machine; add night mode or flashing amber mode; display countdown on an OLED</li>
+        </ul>
+    </div>
+
+    <div class="mt-6 flex justify-center">
+        <button id="mark-ch5-complete" class="flex items-center justify-center gap-3 rounded-xl h-14 px-10 bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary text-white text-lg font-bold shadow-lg shadow-primary/30 transform transition-all hover:scale-105">
+            <span>Mark Chapter 5 Complete</span>
+            <span class="material-symbols-outlined">check_circle</span>
+        </button>
+    </div>
+</section>
+
+<!-- Chapter 6: Reaction Game -->
+<section id="chapter-6" class="pt-12">
+    <div class="flex items-center gap-3 mb-6">
+        <div class="size-8 rounded bg-primary/20 flex items-center justify-center text-primary">
+            <span class="material-symbols-outlined text-xl">videogame_asset</span>
+        </div>
+        <h2 class="text-white text-2xl font-bold">Chapter 6 — Reaction Game</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white text-lg font-bold mb-3">Learning Objectives</h3>
+            <ul class="text-[#92a4c9] text-sm list-disc pl-5 space-y-1">
+                <li>Understand reaction time and mental chronometry</li>
+                <li>Build a single-player and two-player reaction game</li>
+                <li>Use GPIO input and output together</li>
+                <li>Apply interrupts for instant response</li>
+                <li>Implement random delays for unpredictable behavior</li>
+                <li>Design an interactive game using MicroPython</li>
+            </ul>
+        </div>
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white text-lg font-bold mb-3">Core Concepts</h3>
+            <ul class="text-[#92a4c9] text-sm list-disc pl-5 space-y-1">
+                <li><strong>Reaction Time:</strong> 200–250 ms average for humans</li>
+                <li><strong>Randomness:</strong> Prevents prediction; ensures fairness</li>
+                <li><strong>Pull-Up Resistors:</strong> Prevent floating inputs</li>
+                <li><strong>Interrupts:</strong> Real-time button detection</li>
+                <li><strong>Game Logic:</strong> Input, output, state management</li>
+            </ul>
+        </div>
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white text-lg font-bold mb-3">Hardware Required</h3>
+            <ul class="text-[#92a4c9] text-sm list-disc pl-5 space-y-1">
+                <li>Raspberry Pi Pico</li>
+                <li>Breadboard</li>
+                <li>1–2 × Push-buttons</li>
+                <li>1 × LED (any color)</li>
+                <li>1 × 330 Ω resistor</li>
+                <li>Jumper wires</li>
+                <li>Micro USB cable</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 text-[#92a4c9]">
+            <h4 class="text-white font-bold mb-2">Reaction Time (Mental Chronometry)</h4>
+            <p class="text-sm mb-2">Reaction time is the delay between a stimulus and a response.</p>
+            <ul class="list-disc pl-5 space-y-1 text-sm">
+                <li>Average human: <strong>200–250 ms</strong></li>
+                <li>LED turning OFF = signal to press button</li>
+                <li>Randomness prevents players from counting seconds</li>
+            </ul>
+        </div>
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 text-[#92a4c9]">
+            <h4 class="text-white font-bold mb-2">Game Components & Roles</h4>
+            <table class="w-full text-sm text-[#92a4c9] border-collapse">
+                <thead><tr class="text-left text-[#cbd7f7]"><th class="pb-2">Component</th><th class="pb-2">Role</th></tr></thead>
+                <tbody>
+                    <tr><td class="pt-2">LED</td><td class="pt-2">Visual signal (start/stop cue)</td></tr>
+                    <tr><td class="pt-2">Push-button(s)</td><td class="pt-2">Player input</td></tr>
+                    <tr><td class="pt-2">Pico</td><td class="pt-2">Game controller</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-2">Single-Player Circuit Overview</h4>
+        <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+            <li>LED → GP15 (with 330 Ω resistor)</li>
+            <li>Button → GP14 (with internal pull-up, wired to GND)</li>
+        </ul>
+    </div>
+
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-2">Single-Player Reaction Game Code</h4>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto"><code class="language-python">import machine
+import time
+import random
+
+button_pressed = False
+
+led = machine.Pin(15, machine.Pin.OUT)
+button = machine.Pin(14, machine.Pin.IN, machine.Pin.PULL_UP)
+
+def btn_handler(pin):
+    global button_pressed
+    if not button_pressed:
+        button_pressed = True
+        print(pin)
+
+led.value(1)
+time.sleep(random.uniform(5, 10))
+led.value(0)
+
+button.irq(trigger=machine.Pin.IRQ_FALLING, handler=btn_handler)
+</code></pre>
+        <p class="text-xs text-[#92a4c9] mt-2"><strong>How it works:</strong> LED turns ON → Pico waits 5–10 seconds (randomized) → LED turns OFF → player must press button as quickly as possible.</p>
+    </div>
+
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-2">Two-Player Game (Expansion)</h4>
+        <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+            <li><strong>Left button:</strong> GP14 (with pull-up)</li>
+            <li><strong>Right button:</strong> GP16 (with pull-up)</li>
+            <li>First button pressed wins</li>
+            <li>Pico prints winner to the Shell</li>
+            <li>Game resets on re-run</li>
+        </ul>
+    </div>
+
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-2">Key Skills & Concepts Reinforced</h4>
+        <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+            <li>Event-driven programming using interrupts</li>
+            <li>GPIO input and output combined in one project</li>
+            <li>Game-state control using flags</li>
+            <li>Combining randomness with hardware inputs</li>
+            <li>Real-time response to physical events</li>
+        </ul>
+    </div>
+
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-2">Challenges & Extensions</h4>
+        <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+            <li><strong>Built-in:</strong> Change victory messages; add a third player; measure reaction time</li>
+            <li><strong>Suggested:</strong> Add an OLED screen for reaction time display; store best time in memory; use a buzzer for signals; turn into a classroom competition</li>
+        </ul>
+    </div>
+
+    <div class="mt-6 flex justify-center">
+        <button id="mark-ch6-complete" class="flex items-center justify-center gap-3 rounded-xl h-14 px-10 bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary text-white text-lg font-bold shadow-lg shadow-primary/30 transform transition-all hover:scale-105">
+            <span>Mark Chapter 6 Complete</span>
+            <span class="material-symbols-outlined">check_circle</span>
+        </button>
+    </div>
+</section>
+
+<!-- Chapter 7: Burglar Alarm -->
+<section id="chapter-7" class="pt-12">
+    <div class="flex items-center gap-4 mb-8">
+        <div class="size-12 rounded-lg bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center text-2xl">
+            <span class="material-symbols-outlined text-white">security</span>
+        </div>
+        <h2 class="text-3xl font-bold text-white">Chapter 7: Burglar Alarm</h2>
+    </div>
+    <p class="text-lg text-[#92a4c9] mb-6">Use a motion sensor to detect intruders and sound the alarm with a flashing light and siren</p>
+
+    <!-- Learning Objectives, Core Concepts, Hardware Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white font-bold mb-3 flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-xl">lightbulb</span>
+                Learning Objectives
+            </h3>
+            <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                <li>Understand PIR (Passive Infrared) motion sensors</li>
+                <li>Use GPIO interrupts for instant reaction</li>
+                <li>Apply debouncing to avoid false triggers</li>
+                <li>Control LEDs and buzzers as alarm outputs</li>
+                <li>Use toggle() vs value() correctly</li>
+                <li>Build multi-zone burglar alarm</li>
+                <li>Write modular, interrupt-driven code</li>
+            </ul>
+        </div>
+
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white font-bold mb-3 flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-xl">school</span>
+                Key Concepts
+            </h3>
+            <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                <li><strong>PIR Sensors:</strong> Detect heat movement from people/animals</li>
+                <li><strong>Interrupts (IRQs):</strong> React immediately to external events</li>
+                <li><strong>Debouncing:</strong> Avoid false alarms with signal confirmation</li>
+                <li><strong>toggle() vs value():</strong> toggle() flips state; value() sets known state</li>
+                <li><strong>Multi-Zone:</strong> Handle multiple sensors with one handler</li>
+            </ul>
+        </div>
+
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white font-bold mb-3 flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-xl">settings</span>
+                Key Components Used
+            </h3>
+            <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                <li>Raspberry Pi Pico / Pico W</li>
+                <li>HC-SR501 PIR motion sensor (5V)</li>
+                <li>LED + 330 Ω resistor</li>
+                <li>Piezoelectric buzzer (active preferred)</li>
+                <li>8.2 kΩ pull-down resistors</li>
+                <li>Breadboard + jumper wires</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Core Concepts Details -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">3.1 Passive Infrared (PIR) Sensor</h4>
+        <ul class="list-disc pl-5 space-y-2 text-sm text-[#92a4c9] mb-4">
+            <li>Detects heat movement from people or animals</li>
+            <li>Uses a Fresnel lens to widen its field of view</li>
+            <li>Outputs a digital HIGH signal when motion is detected</li>
+            <li>Includes adjustable delay potentiometers</li>
+        </ul>
+        <div class="bg-yellow-900/20 border border-yellow-700/50 rounded p-3 text-sm text-yellow-200">
+            <strong>⚠️ Warning:</strong> HC-SR501 requires 5V power, not 3.3V. Use VBUS (Pin 40) on the Pico
+        </div>
+    </div>
+
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">3.2 Interrupts (IRQs)</h4>
+        <p class="text-sm text-[#92a4c9] mb-3">Interrupts allow the Pico to react immediately. PIR sensor triggers on rising edge. No infinite loop required to keep checking the sensor.</p>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto"><code class="language-python">snsr_pir.irq(
+    trigger=machine.Pin.IRQ_RISING,
+    handler=pir_handler
+)</code></pre>
+    </div>
+
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">3.3 Debouncing</h4>
+        <p class="text-sm text-[#92a4c9] mb-3">PIR sensors can produce noisy signals. Debouncing confirms the signal is stable before acting.</p>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto"><code class="language-python">time.sleep_ms(100)  # Wait 100 ms
+if pin.value():      # Confirm signal is still HIGH
+    # Prevents false alarms</code></pre>
+    </div>
+
+    <!-- Hands-On Practice: Basic Motion Alarm -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-2">Step 1: Read PIR Sensor and Print Alert</h4>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto"><code class="language-python">import machine
+import time
+
+snsr_pir = machine.Pin(28, machine.Pin.IN)
+
+def pir_handler(pin):
+    time.sleep_ms(100)
+    if pin.value():
+        print("ALARM! Motion detected!")
+
+snsr_pir.irq(
+    trigger=machine.Pin.IRQ_RISING,
+    handler=pir_handler
+)</code></pre>
+        <p class="text-xs text-[#92a4c9] mt-2"><strong>What happens:</strong> Waving your hand triggers a message in the Shell.</p>
+    </div>
+
+    <!-- Adding Visual Alert (LED) -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-2">5. Adding Visual Alert (LED)</h4>
+        <p class="text-sm text-[#92a4c9] mb-3"><strong>Concept:</strong> toggle() flips current state (best for blinking); value(1/0) when state must be known</p>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto"><code class="language-python">led = machine.Pin(15, machine.Pin.OUT)
+
+def pir_handler(pin):
+    time.sleep_ms(100)
+    if pin.value():
+        print("ALARM! Motion detected!")
+        for i in range(50):
+            led.toggle()
+            time.sleep_ms(100)</code></pre>
+    </div>
+
+    <!-- Adding Sound Alert (Buzzer) -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-2">6. Adding Sound Alert (Buzzer)</h4>
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-3 mb-3">
+            <p class="text-sm text-[#92a4c9] font-bold mb-2">Wiring:</p>
+            <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                <li>GP14 → buzzer signal</li>
+                <li>GND → ground rail</li>
+                <li>3-pin buzzers may need 3V3</li>
+            </ul>
+        </div>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto"><code class="language-python">buzzer = machine.Pin(14, machine.Pin.OUT)
+
+def pir_handler(pin):
+    time.sleep_ms(100)
+    if pin.value():
+        print("ALARM! Motion detected!")
+        for i in range(50):
+            led.toggle()
+            buzzer.toggle()
+            time.sleep_ms(100)</code></pre>
+    </div>
+
+    <!-- Extending the Alarm (Multiple Rooms) -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-2">7. Extending the Alarm (Multiple Rooms)</h4>
+        <p class="text-sm text-[#92a4c9] mb-3"><strong>Concept:</strong> One Handler, Multiple Interrupts. Each interrupt passes which pin triggered it.</p>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto"><code class="language-python">snsr_pir2 = machine.Pin(18, machine.Pin.IN)
+snsr_pir2.irq(
+    trigger=machine.Pin.IRQ_RISING,
+    handler=pir_handler
+)
+
+def pir_handler(pin):
+    time.sleep_ms(100)
+    if pin.value():
+        if pin is snsr_pir:
+            print("ALARM! Motion detected in bedroom!")
+        elif pin is snsr_pir2:
+            print("ALARM! Motion detected in living room!")
+        
+        for i in range(50):
+            led.toggle()
+            buzzer.toggle()
+            time.sleep_ms(100)</code></pre>
+    </div>
+
+    <!-- Final Complete Program -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-2">8. Final Complete Program</h4>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto"><code class="language-python">import machine
+import time
+
+snsr_pir  = machine.Pin(28, machine.Pin.IN)
+snsr_pir2 = machine.Pin(18, machine.Pin.IN)
+
+led    = machine.Pin(15, machine.Pin.OUT)
+buzzer = machine.Pin(14, machine.Pin.OUT)
+
+def pir_handler(pin):
+    time.sleep_ms(100)
+    if pin.value():
+        if pin is snsr_pir:
+            print("ALARM! Motion detected in bedroom!")
+        elif pin is snsr_pir2:
+            print("ALARM! Motion detected in living room!")
+
+        for i in range(50):
+            led.toggle()
+            buzzer.toggle()
+            time.sleep_ms(100)
+
+snsr_pir.irq(trigger=machine.Pin.IRQ_RISING, handler=pir_handler)
+snsr_pir2.irq(trigger=machine.Pin.IRQ_RISING, handler=pir_handler)
+
+while True:
+    led.toggle()
+    time.sleep(5)</code></pre>
+    </div>
+
+    <!-- Chapter Challenge Ideas -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-2">9. Chapter Challenge Ideas</h4>
+        <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+            <li>Add a third PIR sensor</li>
+            <li>Add different LEDs per room</li>
+            <li>Change alarm messages dynamically</li>
+            <li>Make buzzer patterns (fast vs slow)</li>
+            <li>Replace buzzer with relay or Wi-Fi alert</li>
+        </ul>
+    </div>
+
+    <div class="mt-6 flex justify-center">
+        <button id="mark-ch7-complete" class="flex items-center justify-center gap-3 rounded-xl h-14 px-10 bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary text-white text-lg font-bold shadow-lg shadow-primary/30 transform transition-all hover:scale-105">
+            <span>Mark Chapter 7 Complete</span>
+            <span class="material-symbols-outlined">check_circle</span>
+        </button>
+    </div>
+</section>
+
+<!-- Chapter 8: Temperature Gauge -->
+<section id="chapter-8" class="pt-12">
+    <div class="flex items-center gap-4 mb-8">
+        <div class="size-12 rounded-lg bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center text-2xl">
+            <span class="material-symbols-outlined text-white">thermostat</span>
+        </div>
+        <h2 class="text-3xl font-bold text-white">Chapter 8: Temperature Gauge</h2>
+    </div>
+    <p class="text-lg text-[#92a4c9] mb-6">Using analogue inputs (ADC) and PWM on Raspberry Pi Pico with MicroPython</p>
+
+    <!-- Learning Points, Core Concepts, Hardware Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white font-bold mb-3 flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-xl">lightbulb</span>
+                Learning Points
+            </h3>
+            <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                <li>Understand digital vs analogue signals</li>
+                <li>Use the ADC on Raspberry Pi Pico</li>
+                <li>Read from potentiometer and internal sensor</li>
+                <li>Convert ADC readings to voltage and temperature</li>
+                <li>Understand ADC resolution (0–65,535)</li>
+                <li>Generate analogue output using PWM</li>
+                <li>Fade LED smoothly with PWM</li>
+                <li>Identify PWM pin conflicts</li>
+            </ul>
+        </div>
+
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white font-bold mb-3 flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-xl">school</span>
+                Core Concepts
+            </h3>
+            <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                <li><strong>ADC:</strong> Converts analogue signals to digital</li>
+                <li><strong>Resolution:</strong> 12-bit hardware, 16-bit in MicroPython</li>
+                <li><strong>Conversion Factor:</strong> 3.3 / 65535 for voltage</li>
+                <li><strong>PWM:</strong> Simulates analogue output digitally</li>
+                <li><strong>Duty Cycle:</strong> Controls brightness and output</li>
+                <li><strong>Temperature Sensor:</strong> Internal chip measurement</li>
+            </ul>
+        </div>
+
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white font-bold mb-3 flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-xl">settings</span>
+                Key Components
+            </h3>
+            <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                <li>Raspberry Pi Pico / Pico W</li>
+                <li>Potentiometer (10kΩ recommended)</li>
+                <li>LED + 330 Ω resistor</li>
+                <li>Breadboard + jumper wires</li>
+                <li>3.3V and GND rails</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Core Concepts Section -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">2.1 Analogue vs Digital Signals</h4>
+        <ul class="list-disc pl-5 space-y-2 text-sm text-[#92a4c9]">
+            <li><strong>Digital:</strong> ON or OFF (0 or 1)</li>
+            <li><strong>Analogue:</strong> Continuous range of values (e.g., 0–3.3V)</li>
+            <li>Microcontrollers are digital, so they require an ADC to interpret analogue signals</li>
+        </ul>
+    </div>
+
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">2.2 Analogue-to-Digital Converter (ADC)</h4>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div>
+                <p class="text-sm text-white font-bold mb-2">Pico ADC Resolution:</p>
+                <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                    <li>Hardware: 12-bit</li>
+                    <li>MicroPython output: 16-bit (0–65,535)</li>
+                </ul>
+            </div>
+            <div>
+                <p class="text-sm text-white font-bold mb-2">ADC Channels:</p>
+                <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                    <li>GP26 → ADC0</li>
+                    <li>GP27 → ADC1</li>
+                    <li>GP28 → ADC2</li>
+                    <li>Internal temp → ADC4</li>
+                </ul>
+            </div>
+        </div>
+        <p class="text-xs text-[#92a4c9]"><strong>Why 65,535?</strong> 16-bit binary maximum = 1111111111111111 → 65,535 decimal.</p>
+    </div>
+
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">2.3 Conversion Factor</h4>
+        <p class="text-sm text-[#92a4c9] mb-3">To convert ADC readings into voltage:</p>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto"><code class="language-python">conversion_factor = 3.3 / 65535</code></pre>
+        <p class="text-xs text-[#92a4c9] mt-2">This maps ADC values to real-world voltage (0–3.3V).</p>
+    </div>
+
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">2.4 Potentiometer as a Voltage Divider</h4>
+        <ul class="list-disc pl-5 space-y-2 text-sm text-[#92a4c9] mb-3">
+            <li>Acts as: Variable resistor</li>
+            <li>Voltage divider when connected to 3.3V and GND</li>
+            <li>Output voltage changes smoothly as knob turns</li>
+        </ul>
+        <div class="bg-yellow-900/20 border border-yellow-700/50 rounded p-3 text-sm text-yellow-200">
+            <strong>⚠️ Note:</strong> Real components never reach perfect 0 or 3.3V due to tolerance.
+        </div>
+    </div>
+
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">2.5 Internal Temperature Sensor</h4>
+        <ul class="list-disc pl-5 space-y-2 text-sm text-[#92a4c9] mb-3">
+            <li>Located inside the RP2040 / RP2350 chip</li>
+            <li>Reports voltage proportional to temperature</li>
+            <li>Requires a datasheet-derived formula:</li>
+        </ul>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto"><code class="language-python">temperature = 27 - (reading - 0.706) / 0.001721</code></pre>
+        <div class="bg-yellow-900/20 border border-yellow-700/50 rounded p-3 text-sm text-yellow-200 mt-3">
+            <strong>⚠️ Note:</strong> Sensor measures chip temperature, not ambient air temperature.
+        </div>
+    </div>
+
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">2.6 Pulse-Width Modulation (PWM)</h4>
+        <ul class="list-disc pl-5 space-y-2 text-sm text-[#92a4c9] mb-3">
+            <li>Used to simulate analogue output using digital pins</li>
+            <li>Works by changing the duty cycle</li>
+            <li>All GPIO pins support PWM</li>
+            <li>PWM is divided into slices (two pins per slice)</li>
+        </ul>
+        <div class="bg-yellow-900/20 border border-yellow-700/50 rounded p-3 text-sm text-yellow-200">
+            <strong>⚠️ Warning:</strong> Using both outputs of the same PWM slice causes conflicts.
+        </div>
+    </div>
+
+    <!-- Hands-On Practice Section -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-2">Practice 1: Reading a Potentiometer (Raw ADC)</h4>
+        <p class="text-sm text-[#92a4c9] mb-3"><strong>Goal:</strong> Observe raw ADC values</p>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto"><code class="language-python">import machine
+import time
+
+pot = machine.ADC(26)
+
+while True:
+    print(pot.read_u16())
+    time.sleep(0.5)</code></pre>
+    </div>
+
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-2">Practice 2: Convert ADC Reading to Voltage</h4>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto"><code class="language-python">import machine
+import time
+
+pot = machine.ADC(26)
+conversion_factor = 3.3 / 65535
+
+while True:
+    voltage = pot.read_u16() * conversion_factor
+    print(voltage)
+    time.sleep(0.5)</code></pre>
+    </div>
+
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-2">Practice 3: Reading Internal Temperature Sensor</h4>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto"><code class="language-python">import machine
+import time
+
+sensor_temp = machine.ADC(machine.ADC.CORE_TEMP)
+conversion_factor = 3.3 / 65535
+
+while True:
+    reading = sensor_temp.read_u16() * conversion_factor
+    temperature = 27 - (reading - 0.706) / 0.001721
+    print(temperature)
+    time.sleep(2)</code></pre>
+        <p class="text-xs text-[#92a4c9] mt-2"><strong>Experiment:</strong> Touch the Pico chip with your finger and observe temperature changes.</p>
+    </div>
+
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-2">Practice 4: Fading an LED with PWM</h4>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto"><code class="language-python">import machine
+import time
+
+led = machine.PWM(machine.Pin(15))
+led.freq(1000)
+
+while True:
+    for duty in range(0, 65535, 500):
+        led.duty_u16(duty)
+        time.sleep(0.01)
+    for duty in range(65535, 0, -500):
+        led.duty_u16(duty)
+        time.sleep(0.01)</code></pre>
+    </div>
+
+    <!-- Mini Challenges Section -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">4. Mini Challenges (From the Book)</h4>
+        <div class="space-y-3">
+            <div>
+                <p class="text-sm text-white font-bold mb-2">🔧 Replace the potentiometer with:</p>
+                <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                    <li>Light sensor (LDR)</li>
+                    <li>Gas sensor</li>
+                    <li>Pressure sensor</li>
+                </ul>
+            </div>
+            <div>
+                <p class="text-sm text-white font-bold mb-2">🌡️ Display temperature on:</p>
+                <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                    <li>OLED screen (later chapter)</li>
+                    <li>Serial Plotter</li>
+                </ul>
+            </div>
+            <div>
+                <p class="text-sm text-white font-bold mb-2">💡 Use temperature to:</p>
+                <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                    <li>Control LED brightness</li>
+                    <li>Trigger alarms</li>
+                </ul>
+            </div>
+            <div>
+                <p class="text-sm text-white font-bold mb-2">⚙️ Advanced:</p>
+                <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                    <li>Try different PWM frequencies</li>
+                    <li>Compare linear vs logarithmic potentiometers</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-6 flex justify-center">
+        <button id="mark-ch8-complete" class="flex items-center justify-center gap-3 rounded-xl h-14 px-10 bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary text-white text-lg font-bold shadow-lg shadow-primary/30 transform transition-all hover:scale-105">
+            <span>Mark Chapter 8 Complete</span>
+            <span class="material-symbols-outlined">check_circle</span>
+        </button>
+    </div>
+</section>
+
+<!-- Chapter 9: Data Logger -->
+<section id="chapter-9" class="pt-12">
+    <div class="flex items-center gap-4 mb-8">
+        <div class="size-12 rounded-lg bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center text-2xl">
+            <span class="material-symbols-outlined text-white">storage</span>
+        </div>
+        <h2 class="text-3xl font-bold text-white">Chapter 9: Data Logger</h2>
+    </div>
+    <p class="text-lg text-[#92a4c9] mb-6">Untether the Raspberry Pi Pico from the computer and turn it into a fully portable data-logging device that records sensor data to onboard storage for later retrieval</p>
+
+    <!-- Learning Points, Key Concepts, Key Components Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white font-bold mb-3 flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-xl">lightbulb</span>
+                Learning Points
+            </h3>
+            <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                <li>Understand microcontroller file systems</li>
+                <li>Create, write, read, and append files</li>
+                <li>Log multiple sensor readings over time</li>
+                <li>Use flush() vs close() correctly</li>
+                <li>Format logged data for readability</li>
+                <li>Run Pico headless using main.py</li>
+                <li>Estimate storage usage and duration</li>
+                <li>Build portable temperature data logger</li>
+            </ul>
+        </div>
+
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white font-bold mb-3 flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-xl">school</span>
+                Key Concepts
+            </h3>
+            <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                <li><strong>File System:</strong> Non-volatile flash memory</li>
+                <li><strong>File Modes:</strong> "w" (write), "a" (append)</li>
+                <li><strong>flush():</strong> Save buffer without closing</li>
+                <li><strong>close():</strong> Save and finalize file</li>
+                <li><strong>Formatting:</strong> Newlines for readability</li>
+                <li><strong>main.py:</strong> Auto-run on power-up</li>
+            </ul>
+        </div>
+
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white font-bold mb-3 flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-xl">settings</span>
+                Storage Capacity
+            </h3>
+            <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                <li><strong>Pico 2:</strong> ~3 MiB storage</li>
+                <li><strong>Original Pico:</strong> ~1.3 MiB</li>
+                <li>Data persists without power</li>
+                <li>Multiple years of logging possible (with intervals)</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Key Concepts & Explanations Section -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">1. The Pico File System</h4>
+        <ul class="list-disc pl-5 space-y-2 text-sm text-[#92a4c9] mb-3">
+            <li>The Pico has non-volatile storage (flash memory)</li>
+            <li>Files remain stored even when power is removed</li>
+            <li>Pico 2: ~3 MiB storage; original Pico: ~1.3 MiB</li>
+        </ul>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto"><code class="language-python">file = open("test.txt", "w")
+file.write("Hello, File!")
+file.close()</code></pre>
+    </div>
+
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">2. File Modes</h4>
+        <table class="w-full text-sm border-collapse">
+            <thead>
+                <tr class="border-b border-[#232f48]">
+                    <th class="text-left py-2 px-2 text-white font-bold">Mode</th>
+                    <th class="text-left py-2 px-2 text-white font-bold">Meaning</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="border-b border-[#232f48] hover:bg-[#0a1620]">
+                    <td class="py-2 px-2 text-[#92a4c9]">"w"</td>
+                    <td class="py-2 px-2 text-[#92a4c9]">Write (overwrites existing file)</td>
+                </tr>
+                <tr class="hover:bg-[#0a1620]">
+                    <td class="py-2 px-2 text-[#92a4c9]">"a"</td>
+                    <td class="py-2 px-2 text-[#92a4c9]">Append (adds to existing file)</td>
+                </tr>
+            </tbody>
+        </table>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto mt-3"><code class="language-python">file = open("temps.txt", "a")</code></pre>
+    </div>
+
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">3. Logging Temperature Data</h4>
+        <p class="text-sm text-[#92a4c9] mb-3">Uses the on-board temperature sensor via the ADC:</p>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto mb-3"><code class="language-python">sensor_temp = machine.ADC(machine.ADC.CORE_TEMP)
+conversion_factor = 3.3 / 65535
+
+temperature = 27 - (reading - 0.706) / 0.001721</code></pre>
+    </div>
+
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">4. Why flush() Matters</h4>
+        <ul class="list-disc pl-5 space-y-2 text-sm text-[#92a4c9] mb-3">
+            <li>Data is written to a buffer, not immediately to flash</li>
+            <li>flush() forces buffered data to be saved without closing the file</li>
+            <li>Essential for continuous logging</li>
+        </ul>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto"><code class="language-python">file.flush()</code></pre>
+    </div>
+
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">5. Logging Multiple Readings</h4>
+        <p class="text-sm text-[#92a4c9] mb-3">Use an infinite loop with a delay:</p>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto"><code class="language-python">while True:
+    file.write(str(temperature))
+    file.flush()
+    time.sleep(10)</code></pre>
+    </div>
+
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">6. Formatting Logged Data</h4>
+        <p class="text-sm text-[#92a4c9] mb-3">Without formatting, readings are unreadable.</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+            <div class="bg-red-900/20 border border-red-700/50 rounded p-3">
+                <p class="text-sm text-red-300 font-bold mb-2">❌ Bad:</p>
+                <pre class="text-xs font-mono text-red-200">23.523.723.9</pre>
+            </div>
+            <div class="bg-green-900/20 border border-green-700/50 rounded p-3">
+                <p class="text-sm text-green-300 font-bold mb-2">✅ Good:</p>
+                <pre class="text-xs font-mono text-green-200">23.5
+23.7
+23.9</pre>
+            </div>
+        </div>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto"><code class="language-python">file.write(str(temperature) + "\n")</code></pre>
+    </div>
+
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">7. Running Headless with main.py</h4>
+        <p class="text-sm text-[#92a4c9] mb-3">Programs saved as main.py run automatically on power-up. Enables battery-powered, standalone operation.</p>
+        <p class="text-sm text-white font-bold mb-2">Steps:</p>
+        <ol class="list-decimal pl-5 space-y-1 text-sm text-[#92a4c9] mb-3">
+            <li>Save program as main.py</li>
+            <li>Reset Pico (CTRL+D)</li>
+            <li>Pico runs without Thonny</li>
+        </ol>
+    </div>
+
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">8. Storage Planning</h4>
+        <p class="text-sm text-[#92a4c9] mb-3"><strong>Example estimates (9 bytes per reading):</strong></p>
+        <table class="w-full text-sm border-collapse">
+            <thead>
+                <tr class="border-b border-[#232f48]">
+                    <th class="text-left py-2 px-2 text-white font-bold">Interval</th>
+                    <th class="text-left py-2 px-2 text-white font-bold">Estimated Runtime</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="border-b border-[#232f48] hover:bg-[#0a1620]">
+                    <td class="py-2 px-2 text-[#92a4c9]">Every 10 seconds</td>
+                    <td class="py-2 px-2 text-[#92a4c9]">~40 days</td>
+                </tr>
+                <tr class="border-b border-[#232f48] hover:bg-[#0a1620]">
+                    <td class="py-2 px-2 text-[#92a4c9]">Every 1 minute</td>
+                    <td class="py-2 px-2 text-[#92a4c9]">~242 days</td>
+                </tr>
+                <tr class="hover:bg-[#0a1620]">
+                    <td class="py-2 px-2 text-[#92a4c9]">Every 1 hour</td>
+                    <td class="py-2 px-2 text-[#92a4c9]">40+ years</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Hands-On Practice Section -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">Hands-On Practice</h4>
+        <div class="space-y-4">
+            <div>
+                <p class="text-sm text-white font-bold mb-2">Practice 1: Create a Test File</p>
+                <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                    <li>Write text to a file</li>
+                    <li>Close it</li>
+                    <li>Read it back</li>
+                </ul>
+            </div>
+            <div>
+                <p class="text-sm text-white font-bold mb-2">Practice 2: Single Temperature Reading</p>
+                <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                    <li>Read temperature</li>
+                    <li>Save one value to temps.txt</li>
+                </ul>
+            </div>
+            <div>
+                <p class="text-sm text-white font-bold mb-2">Practice 3: Continuous Data Logger</p>
+                <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                    <li>Log temperature every 10 seconds</li>
+                    <li>Use flush()</li>
+                    <li>Verify multiple entries</li>
+                </ul>
+            </div>
+            <div>
+                <p class="text-sm text-white font-bold mb-2">Practice 4: Portable Logging</p>
+                <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                    <li>Save as main.py</li>
+                    <li>Power Pico via USB charger or battery</li>
+                    <li>Retrieve data later</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Final Project Code -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-2">Final Project Code – Temperature Data Logger</h4>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto"><code class="language-python">import machine
+import time
+
+sensor_temp = machine.ADC(machine.ADC.CORE_TEMP)
+conversion_factor = 3.3 / 65535
+
+file = open("temps.txt", "w")
+
+while True:
+    reading = sensor_temp.read_u16() * conversion_factor
+    temperature = 27 - (reading - 0.706) / 0.001721
+    file.write(str(temperature) + "\n")
+    file.flush()
+    time.sleep(10)</code></pre>
+    </div>
+
+    <!-- Challenge Section -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">Challenge Section (End of Chapter)</h4>
+        <p class="text-sm text-[#92a4c9] mb-3">Try extending the project:</p>
+        <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+            <li>Log data from an external ADC sensor</li>
+            <li>Add a header/title line to the file</li>
+            <li>Count button presses instead of temperature</li>
+            <li>Import data into LibreOffice Calc / Excel</li>
+            <li>Plot temperature over time</li>
+        </ul>
+    </div>
+
+    <div class="mt-6 flex justify-center">
+        <button id="mark-ch9-complete" class="flex items-center justify-center gap-3 rounded-xl h-14 px-10 bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary text-white text-lg font-bold shadow-lg shadow-primary/30 transform transition-all hover:scale-105">
+            <span>Mark Chapter 9 Complete</span>
+            <span class="material-symbols-outlined">check_circle</span>
+        </button>
+    </div>
+</section>
+
+<!-- Chapter 10: Digital Communication Protocols (I2C and SPI) -->
+<section id="chapter-10" class="pt-12">
+    <div class="flex items-center gap-4 mb-8">
+        <div class="size-12 rounded-lg bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center text-2xl">
+            <span class="material-symbols-outlined text-white">router</span>
+        </div>
+        <h2 class="text-3xl font-bold text-white">Chapter 10: Digital Communication Protocols</h2>
+    </div>
+    <p class="text-lg text-[#92a4c9] mb-6">Learn how to connect and communicate with external digital devices using I2C and SPI, and apply both protocols to drive an SSD1306 OLED display using MicroPython</p>
+
+    <!-- Learning Points, Key Concepts, Protocols Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white font-bold mb-3 flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-xl">lightbulb</span>
+                Learning Points
+            </h3>
+            <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                <li>Understand why protocols are needed</li>
+                <li>Explain I2C vs SPI differences</li>
+                <li>Work safely with 3.3V logic levels</li>
+                <li>Configure I2C buses</li>
+                <li>Scan for device addresses</li>
+                <li>Communicate using SPI</li>
+                <li>Control OLED displays</li>
+                <li>Choose right protocol for projects</li>
+            </ul>
+        </div>
+
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white font-bold mb-3 flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-xl">school</span>
+                I2C Protocol
+            </h3>
+            <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                <li><strong>Wires:</strong> 2 (SDA, SCL)</li>
+                <li><strong>Speed:</strong> Slower</li>
+                <li><strong>Devices:</strong> Up to 128 addressed</li>
+                <li><strong>Pins:</strong> Pico I2C0/I2C1</li>
+                <li><strong>Best for:</strong> Sensors, displays</li>
+            </ul>
+        </div>
+
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white font-bold mb-3 flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-xl">settings</span>
+                SPI Protocol
+            </h3>
+            <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                <li><strong>Wires:</strong> 4+ (SCK, MOSI, MISO, CS)</li>
+                <li><strong>Speed:</strong> Faster</li>
+                <li><strong>Devices:</strong> Limited by CS pins</li>
+                <li><strong>Addressing:</strong> None (CS pins)</li>
+                <li><strong>Best for:</strong> High-speed devices</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Core Concepts Section -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">2.1 Why Use Digital Protocols?</h4>
+        <p class="text-sm text-[#92a4c9] mb-3">As projects grow, GPIO pins alone aren't enough. Sensors, displays, and modules often use standardized digital protocols to exchange data efficiently.</p>
+        <p class="text-sm text-white font-bold mb-2">MicroPython supports:</p>
+        <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+            <li>I2C (Inter-Integrated Circuit)</li>
+            <li>SPI (Serial Peripheral Interface)</li>
+        </ul>
+    </div>
+
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">2.2 Voltage Levels</h4>
+        <div class="bg-yellow-900/20 border border-yellow-700/50 rounded p-3 text-sm text-yellow-200 space-y-2">
+            <p><strong>⚠️ Warning:</strong></p>
+            <ul class="list-disc pl-5">
+                <li>Raspberry Pi Pico GPIO operates at 3.3V</li>
+                <li>Many I2C/SPI devices also support 5V → this can damage the Pico</li>
+                <li>Always verify device voltage compatibility before wiring</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- I2C Protocol Section -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">3. I2C Protocol</h4>
+        <div class="mb-4">
+            <p class="text-sm text-white font-bold mb-2">3.1 I2C Basics</p>
+            <p class="text-sm text-[#92a4c9] mb-2"><strong>2 wires only:</strong></p>
+            <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9] mb-3">
+                <li>SDA – Data</li>
+                <li>SCL – Clock</li>
+            </ul>
+            <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9] mb-3">
+                <li>Supports multiple devices on the same bus</li>
+                <li>Devices are identified by a unique address (e.g., 0x3C)</li>
+            </ul>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+            <div>
+                <p class="text-sm text-green-300 font-bold mb-2">Advantages:</p>
+                <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                    <li>Fewer wires</li>
+                    <li>Great for many low-speed peripherals</li>
+                </ul>
+            </div>
+            <div>
+                <p class="text-sm text-yellow-300 font-bold mb-2">Limitations:</p>
+                <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                    <li>Address conflicts possible</li>
+                    <li>Slightly slower than SPI</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">3.2 I2C Pins on Pico</h4>
+        <p class="text-sm text-[#92a4c9] mb-3"><strong>Two buses:</strong> I2C0 and I2C1</p>
+        <p class="text-sm text-white font-bold mb-2">Example used in the book:</p>
+        <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+            <li>SDA → GP0</li>
+            <li>SCL → GP1</li>
+        </ul>
+    </div>
+
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">3.3 I2C OLED (SSD1306) Wiring</h4>
+        <table class="w-full text-sm border-collapse">
+            <thead>
+                <tr class="border-b border-[#232f48]">
+                    <th class="text-left py-2 px-2 text-white font-bold">OLED Pin</th>
+                    <th class="text-left py-2 px-2 text-white font-bold">Pico Pin</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="border-b border-[#232f48] hover:bg-[#0a1620]">
+                    <td class="py-2 px-2 text-[#92a4c9]">VCC</td>
+                    <td class="py-2 px-2 text-[#92a4c9]">3.3V</td>
+                </tr>
+                <tr class="border-b border-[#232f48] hover:bg-[#0a1620]">
+                    <td class="py-2 px-2 text-[#92a4c9]">GND</td>
+                    <td class="py-2 px-2 text-[#92a4c9]">GND</td>
+                </tr>
+                <tr class="border-b border-[#232f48] hover:bg-[#0a1620]">
+                    <td class="py-2 px-2 text-[#92a4c9]">SDA</td>
+                    <td class="py-2 px-2 text-[#92a4c9]">GP0</td>
+                </tr>
+                <tr class="hover:bg-[#0a1620]">
+                    <td class="py-2 px-2 text-[#92a4c9]">SCL</td>
+                    <td class="py-2 px-2 text-[#92a4c9]">GP1</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="text-xs text-[#92a4c9] mt-3"><strong>Note:</strong> Pull-up resistors usually included on the module</p>
+    </div>
+
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">3.4 Scanning the I2C Bus</h4>
+        <p class="text-sm text-[#92a4c9] mb-3">Helps identify connected devices and their addresses:</p>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto"><code class="language-python">import machine
+
+sda = machine.Pin(0)
+scl = machine.Pin(1)
+
+i2c = machine.I2C(0, sda=sda, scl=scl, freq=400000)
+print(i2c.scan())</code></pre>
+    </div>
+
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">3.5 I2C OLED Thermometer (Hands-on Project)</h4>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto mb-3"><code class="language-python">import machine
+import ssd1306
+import time
+
+sda = machine.Pin(0)
+scl = machine.Pin(1)
+i2c = machine.I2C(0, sda=sda, scl=scl, freq=400000)
+
+display = ssd1306.SSD1306_I2C(128, 32, i2c)
+
+adc = machine.ADC(machine.ADC.CORE_TEMP)
+conversion_factor = 3.3 / 65535
+
+while True:
+    reading = adc.read_u16() * conversion_factor
+    temperature = 27 - (reading - 0.706) / 0.001721
+
+    display.fill(0)
+    display.text(f"Temp: {temperature}", 0, 0, 1)
+    display.show()
+    time.sleep(2)</code></pre>
+        <p class="text-sm text-white font-bold mb-2">Key ideas introduced:</p>
+        <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+            <li>Device addressing</li>
+            <li>Using libraries</li>
+            <li>Formatting values with f-strings</li>
+            <li>Clearing display before redraw</li>
+        </ul>
+    </div>
+
+    <!-- SPI Protocol Section -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">4. SPI Protocol</h4>
+        <div class="mb-4">
+            <p class="text-sm text-white font-bold mb-2">4.1 SPI Basics</p>
+            <p class="text-sm text-[#92a4c9] mb-2"><strong>4 wires:</strong></p>
+            <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9] mb-3">
+                <li>SCK – Clock</li>
+                <li>MOSI – Data to device</li>
+                <li>MISO – Data from device</li>
+                <li>CS – Chip Select</li>
+            </ul>
+            <p class="text-sm text-[#92a4c9] mb-3">No addressing → devices selected using CS pins</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div>
+                <p class="text-sm text-green-300 font-bold mb-2">Advantages:</p>
+                <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                    <li>Faster</li>
+                    <li>No address conflicts</li>
+                </ul>
+            </div>
+            <div>
+                <p class="text-sm text-yellow-300 font-bold mb-2">Limitations:</p>
+                <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                    <li>More wiring</li>
+                    <li>One CS pin per device</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">4.2 SPI OLED Wiring (SSD1306 SPI)</h4>
+        <p class="text-sm text-[#92a4c9] mb-3"><strong>Typical connections:</strong></p>
+        <table class="w-full text-sm border-collapse">
+            <thead>
+                <tr class="border-b border-[#232f48]">
+                    <th class="text-left py-2 px-2 text-white font-bold">Signal</th>
+                    <th class="text-left py-2 px-2 text-white font-bold">Pico Pin</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="border-b border-[#232f48] hover:bg-[#0a1620]">
+                    <td class="py-2 px-2 text-[#92a4c9]">SCK</td>
+                    <td class="py-2 px-2 text-[#92a4c9]">GP10</td>
+                </tr>
+                <tr class="border-b border-[#232f48] hover:bg-[#0a1620]">
+                    <td class="py-2 px-2 text-[#92a4c9]">MOSI</td>
+                    <td class="py-2 px-2 text-[#92a4c9]">GP11</td>
+                </tr>
+                <tr class="border-b border-[#232f48] hover:bg-[#0a1620]">
+                    <td class="py-2 px-2 text-[#92a4c9]">DC</td>
+                    <td class="py-2 px-2 text-[#92a4c9]">GP12</td>
+                </tr>
+                <tr class="border-b border-[#232f48] hover:bg-[#0a1620]">
+                    <td class="py-2 px-2 text-[#92a4c9]">CS</td>
+                    <td class="py-2 px-2 text-[#92a4c9]">GP13</td>
+                </tr>
+                <tr class="hover:bg-[#0a1620]">
+                    <td class="py-2 px-2 text-[#92a4c9]">RES</td>
+                    <td class="py-2 px-2 text-[#92a4c9]">GP14</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">4.3 SPI OLED "Hello World" Example</h4>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto"><code class="language-python">import machine
+import ssd1306
+
+mosi = machine.Pin(11)
+sck = machine.Pin(10)
+res = machine.Pin(14)
+dc = machine.Pin(12)
+cs = machine.Pin(13)
+
+spi = machine.SPI(1, 100000, mosi=mosi, sck=sck)
+
+display = ssd1306.SSD1306_SPI(128, 64, spi, dc, res, cs)
+
+display.text("Hello World!", 0, 0, 1)
+display.show()</code></pre>
+    </div>
+
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">4.4 SPI vs I2C – Code Comparison</h4>
+        <p class="text-sm text-[#92a4c9] mb-3">Once configured, the application code is almost identical. Main difference:</p>
+        <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+            <li><strong>I2C →</strong> uses device address</li>
+            <li><strong>SPI →</strong> uses CS pin</li>
+        </ul>
+    </div>
+
+    <!-- Choosing Between I2C and SPI -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">5. Choosing Between I2C and SPI</h4>
+        <table class="w-full text-sm border-collapse">
+            <thead>
+                <tr class="border-b border-[#232f48]">
+                    <th class="text-left py-2 px-2 text-white font-bold">Factor</th>
+                    <th class="text-left py-2 px-2 text-white font-bold">I2C</th>
+                    <th class="text-left py-2 px-2 text-white font-bold">SPI</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="border-b border-[#232f48] hover:bg-[#0a1620]">
+                    <td class="py-2 px-2 text-[#92a4c9] font-bold">Wires</td>
+                    <td class="py-2 px-2 text-[#92a4c9]">2</td>
+                    <td class="py-2 px-2 text-[#92a4c9]">4+</td>
+                </tr>
+                <tr class="border-b border-[#232f48] hover:bg-[#0a1620]">
+                    <td class="py-2 px-2 text-[#92a4c9] font-bold">Speed</td>
+                    <td class="py-2 px-2 text-[#92a4c9]">Slower</td>
+                    <td class="py-2 px-2 text-[#92a4c9]">Faster</td>
+                </tr>
+                <tr class="border-b border-[#232f48] hover:bg-[#0a1620]">
+                    <td class="py-2 px-2 text-[#92a4c9] font-bold">Devices</td>
+                    <td class="py-2 px-2 text-[#92a4c9]">Up to 128 (addressed)</td>
+                    <td class="py-2 px-2 text-[#92a4c9]">Limited by CS pins</td>
+                </tr>
+                <tr class="border-b border-[#232f48] hover:bg-[#0a1620]">
+                    <td class="py-2 px-2 text-[#92a4c9] font-bold">Complexity</td>
+                    <td class="py-2 px-2 text-[#92a4c9]">Simple</td>
+                    <td class="py-2 px-2 text-[#92a4c9]">Moderate</td>
+                </tr>
+                <tr class="hover:bg-[#0a1620]">
+                    <td class="py-2 px-2 text-[#92a4c9] font-bold">Best for</td>
+                    <td class="py-2 px-2 text-[#92a4c9]">Sensors, displays</td>
+                    <td class="py-2 px-2 text-[#92a4c9]">High-speed devices</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Advanced Note -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">6. Advanced Note: Bit Banging & PIO</h4>
+        <p class="text-sm text-[#92a4c9] mb-3">I2C/SPI can be implemented in software (bit banging)</p>
+        <p class="text-sm text-white font-bold mb-2">Downsides:</p>
+        <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9] mb-3">
+            <li>CPU-intensive</li>
+            <li>Timing issues</li>
+        </ul>
+        <p class="text-sm text-white font-bold mb-2">Pico advantage:</p>
+        <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+            <li>PIO (Programmable I/O) can implement protocols efficiently</li>
+            <li>Covered later in the book</li>
+        </ul>
+    </div>
+
+    <div class="mt-6 flex justify-center">
+        <button id="mark-ch10-complete" class="flex items-center justify-center gap-3 rounded-xl h-14 px-10 bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary text-white text-lg font-bold shadow-lg shadow-primary/30 transform transition-all hover:scale-105">
+            <span>Mark Chapter 10 Complete</span>
+            <span class="material-symbols-outlined">check_circle</span>
+        </button>
+    </div>
+</section>
+
+<!-- Chapter 11: Wi-Fi Connectivity with Pico W and Pico 2 W -->
+<section id="chapter-11" class="pt-12">
+    <div class="flex items-center gap-4 mb-8">
+        <div class="size-12 rounded-lg bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center text-2xl">
+            <span class="material-symbols-outlined text-white">wifi</span>
+        </div>
+        <h2 class="text-3xl font-bold text-white">Chapter 11 — Wi-Fi Connectivity with Pico W and Pico 2 W</h2>
+    </div>
+    <p class="text-lg text-[#92a4c9] mb-6">Turn the Raspberry Pi Pico W / Pico 2 W into a network-connected IoT device, capable of connecting to Wi-Fi, making HTTP requests, hosting a web server, and controlling hardware remotely.</p>
+    <div class="bg-yellow-900/20 border border-yellow-700/50 rounded p-3 text-sm text-yellow-200 mb-6">
+        <strong>⚠️ This chapter requires a Pico W or Pico 2 W.</strong> Standard Pico boards do not have Wi-Fi.
+    </div>
+
+    <!-- Learning Points, Core Concepts, Hardware Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white font-bold mb-3 flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-xl">lightbulb</span>
+                1. Learning Points
+            </h3>
+            <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                <li>Understand the Wi-Fi hardware on Pico W / Pico 2 W</li>
+                <li>Configure country codes for legal radio operation</li>
+                <li>Connect Pico W to a 2.4 GHz Wi-Fi network</li>
+                <li>Handle Wi-Fi connection errors and status codes</li>
+                <li>Use HTTP requests to fetch online data</li>
+                <li>Create a simple HTTP web server</li>
+                <li>Serve dynamic data (temperature sensor)</li>
+                <li>Control on-board hardware (LED) via a browser</li>
+                <li>Understand private vs public IP addresses</li>
+                <li>Safely manage network sockets and memory</li>
+            </ul>
+        </div>
+
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white font-bold mb-3 flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-xl">school</span>
+                2. Core Concepts
+            </h3>
+            <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                <li><strong>Pico W Radio:</strong> Wi-Fi 4 (802.11n, 2.4 GHz) & Bluetooth 5.2.</li>
+                <li><strong>Firmware:</strong> Must use specific Pico W/Pico 2 W firmware.</li>
+                <li><strong>Country Code:</strong> Set with `rp2.country()` for legal compliance.</li>
+                <li><strong>Network:</strong> Requires 2.4 GHz Wi-Fi with SSID and password.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Hands-On Practice 1: Connecting to Wi-Fi -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-2">3. Hands-On Practice 1: Connecting to Wi-Fi</h4>
+        <p class="text-sm text-[#92a4c9] mb-3">Use the `network` library to enable the radio, connect, and handle status with a timeout.</p>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto"><code class="language-python">import time
+import network
+import rp2
+
+rp2.country("CA")  # Set your country code, e.g., "US", "GB"
+
+ssid = "Your_Network_Name"
+psk = "Your_Password"
+
+wlan = network.WLAN(network.STA_IF)
+wlan.active(True)
+wlan.connect(ssid, psk)
+
+max_wait = 30
+while max_wait > 0:
+    if wlan.status() < 0 or wlan.status() >= 3:
+        break
+    print("Waiting for Wi-Fi connection...")
+    time.sleep(1)
+    max_wait -= 1
+
+if wlan.status() != 3:
+    raise RuntimeError("Network connection failed")
+else:
+    print("Connected!")
+    print(wlan.ifconfig())</code></pre>
+        <p class="text-xs text-[#92a4c9] mt-2">📌 `wlan.ifconfig()` prints the Pico’s IP address.</p>
+    </div>
+    
+    <!-- Hands-On Practice 2: Making HTTP Requests -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-2">4. Hands-On Practice 2: Making HTTP Requests</h4>
+        <p class="text-sm text-[#92a4c9] mb-3">Use the `requests` library to fetch raw data from web URLs. Remember to always close the response.</p>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto"><code class="language-python">import requests
+
+# Example: Fetching plain text news from NPR
+response = requests.get("https://text.npr.org/")
+print(response.content)
+response.close() # IMPORTANT: Always close to free memory
+
+# Cleaner output
+# [print(line) for line in response.content.splitlines()]</code></pre>
+        <h5 class="text-white font-bold mt-4 mb-2">Suggested Practice URLs</h5>
+        <ul class="list-disc pl-5 text-sm text-primary font-mono">
+            <li>http://wttr.in/cambridge?format=3</li>
+            <li>http://ipecho.net/plain</li>
+            <li>https://earthquake.usgs.gov/fdsnws/event/1/query?format=text&limit=10</li>
+        </ul>
+    </div>
+    
+    <!-- Hands-On Practice 3: Hosting a Web Server -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-2">5. Hands-On Practice 3: Hosting a Web Server</h4>
+        <p class="text-sm text-[#92a4c9] mb-3">The Pico W can open a socket, listen on port 80, and respond to requests from a web browser.</p>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto"><code class="language-python">from connect import wlan # Assumes connect.py from previous step
+import socket
+
+address = socket.getaddrinfo("0.0.0.0", 80)[0][-1]
+s = socket.socket()
+s.bind(address)
+s.listen(1)
+
+print("Listening on", wlan.ifconfig()[0])
+
+while True:
+    client, addr = s.accept()
+    client.send("HTTP/1.0 200 OK\r\n")
+    client.send("Content-type: text/plain\r\n\r\n")
+    client.send("Hello from Pico W!\r\n")
+    client.close()</code></pre>
+        <p class="text-xs text-[#92a4c9] mt-2">Open a browser and navigate to the Pico’s IP address to see the message.</p>
+    </div>
+
+    <!-- Hands-On Practice 4: Sensor Data over Wi-Fi -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-2">6. Hands-On Practice 4: Sensor Data over Wi-Fi</h4>
+        <p class="text-sm text-[#92a4c9] mb-3">Serve live temperature data from the internal sensor by generating a dynamic HTTP response.</p>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto"><code class="language-python"># Inside the while True loop of the web server
+import machine
+sensor_temp = machine.ADC(machine.ADC.CORE_TEMP)
+conversion_factor = 3.3 / 65534
+
+reading = sensor_temp.read_u16() * conversion_factor
+temperature = 27 - (reading - 0.706) / 0.001721
+
+# client.send(f"Temperature: {temperature}°C")
+# client.close()</code></pre>
+    </div>
+
+    <!-- Hands-On Practice 5: Web-Controlled LED -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-2">7. Hands-On Practice 5: Web-Controlled LED</h4>
+        <p class="text-sm text-[#92a4c9] mb-3">The Pico W's onboard LED is controlled via `machine.Pin("LED", machine.Pin.OUT)`. Parse the browser request to control its state.</p>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto"><code class="language-python"># Inside the while True loop of the web server
+led = machine.Pin("LED", machine.Pin.OUT)
+request = client.recv(1024).decode("UTF-8")
+
+led_state = "LED is OFF"
+if request.startswith("GET /led/on"):
+    led.value(1)
+    led_state = "LED is ON"
+elif request.startswith("GET /led/off"):
+    led.value(0)
+    led_state = "LED is OFF"
+
+html_response = f"""
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;&lt;title&gt;Pico W Control&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Pico W LED Control&lt;/h1&gt;
+  &lt;p&gt;{led_state}&lt;/p&gt;
+  &lt;a href="/led/on"&gt;Turn LED ON&lt;/a&gt; | 
+  &lt;a href="/led/off"&gt;Turn LED OFF&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+"""
+# client.send(...) with the html_response</code></pre>
+        <p class="text-xs text-[#92a4c9] mt-2">Access `/led/on` and `/led/off` in your browser to control the LED.</p>
+    </div>
+
+    <!-- Key Safety & Design Notes -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-2">8. Key Safety & Design Notes</h4>
+        <ul class="list-disc pl-5 space-y-2 text-sm text-[#92a4c9]">
+            <li><strong>Private IP:</strong> Pico W is only accessible on the local network. Port forwarding is complex and not recommended for beginners.</li>
+            <li><strong>Memory Management:</strong> Always close sockets (`client.close()`) and HTTP responses (`response.close()`) to avoid memory exhaustion.</li>
+            <li><strong>Lightweight Pages:</strong> Keep HTML simple as memory is limited.</li>
+        </ul>
+    </div>
+    <div class="mt-6 flex justify-center">
+        <button id="mark-ch11-complete" class="flex items-center justify-center gap-3 rounded-xl h-14 px-10 bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary text-white text-lg font-bold shadow-lg shadow-primary/30 transform transition-all hover:scale-105">
+            <span>Mark Chapter 11 Complete</span>
+            <span class="material-symbols-outlined">check_circle</span>
+        </button>
+    </div>
+</section>
+
+<!-- Chapter 12: Bluetooth Connectivity -->
+<section id="chapter-12" class="pt-12">
+    <div class="flex items-center gap-4 mb-8">
+        <div class="size-12 rounded-lg bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center text-2xl">
+            <span class="material-symbols-outlined text-white">bluetooth</span>
+        </div>
+        <h2 class="text-3xl font-bold text-white">Chapter 12 – Bluetooth Connectivity with Pico W and Pico 2 W</h2>
+    </div>
+    <p class="text-lg text-[#92a4c9] mb-6">Learn how to use Bluetooth Low Energy (BLE) on Raspberry Pi Pico W / Pico 2 W to transmit sensor data wirelessly.</p>
+
+    <!-- Chapter Goal, Learning Points, Hardware Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white font-bold mb-3 flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-xl">flag</span>
+                Chapter Goal
+            </h3>
+            <p class="text-sm text-[#92a4c9]">
+                Learn how to use Bluetooth Low Energy (BLE) on Raspberry Pi Pico W / Pico 2 W to transmit sensor data wirelessly to smartphones, tablets, or another Pico W. The chapter culminates in building a BLE temperature sensor using MicroPython.
+            </p>
+        </div>
+
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white font-bold mb-3 flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-xl">lightbulb</span>
+                Learning Points
+            </h3>
+            <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                <li>Understand Bluetooth vs Bluetooth Low Energy (BLE)</li>
+                <li>Explain BLE advertising and services</li>
+                <li>Use the aioble library to simplify BLE programming</li>
+                <li>Create a BLE temperature beacon</li>
+                <li>Read BLE data using a smartphone app and another Pico W</li>
+                <li>Use asyncio for concurrent BLE + sensor tasks</li>
+                <li>Encode and decode structured BLE data</li>
+            </ul>
+        </div>
+
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white font-bold mb-3 flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-xl">settings</span>
+                Hardware Required
+            </h3>
+            <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                <li>1–2 × Raspberry Pi Pico W or Pico 2 W</li>
+                <li>Smartphone/tablet with BLE</li>
+                <li>LightBlue app (iOS / Android)</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Key Concepts Explained -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">Key Concepts Explained</h4>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Concept 1: BLE -->
+            <div class="bg-[#0d1117] border border-[#232f48] p-4 rounded-lg">
+                <h5 class="text-white font-bold mb-2">1. Bluetooth Low Energy (BLE)</h5>
+                <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                    <li>Designed for short-range, low-power communication</li>
+                    <li>Ideal for IoT sensors</li>
+                    <li>Uses advertising beacons instead of persistent connections</li>
+                    <li>Supported natively by Pico W and Pico 2 W radios</li>
+                </ul>
+            </div>
+            <!-- Concept 2: BLE Advertising -->
+            <div class="bg-[#0d1117] border border-[#232f48] p-4 rounded-lg">
+                <h5 class="text-white font-bold mb-2">2. BLE Advertising</h5>
+                <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                    <li>Devices broadcast what services they offer</li>
+                    <li>Other devices can scan and connect if interested</li>
+                    <li>No constant connection required → low power</li>
+                    <li>BLE devices advertise, they don’t “push data” like Wi-Fi</li>
+                </ul>
+            </div>
+            <!-- Concept 3: UUIDs -->
+            <div class="bg-[#0d1117] border border-[#232f48] p-4 rounded-lg">
+                <h5 class="text-white font-bold mb-2">3. UUIDs (Universally Unique Identifiers)</h5>
+                <p class="text-sm text-[#92a4c9] mb-2">Services and characteristics are identified using UUIDs:</p>
+                <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                    <li>Service UUID: What the device does (e.g., 0x181A)</li>
+                    <li>Characteristic UUID: What data it provides (e.g., 0x2A6E)</li>
+                </ul>
+            </div>
+            <!-- Concept 4: aioble -->
+            <div class="bg-[#0d1117] border border-[#232f48] p-4 rounded-lg">
+                <h5 class="text-white font-bold mb-2">4. aioble Library</h5>
+                <p class="text-sm text-[#92a4c9] mb-2">Wraps MicroPython’s bluetooth module and removes boilerplate code. Supports:</p>
+                <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                    <li>Advertising</li>
+                    <li>Services &amp; characteristics</li>
+                    <li>Notifications &amp; Async operations</li>
+                </ul>
+            </div>
+            <!-- Concept 5: asyncio -->
+            <div class="bg-[#0d1117] border border-[#232f48] p-4 rounded-lg">
+                <h5 class="text-white font-bold mb-2">5. Asynchronous Programming (asyncio)</h5>
+                 <p class="text-sm text-[#92a4c9] mb-2">Used to run tasks concurrently without blocking, like reading a sensor while transmitting BLE data.</p>
+                 <p class="text-sm text-[#92a4c9]">BLE broadcasting continues while sensor readings update.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hands-On Project: BLE Temperature Sensor -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-2">Hands-On Project: BLE Temperature Sensor</h4>
+        
+        <h5 class="text-white font-semibold mb-2 mt-4">Project 1 – BLE Temperature Beacon (Transmitter)</h5>
+        <p class="text-sm text-[#92a4c9] mb-3">This project reads the Pico's internal temperature sensor, encodes the temperature into a BLE payload, and advertises it every 2 seconds.</p>
+        
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto code-scroll"><code class="language-python">
+import struct
+import asyncio
+import aioble
+import bluetooth
+import machine
+
+# Temperature Setup
+sensor_temp = machine.ADC(machine.ADC.CORE_TEMP)
+conversion_factor = 3.3 / 65535
+
+# BLE Configuration
+ble_name = "picow_ble"
+ble_svc_uuid = bluetooth.UUID(0x181A)
+ble_characteristic_uuid = bluetooth.UUID(0x2A6E)
+ble_appearance = 0x0300
+ble_advertising_interval = 2000
+
+# BLE Service &amp; Characteristic
+ble_service = aioble.Service(ble_svc_uuid)
+ble_characteristic = aioble.Characteristic(
+    ble_service,
+    ble_characteristic_uuid,
+    read=True,
+    notify=True
+)
+aioble.register_services(ble_service)
+
+# Temperature Encoding Helper
+def encode_temp(temp):
+    return struct.pack("&lt;h", int(temp * 100))
+
+# Sensor Task (Async)
+async def sensor_task():
+    while True:
+        reading = sensor_temp.read_u16() * conversion_factor
+        temperature = 27 - (reading - 0.706) / 0.001721
+        ble_characteristic.write(encode_temp(temperature))
+        print("Temperature:", temperature)
+        await asyncio.sleep_ms(2000)
+
+# BLE Advertising Task
+async def ble_task():
+    while True:
+        await aioble.advertise(
+            ble_advertising_interval,
+            name=ble_name,
+            services=[ble_svc_uuid],
+            appearance=ble_appearance
+        )
+
+# Main Event Loop
+async def main():
+    task1 = asyncio.create_task(ble_task())
+    task2 = asyncio.create_task(sensor_task())
+    await asyncio.gather(task1, task2)
+
+print("Launching Raspberry Pi Pico W BLE temperature sensor...")
+asyncio.run(main())
+</code></pre>
+    </div>
+
+    <!-- Project 2 & 3 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h5 class="text-white font-semibold mb-2">Project 2 – Receiving BLE Data with Smartphone</h5>
+            <p class="text-sm text-[#92a4c9] mb-3">Use the LightBlue app to receive the data:</p>
+            <ol class="list-decimal pl-5 space-y-1 text-sm text-[#92a4c9]">
+                <li>Scan for <code class="inline-code bg-[#08101a] text-white px-1 py-0.5 rounded text-xs font-mono">picow_ble</code>.</li>
+                <li>Connect → Environmental Sensing → Temperature.</li>
+                <li>Switch data format to Signed Little Endian.</li>
+                <li>Divide the received value by 100 to get the temperature in °C.</li>
+            </ol>
+        </div>
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h5 class="text-white font-semibold mb-2">Project 3 – BLE Client Using Another Pico W</h5>
+            <p class="text-sm text-[#92a4c9] mb-3">A second Pico W can be programmed to act as a client that automatically scans for the beacon, connects, reads the temperature every 2 seconds, and decodes the data back into a human-readable value.</p>
+        </div>
+    </div>
+
+
+    <!-- Challenges & Further Reading -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h4 class="text-white font-bold mb-2">Challenges &amp; Extensions</h4>
+            <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                <li>Change the beacon name and UUIDs.</li>
+                <li>Broadcast other sensor values (e.g., from a potentiometer).</li>
+                <li>Add battery-powered operation for a true wireless sensor.</li>
+                <li>Use notifications instead of reads for more efficient data transfer.</li>
+                <li>Combine BLE with Wi-Fi projects from Chapter 11.</li>
+            </ul>
+        </div>
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h4 class="text-white font-bold mb-2">Further Reading</h4>
+             <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                <li>Connecting to the Internet with Raspberry Pi Pico W-series</li>
+                <li>aioble documentation and examples</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Completion Button -->
+    <div class="mt-6 flex justify-center">
+        <button id="mark-ch12-complete" class="flex items-center justify-center gap-3 rounded-xl h-14 px-10 bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary text-white text-lg font-bold shadow-lg shadow-primary/30 transform transition-all hover:scale-105">
+            <span>Mark Chapter 12 Complete</span>
+            <span class="material-symbols-outlined">check_circle</span>
+        </button>
+    </div>
+</section>
+    </div>
+    </div>
+    </div>
+    </div>
+    <script>
+        (function(){
+            const btn1 = document.getElementById('mark-ch1-complete');
+            const btn2 = document.getElementById('mark-ch2-complete');
+            const btn3 = document.getElementById('mark-ch3-complete');
+            const btn4 = document.getElementById('mark-ch4-complete');
+            const btn5 = document.getElementById('mark-ch5-complete');
+            const btn6 = document.getElementById('mark-ch6-complete');
+            const btn7 = document.getElementById('mark-ch7-complete');
+            const btn8 = document.getElementById('mark-ch8-complete');
+            const btn9 = document.getElementById('mark-ch9-complete');
+            const btn10 = document.getElementById('mark-ch10-complete');
+            const btn11 = document.getElementById('mark-ch11-complete');
+            const btn12 = document.getElementById('mark-ch12-complete');
+            const progText = document.getElementById('course-progress-text');
+            const progPercent = document.getElementById('course-progress-percent');
+            const progBar = document.getElementById('course-progress-bar');
+            const TOTAL_SECTIONS = 12; // updated: planning to post 12 chapters in total
+            const baseCompleted = 0; // reset base completed count
+
+            // Reset stored chapter progress (clear any existing 'chapterN_complete' keys)
+            for(let i=1;i<=TOTAL_SECTIONS;i++){
+                localStorage.removeItem(`chapter${i}_complete`);
+            }
+
+            function updateProgressUI(){
+                // Count completed chapters dynamically for 1..TOTAL_SECTIONS
+                let completedChapters = 0;
+                for(let i=1;i<=TOTAL_SECTIONS;i++){
+                    if(localStorage.getItem(`chapter${i}_complete`)) completedChapters++;
+                }
+                const completed = baseCompleted + completedChapters;
+                if(progText) progText.textContent = `${completed} of ${TOTAL_SECTIONS} sections completed`;
+                const percent = Math.round((completed / TOTAL_SECTIONS) * 100);
+                if(progPercent) progPercent.textContent = `${percent}%`;
+                if(progBar) progBar.style.width = `${(completed / TOTAL_SECTIONS) * 100}%`;
+            }
+
+            function setBtnState(btn, key, labelCompleted){
+                if(!btn) return;
+                if(localStorage.getItem(key)){
+                    btn.disabled = true;
+                    btn.classList.add('opacity-60','cursor-not-allowed');
+                    const labelSpan = btn.querySelector('span');
+                    if(labelSpan) labelSpan.textContent = labelCompleted;
+                }
+            }
+
+            // Initialize UI
+            setBtnState(btn1, 'chapter1_complete', 'Chapter 1 Completed');
+            setBtnState(btn2, 'chapter2_complete', 'Chapter 2 Completed');
+            setBtnState(btn3, 'chapter3_complete', 'Chapter 3 Completed');
+            setBtnState(btn4, 'chapter4_complete', 'Chapter 4 Completed');
+            setBtnState(btn5, 'chapter5_complete', 'Chapter 5 Completed');
+            setBtnState(btn6, 'chapter6_complete', 'Chapter 6 Completed');
+            setBtnState(btn7, 'chapter7_complete', 'Chapter 7 Completed');
+            setBtnState(btn8, 'chapter8_complete', 'Chapter 8 Completed');
+            setBtnState(btn9, 'chapter9_complete', 'Chapter 9 Completed');
+            setBtnState(btn10, 'chapter10_complete', 'Chapter 10 Completed');
+            setBtnState(btn11, 'chapter11_complete', 'Chapter 11 Completed');
+            setBtnState(btn12, 'chapter12_complete', 'Chapter 12 Completed');
+            updateProgressUI();
+
+            if(btn1){
+                btn1.addEventListener('click', function(){
+                    localStorage.setItem('chapter1_complete','1');
+                    setBtnState(btn1, 'chapter1_complete', 'Chapter 1 Completed');
+                    updateProgressUI();
+                });
+            }
+
+            if(btn2){
+                btn2.addEventListener('click', function(){
+                    localStorage.setItem('chapter2_complete','1');
+                    setBtnState(btn2, 'chapter2_complete', 'Chapter 2 Completed');
+                    updateProgressUI();
+                });
+            }
+
+            if(btn3){
+                btn3.addEventListener('click', function(){
+                    localStorage.setItem('chapter3_complete','1');
+                    setBtnState(btn3, 'chapter3_complete', 'Chapter 3 Completed');
+                    updateProgressUI();
+                });
+            }
+
+            if(btn4){
+                btn4.addEventListener('click', function(){
+                    localStorage.setItem('chapter4_complete','1');
+                    setBtnState(btn4, 'chapter4_complete', 'Chapter 4 Completed');
+                    updateProgressUI();
+                });
+            }
+
+            if(btn5){
+                btn5.addEventListener('click', function(){
+                    localStorage.setItem('chapter5_complete','1');
+                    setBtnState(btn5, 'chapter5_complete', 'Chapter 5 Completed');
+                    updateProgressUI();
+                });
+            }
+
+            if(btn6){
+                btn6.addEventListener('click', function(){
+                    localStorage.setItem('chapter6_complete','1');
+                    setBtnState(btn6, 'chapter6_complete', 'Chapter 6 Completed');
+                    updateProgressUI();
+                });
+            }
+
+            if(btn7){
+                btn7.addEventListener('click', function(){
+                    localStorage.setItem('chapter7_complete','1');
+                    setBtnState(btn7, 'chapter7_complete', 'Chapter 7 Completed');
+                    updateProgressUI();
+                });
+            }
+
+            if(btn8){
+                btn8.addEventListener('click', function(){
+                    localStorage.setItem('chapter8_complete','1');
+                    setBtnState(btn8, 'chapter8_complete', 'Chapter 8 Completed');
+                    updateProgressUI();
+                });
+            }
+
+            if(btn9){
+                btn9.addEventListener('click', function(){
+                    localStorage.setItem('chapter9_complete','1');
+                    setBtnState(btn9, 'chapter9_complete', 'Chapter 9 Completed');
+                    updateProgressUI();
+                });
+            }
+
+            if(btn10){
+                btn10.addEventListener('click', function(){
+                    localStorage.setItem('chapter10_complete','1');
+                    setBtnState(btn10, 'chapter10_complete', 'Chapter 10 Completed');
+                    updateProgressUI();
+                });
+            }
+            if(btn11){
+                btn11.addEventListener('click', function(){
+                    localStorage.setItem('chapter11_complete','1');
+                    setBtnState(btn11, 'chapter11_complete', 'Chapter 11 Completed');
+                    updateProgressUI();
+                });
+            }
+            if(btn12){
+                btn12.addEventListener('click', function(){
+                    localStorage.setItem('chapter12_complete','1');
+                    setBtnState(btn12, 'chapter12_complete', 'Chapter 12 Completed');
+                    updateProgressUI();
+                });
+            }
+        })();
+    </script>
+</body></html>

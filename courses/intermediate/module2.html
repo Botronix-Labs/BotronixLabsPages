@@ -6,7 +6,7 @@
   <title>Module 2: BLE-Controlled Smart Robot Tank with Obstacle Detection | Intermediate Robotics</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2366675854686882" crossorigin="anonymous"></script>
   <style>
     body { font-family: 'Montserrat', sans-serif; }
@@ -40,7 +40,6 @@
           <div class="checklist-item"><i class="fas fa-battery-full"></i> 1 × 18650 battery</div>
           <div class="checklist-item"><i class="fas fa-bolt"></i> 1 × DC-DC 5V booster module</div>
           <div class="checklist-item"><i class="fas fa-toggle-on"></i> 1 × Sliding switch</div>
-          <div class="checklist-item"><i class="fas fa-ethernet"></i> Jumper wires + breadboard + 3D printed case (optional)</div>
         </div>
       </section>
       <section class="mb-12">
@@ -131,7 +130,6 @@
           <p class="text-gray-600 mt-2">An IR (Infrared) obstacle sensor is a simple electronic device that detects the presence of an object using infrared light. It typically consists of an IR LED (emitter) and a photodiode or phototransistor (receiver) placed side by side. The IR LED emits invisible infrared light, which bounces off nearby objects. If an object is present, the reflected IR light is detected by the receiver, causing a change in its output signal.</p>
           <div class="flex flex-col md:flex-row gap-6 my-4 items-center justify-center">
             <img src="./Module_02/ir_sensor.png" alt="IR Sensor Diagram" class="w-full max-w-md rounded-lg shadow">
-            <img src="./Module_02/ir_sensor_01.jpg" alt="IR Sensor Real Photo" class="w-full max-w-md rounded-lg shadow">
             <img src="./Module_02/ir_senser.gif" alt="IR Sensor Working Animation" class="w-full max-w-md rounded-lg shadow">
           </div>
           <p class="text-gray-600 mt-2"><b>How It Works:</b></p>
@@ -478,9 +476,73 @@ except KeyboardInterrupt:
     </div>
   </main>
   <footer class="bg-gray-800 py-6 mt-8">
-    <div class="max-w-3xl mx-auto px-4 text-center">
-      <p class="text-sm text-gray-400">&copy; 2025 Botronix Labs. All rights reserved.</p>
-    </div>
-  </footer>
+    <!-- Footer -->
+    <footer class="bg-gray-800">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">Courses</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="courses/fundamentals/fundamentals.html" class="text-base text-gray-400 hover:text-white">Beginner</a></li>
+                        <li><a href="courses/intermediate/intermediate.html" class="text-base text-gray-400 hover:text-white">Intermediate</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Advanced</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Specializations</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">Resources</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Documentation</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Code Examples</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">3D Models</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Community</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">Company</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="about.html" class="text-base text-gray-400 hover:text-white">About</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Blog</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Careers</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Partners</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">Legal</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="../../privacy-policy.html" class="text-base text-gray-400 hover:text-white">Privacy</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Terms</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Cookie Policy</a></li>
+                        <li><a href="#" class="text-base text-gray-400 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 border-t border-gray-700 pt-8 md:flex md:items-center md:justify-between">
+                <div class="flex space-x-6 md:order-2">
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <span class="sr-only">X</span>
+                        <i class="fa-brands fa-x-twitter text-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <span class="sr-only">GitHub</span>
+                        <i class="fab fa-github text-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <span class="sr-only">YouTube</span>
+                        <i class="fab fa-youtube text-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <span class="sr-only">LinkedIn</span>
+                        <i class="fab fa-linkedin-in text-lg"></i>
+                    </a>
+                </div>
+                <p class="mt-8 text-base text-gray-400 md:mt-0 md:order-1">
+                    &copy; 2023 Botronix Labs. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
+
+

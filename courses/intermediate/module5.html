@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 5: Understanding Accelerometer and Gyroscope Readings for Self-Balancing Robots</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <style>
+    body { font-family: 'Montserrat', sans-serif; }
+    .code-block { background-color: #1e293b; color: #f8fafc; padding: 1rem; border-radius: 0.5rem; font-family: monospace; margin-bottom: 1rem; }
+    .step-title { font-weight: bold; color: #2563eb; margin-top: 1.5rem; }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <header class="hero-gradient py-8 text-center bg-gradient-to-r from-cyan-400 to-blue-700">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-2">🤖 Module 5: Understanding Accelerometer and Gyroscope Readings for Self-Balancing Robots</h1>
+    <p class="text-lg text-blue-100">Intermediate Robotics Course</p>
+  </header>
+  <main class="py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section class="mb-10">
+        <h2 class="text-2xl font-bold text-black mb-4">🧭 Objective</h2>
+        <p class="text-gray-700 mb-6">To understand how motion and orientation affect accelerometer and gyroscope readings and how this data can be used to inform robot behavior in a self-balancing system.</p>
+        <h3 class="text-xl font-bold text-blue-700 mb-4">🪜 Step-by-Step Breakdown</h3>
+        <div class="step-title">🔹 Step 1: Introduction to the MPU-9255 Sensor</div>
+        <p class="text-gray-700 mb-2">Discuss the MPU-9255 as a 9-axis IMU sensor (you'll only use accelerometer + gyroscope for now).</p>
+        <ul class="list-disc ml-6 text-gray-700 mb-4">
+          <li>Communicates via I2C protocol:</li>
+          <li>SCL → GPIO 1</li>
+          <li>SDA → GPIO 0</li>
+          <li>Typical I2C address: 0x68 or 0x69</li>
+        </ul>
+        <div class="step-title">🔹 Step 2: Accelerometer – How It Works</div>
+        <ul class="list-disc ml-6 text-gray-700 mb-4">
+          <li>Measures acceleration due to gravity and motion.</li>
+          <li>Outputs ax, ay, az representing the acceleration along each axis.</li>
+          <li>Gravity causes different values when the robot tilts.</li>
+          <li>Pitch ≈ tilt front/back</li>
+          <li>Roll ≈ tilt side/side</li>
+        </ul>
+        <div class="step-title">🔹 Step 3: Gyroscope – How It Works</div>
+        <ul class="list-disc ml-6 text-gray-700 mb-4">
+          <li>Measures angular velocity (how fast the robot rotates).</li>
+          <li>Outputs gx, gy, gz in degrees/second.</li>
+          <li>Tracks motion over time, such as sudden turns, shakes, or falling.</li>
+        </ul>
+        <div class="step-title">🔹 Step 4: Wiring and Interfacing MPU-9255</div>
+        <ul class="list-disc ml-6 text-gray-700 mb-4">
+          <li>Connect VCC, GND, SCL, SDA to Pico W.</li>
+          <li>Initialize I2C interface and scan for the sensor.</li>
+          <li>Confirm address and check response.</li>
+        </ul>
+        <div class="code-block overflow-x-auto"><pre>from machine import Pin, I2C
+
+i2c = I2C(0, scl=Pin(1), sda=Pin(0))
+print(i2c.scan())  # Expect [104] or [105]</pre></div>
+        <div class="step-title">🔹 Step 5: Get Sensor Feedback – Pitch, Roll, Angular Velocity</div>
+        <ul class="list-disc ml-6 text-gray-700 mb-4">
+          <li>Create a class for MPU9255Sensor with methods:</li>
+          <li>get_accel_gyro()</li>
+          <li>get_pitch()</li>
+          <li>get_pitch_roll()</li>
+        </ul>
+        <div class="code-block overflow-x-auto"><pre>from machine import I2C, Pin
+from mpu9255_sensor import MPU9255Sensor
+import time, math
+
+i2c = I2C(0, scl=Pin(1), sda=Pin(0))
+imu = MPU9255Sensor(i2c)
+
+while True:
+    ax, ay, az, gx, gy, gz = imu.get_accel_gyro()
+    pitch = math.atan2(ax, math.sqrt(ay**2 + az**2)) * 180 / math.pi
+    roll = math.atan2(ay, math.sqrt(ax**2 + az**2)) * 180 / math.pi
+    print(f"Pitch: {pitch:.2f}°, Roll: {roll:.2f}° | Gyro: gx={gx}, gy={gy}, gz={gz}")
+    time.sleep(0.5)</pre></div>
+        <div class="step-title">🔹 Step 6: Robot Movement vs Sensor Feedback</div>
+        <ul class="list-disc ml-6 text-gray-700 mb-4">
+          <li>Hold and tilt the robot manually.</li>
+          <li>Watch pitch/roll and gyro data change.</li>
+          <li>Pitch increases when robot tilts forward.</li>
+          <li>Gyro values spike when robot shakes or turns.</li>
+          <li>Record and interpret patterns.</li>
+          <li>When do values stabilize?</li>
+          <li>Can you identify left vs right tilt by roll?</li>
+        </ul>
+        <div class="step-title">🔹 Step 7: Prepare for Control Logic</div>
+        <ul class="list-disc ml-6 text-gray-700 mb-4">
+          <li>The data observed here is the foundation for PID control.</li>
+          <li>No correction is applied yet — this is just observation.</li>
+          <li>Next module will use this data to drive motors and maintain balance.</li>
+        </ul>
+        <div class="step-title">📊 Bonus Task: Plot Sensor Data</div>
+        <ul class="list-disc ml-6 text-gray-700 mb-4">
+          <li>Optional: Send pitch and roll data via serial and plot in Thonny or Excel.</li>
+          <li>Helps learners visualize how sensor readings evolve in motion.</li>
+        </ul>
+        <h3 class="text-xl font-bold text-blue-700 mb-4">📦 Part 1: MicroPython Code on Pico W</h3>
+        <p class="text-gray-700 mb-2">This code sends pitch, roll, and gyro data over serial:</p>
+        <div class="code-block overflow-x-auto"><pre># mpu_plot_sender.py
+from machine import Pin, I2C
+from mpu9255_sensor import MPU9255Sensor
+import math
+import time
+
+i2c = I2C(0, scl=Pin(1), sda=Pin(0))  # Adjust pins if needed
+imu = MPU9255Sensor(i2c)
+
+def calculate_pitch_roll(ax, ay, az):
+    pitch = math.atan2(ax, math.sqrt(ay**2 + az**2)) * 180 / math.pi
+    roll = math.atan2(ay, math.sqrt(ax**2 + az**2)) * 180 / math.pi
+    return pitch, roll
+
+while True:
+    ax, ay, az, gx, gy, gz = imu.get_accel_gyro()
+    pitch, roll = calculate_pitch_roll(ax, ay, az)
+
+    # Print data in CSV format: pitch,roll,gx,gy,gz
+    print(f"{pitch:.2f},{roll:.2f},{gx},{gy},{gz}")
+    time.sleep(0.1)</pre></div>
+        <p class="text-green-700 font-semibold">🔧 Upload this to Pico W and run it from Thonny.</p>
+        <h3 class="text-xl font-bold text-blue-700 mb-4">🧑‍💻 Part 2: Plotting Script on Your PC (Python + Matplotlib)</h3>
+        <p class="text-gray-700 mb-2">Create a Python script on your computer to receive and plot data via the serial port:</p>
+        <div class="code-block overflow-x-auto"><pre># plot_mpu_data.py (run this on your PC)
+import serial
+import matplotlib.pyplot as plt
+from collections import deque
+
+# Update this to your Pico's port (check Thonny or Device Manager)
+PORT = 'COM5'
+BAUD = 115200
+
+# Create buffers
+max_len = 100
+pitch_vals = deque([0]*max_len, maxlen=max_len)
+roll_vals = deque([0]*max_len, maxlen=max_len)
+gx_vals = deque([0]*max_len, maxlen=max_len)
+
+# Set up plot
+plt.ion()
+fig, ax = plt.subplots()
+pitch_line, = ax.plot(pitch_vals, label='Pitch (°)')
+roll_line, = ax.plot(roll_vals, label='Roll (°)')
+gx_line, = ax.plot(gx_vals, label='Gyro X (°/s)')
+
+ax.set_ylim(-90, 90)
+ax.legend()
+ax.set_title("MPU-9255 Sensor Data (Real-Time)")
+ax.set_ylabel("Angle / Velocity")
+ax.set_xlabel("Time")
+
+# Start serial connection
+with serial.Serial(PORT, BAUD, timeout=1) as ser:
+    while True:
+        try:
+            line = ser.readline().decode().strip()
+            if line:
+                parts = line.split(",")
+                if len(parts) == 5:
+                    pitch, roll, gx, gy, gz = map(float, parts)
+                    pitch_vals.append(pitch)
+                    roll_vals.append(roll)
+                    gx_vals.append(gx)
+
+                    pitch_line.set_ydata(pitch_vals)
+                    roll_line.set_ydata(roll_vals)
+                    gx_line.set_ydata(gx_vals)
+
+                    pitch_line.set_xdata(range(len(pitch_vals)))
+                    roll_line.set_xdata(range(len(roll_vals)))
+                    gx_line.set_xdata(range(len(gx_vals)))
+
+                    ax.relim()
+                    ax.autoscale_view()
+                    plt.pause(0.01)
+        except Exception as e:
+            print("Error:", e)</pre></div>
+        <p class="text-green-700 font-semibold">✅ Make sure to install matplotlib:</p>
+        <div class="code-block overflow-x-auto"><pre>pip install matplotlib</pre></div>
+      </section>
+    </div>
+  </main>
+  <footer class="bg-gray-800 mt-12">
+    <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div>
+          <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">Courses</h3>
+          <ul class="mt-4 space-y-2">
+            <li><a href="../../fundamentals/fundamentals.html" class="text-base text-gray-400 hover:text-white">Beginner</a></li>
+            <li><a href="../intermediate.html" class="text-base text-gray-400 hover:text-white">Intermediate</a></li>
+            <li><a href="#" class="text-base text-gray-400 hover:text-white">Advanced</a></li>
+            <li><a href="#" class="text-base text-gray-400 hover:text-white">Specializations</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">Resources</h3>
+          <ul class="mt-4 space-y-2">
+            <li><a href="#" class="text-base text-gray-400 hover:text-white">Documentation</a></li>
+            <li><a href="#" class="text-base text-gray-400 hover:text-white">Code Examples</a></li>
+            <li><a href="#" class="text-base text-gray-400 hover:text-white">3D Models</a></li>
+            <li><a href="#" class="text-base text-gray-400 hover:text-white">Community</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">Company</h3>
+          <ul class="mt-4 space-y-2">
+            <li><a href="../../about.html" class="text-base text-gray-400 hover:text-white">About</a></li>
+            <li><a href="#" class="text-base text-gray-400 hover:text-white">Blog</a></li>
+            <li><a href="#" class="text-base text-gray-400 hover:text-white">Careers</a></li>
+            <li><a href="#" class="text-base text-gray-400 hover:text-white">Partners</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-gray-300 tracking-wider uppercase">Legal</h3>
+          <ul class="mt-4 space-y-2">
+            <li><a href="../../privacy-policy.html" class="text-base text-gray-400 hover:text-white">Privacy</a></li>
+            <li><a href="#" class="text-base text-gray-400 hover:text-white">Terms</a></li>
+            <li><a href="#" class="text-base text-gray-400 hover:text-white">Cookie Policy</a></li>
+            <li><a href="#" class="text-base text-gray-400 hover:text-white">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-8 border-t border-gray-700 pt-8 md:flex md:items-center md:justify-between">
+        <div class="flex space-x-6 md:order-2">
+          <a href="https://x.com/botronixlabs" target="_blank" class="text-black hover:bg-black hover:text-white"><span class="sr-only">X</span><i class="fa-brands fa-x-twitter text-2xl"></i></a><a href="#" aria-label="Instagram" class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-[#E4405F] hover:bg-[#E4405F] hover:text-white transition-all"><i class="fab fa-instagram"></i></a>
+          <a href="https://github.com/Botronix-Labs" target="_blank" class="text-gray-700 hover:text-black"><span class="sr-only">GitHub</span><i class="fab fa-github text-2xl"></i></a>
+          <a href="https://youtube.com/@botronixlabs" target="_blank" class="text-red-600 hover:text-red-800"><span class="sr-only">YouTube</span><i class="fab fa-youtube text-2xl"></i></a>
+          <a href="https://linkedin.com/company/botronix-labs" target="_blank" class="text-blue-700 hover:text-blue-900"><span class="sr-only">LinkedIn</span><i class="fab fa-linkedin-in text-2xl"></i></a>
+        </div>
+        <p class="mt-8 text-base text-gray-400 md:mt-0 md:order-1">
+          &copy; 2025 Botronix Labs. All rights reserved.
+        </p>
+      </div>
+    </div>
+
+

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Botronix Labs - Robotics Education</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                        "surface-dark": "#1c2333", // Slightly lighter for cards
+                        "border-dark": "#282e39"
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, #282e39 1px, transparent 1px), linear-gradient(to bottom, #282e39 1px, transparent 1px)",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for a more tech feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #101622; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #282e39; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #135bec; 
+        }
+        .bg-grid-size {
+            background-size: 40px 40px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-white overflow-x-hidden antialiased">
+<div class="relative flex flex-col min-h-screen w-full">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-border-dark bg-background-dark/95 backdrop-blur px-6 py-3 lg:px-10">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-white">
+<div class="flex items-center justify-center size-10 rounded-lg bg-primary/20 text-primary">
+<span class="material-symbols-outlined text-3xl">smart_toy</span>
+</div>
+<h2 class="text-white text-xl font-bold leading-tight tracking-tight">Botronix Labs</h2>
+</div>
+<div class="hidden lg:flex items-center gap-8">
+<a class="text-gray-300 hover:text-white text-sm font-medium transition-colors" href="#">Tutorials</a>
+<a class="text-gray-300 hover:text-white text-sm font-medium transition-colors" href="#">Models</a>
+<a class="text-gray-300 hover:text-white text-sm font-medium transition-colors" href="#">Code</a>
+<a class="text-gray-300 hover:text-white text-sm font-medium transition-colors" href="#">Shop</a>
+</div>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<label class="hidden md:flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full border border-border-dark bg-surface-dark overflow-hidden group focus-within:border-primary transition-colors">
+<div class="text-[#9da6b9] flex items-center justify-center pl-3">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden bg-transparent border-none text-white focus:ring-0 placeholder:text-[#9da6b9] px-3 text-sm font-normal" placeholder="Search blueprints..." value=""/>
+</div>
+</label>
+<div class="flex gap-3">
+<button class="flex min-w-[100px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-primary hover:bg-blue-600 transition-all text-white text-sm font-bold shadow-[0_0_15px_rgba(19,91,236,0.4)]">
+<span class="truncate">Subscribe</span>
+</button>
+<button class="hidden sm:flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-surface-dark hover:bg-[#282e39] border border-border-dark text-white text-sm font-bold transition-all">
+<span class="truncate">Login</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow flex flex-col items-center w-full">
+<!-- Hero Section -->
+<section class="w-full max-w-[1200px] px-6 lg:px-10 py-12 lg:py-20">
+<div class="@container">
+<div class="flex flex-col gap-10 lg:flex-row items-center">
+<div class="flex flex-col gap-6 lg:w-1/2 lg:pr-10 relative z-10">
+<!-- Badge -->
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/30 w-fit">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+</span>
+<span class="text-xs font-bold text-primary tracking-wide uppercase">New Tutorial Live</span>
+</div>
+<div class="flex flex-col gap-4 text-left">
+<h1 class="text-white text-5xl lg:text-6xl font-bold leading-[1.1] tracking-[-0.033em]">
+                                    Master Embedded Systems. <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-300">Build Real Robots.</span>
+</h1>
+<p class="text-gray-400 text-lg font-body leading-relaxed max-w-xl">
+                                    Join thousands of makers on our free robotics learning platform. From Raspberry Pi coding to 3D printed mechanics, we turn blueprints into reality.
+                                </p>
+</div>
+<div class="flex flex-wrap gap-4 mt-2">
+<button class="flex items-center justify-center rounded-lg h-12 px-6 bg-primary hover:bg-blue-600 text-white text-base font-bold shadow-[0_0_20px_rgba(19,91,236,0.5)] transition-all transform hover:-translate-y-0.5">
+<span class="material-symbols-outlined mr-2">play_circle</span>
+<span>Start Building</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-12 px-6 bg-surface-dark hover:bg-[#282e39] border border-border-dark text-white text-base font-bold transition-all">
+<span class="material-symbols-outlined mr-2">grid_view</span>
+<span>Browse Tutorials</span>
+</button>
+</div>
+<div class="flex items-center gap-4 mt-6 text-sm text-gray-500 font-body">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full bg-gray-700 border-2 border-background-dark overflow-hidden flex items-center justify-center text-xs">MK</div>
+<div class="w-8 h-8 rounded-full bg-gray-600 border-2 border-background-dark overflow-hidden flex items-center justify-center text-xs">JD</div>
+<div class="w-8 h-8 rounded-full bg-gray-500 border-2 border-background-dark overflow-hidden flex items-center justify-center text-xs">AL</div>
+</div>
+<p>Joined by 12,000+ engineers</p>
+</div>
+</div>
+<!-- Hero Visual -->
+<div class="w-full lg:w-1/2 relative group">
+<!-- Abstract decoration -->
+<div class="absolute -inset-1 bg-gradient-to-r from-primary to-purple-600 rounded-xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+<div class="relative w-full aspect-video bg-surface-dark rounded-xl overflow-hidden border border-border-dark shadow-2xl">
+<div class="w-full h-full bg-center bg-no-repeat bg-cover opacity-90 hover:scale-105 transition-transform duration-700" data-alt="Futuristic robot arm assembling a circuit board in a blue-lit laboratory" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBKIMhlyU5TSnfgB5uveiVNJFv2kG9hlj_m0wro5cH5WiebMSew6hqoIVbJkYcbLmuQwiYcu-ozFnDIfJhdmxsDX6ImClRSoW9qQXK6d16zweH9GS5bvlf_6HB22GYQ4jrgyksYhahrG6GPQzCS4fPzRr1vaLazmkOvblF7rIYjkKru6ZhaN5EozAVxIQbaC9Z4FVHfmNtKz14LL3Fp2JS0KcLxNkSHf4IZD2x5tXAZqXS7L1HJxaoSGYj-yYRKk7rwVlS2DLFVBk8");'>
+<!-- Overlay gradient -->
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/90 via-transparent to-transparent"></div>
+</div>
+<!-- Play Button Overlay -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-4xl text-white">play_arrow</span>
+</div>
+</div>
+<div class="absolute bottom-4 left-4 right-4">
+<p class="text-xs font-mono text-primary mb-1">FEATURED LESSON</p>
+<p class="text-white font-bold text-lg">Inverse Kinematics for 6-DOF Arms</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Tech Stack Ticker -->
+<div class="w-full border-y border-border-dark bg-surface-dark/50 backdrop-blur-sm overflow-hidden py-6">
+<div class="max-w-[1200px] mx-auto px-6 lg:px-10 flex flex-wrap justify-center lg:justify-between items-center gap-8 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-3xl">memory</span>
+<span class="text-lg font-bold">Raspberry Pi</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-3xl">code</span>
+<span class="text-lg font-bold">Python</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-3xl">developer_board</span>
+<span class="text-lg font-bold">Arduino</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-3xl">view_in_ar</span>
+<span class="text-lg font-bold">Fusion 360</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-3xl">terminal</span>
+<span class="text-lg font-bold">ROS 2</span>
+</div>
+</div>
+</div>
+<!-- Latest Videos Grid -->
+<section class="w-full max-w-[1200px] px-6 lg:px-10 py-16 relative">
+<!-- Background Grid Decoration -->
+<div class="absolute top-0 right-0 w-1/3 h-full bg-grid-pattern opacity-10 pointer-events-none mask-image-linear-to-b"></div>
+<div class="flex items-center justify-between mb-8">
+<h2 class="text-white text-3xl font-bold leading-tight">Fresh from the Lab</h2>
+<a class="text-primary hover:text-blue-400 text-sm font-bold flex items-center gap-1" href="#">
+                        View Channel <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<div class="group flex flex-col gap-3 p-4 rounded-xl bg-surface-dark border border-border-dark hover:border-primary/50 transition-all hover:shadow-lg hover:shadow-primary/10">
+<div class="relative w-full aspect-video rounded-lg overflow-hidden bg-gray-800">
+<div class="w-full h-full bg-center bg-no-repeat bg-cover group-hover:scale-105 transition-transform duration-500" data-alt="3D printed spider robot walking on a table" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCbmNVa2A8t5HXiKXkmiJ1DQC71ZiVgWX7TS8jivzfeJyfKkLt_Xr4QVX2FcNjvD9wNVKErNKqJ3QmUvmYkBUCFYsjjf8XfyhIawo63cnMfhVpNIcrn9RCj5JD-YWU7Q9yv2RasiwIVWGE0wANQyhWP9qNtUXlKMJ6EGgPY2D4o_nUSl9NVoPo7w2gaMkVjPNffqKfo0T-5UINYwlDR_2xX_HbWgPw7RyUsKgOV8r3hXktLCFp6UguM1H-isOuu8PCzkjXIVjbImkE");'>
+</div>
+<div class="absolute top-2 right-2 bg-black/80 px-2 py-0.5 rounded text-xs font-mono text-white">14:20</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-yellow-500 uppercase tracking-wider">Intermediate</span>
+<span class="text-xs text-gray-500">2 days ago</span>
+</div>
+<p class="text-white text-lg font-bold leading-snug group-hover:text-primary transition-colors">3D Printed Hexapod with IK</p>
+<p class="text-[#9da6b9] text-sm font-normal line-clamp-2">Learn how to calculate inverse kinematics for a 6-legged robot using simple trigonometry and Python.</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group flex flex-col gap-3 p-4 rounded-xl bg-surface-dark border border-border-dark hover:border-primary/50 transition-all hover:shadow-lg hover:shadow-primary/10">
+<div class="relative w-full aspect-video rounded-lg overflow-hidden bg-gray-800">
+<div class="w-full h-full bg-center bg-no-repeat bg-cover group-hover:scale-105 transition-transform duration-500" data-alt="Small robotic rover kit with raspberry pi camera" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA4-lJujJ-DIog3Ny4nm88ohM7iDi3fHm44DsJ2AocYGHbybUv3HChMJKeUCnSQlXwpOT9ZAmnqGlGr8HxeaprphMfkpColP7Zr46H5XioYeCBcqlTfBTfbzhzzYOW5LG1PeVWNMmf3kB6ro76rfiyh4y5WoDRu4YYhUPpFuIJDTyU2zMfb4MRptZ56d9npDlEoHvY60Ee_fiJvRO9l8djmDhTWHfu9K-SoX_PMAEvl2eBBupcDGYlNs-ec5ePZBV6z9ZhVoROAFOc");'>
+</div>
+<div class="absolute top-2 right-2 bg-black/80 px-2 py-0.5 rounded text-xs font-mono text-white">22:15</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-green-500 uppercase tracking-wider">Beginner</span>
+<span class="text-xs text-gray-500">1 week ago</span>
+</div>
+<p class="text-white text-lg font-bold leading-snug group-hover:text-primary transition-colors">Pi Rover MKII: Obstacle Avoidance</p>
+<p class="text-[#9da6b9] text-sm font-normal line-clamp-2">Upgrading the basic rover with ultrasonic sensors and basic autonomous navigation logic.</p>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group flex flex-col gap-3 p-4 rounded-xl bg-surface-dark border border-border-dark hover:border-primary/50 transition-all hover:shadow-lg hover:shadow-primary/10">
+<div class="relative w-full aspect-video rounded-lg overflow-hidden bg-gray-800">
+<div class="w-full h-full bg-center bg-no-repeat bg-cover group-hover:scale-105 transition-transform duration-500" data-alt="Arduino circuit board controlling a sorting mechanism" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDHmh3YtbQg8wYNaWlGeCiIfY9wqH1WxSl35uvEiIRrS9xemsfYsq_6dBq_zcqrSUC1vouxSrRI6ANWaO_7oP-FMvf1SZZwBcErROFkRlIhQ_Z0ZE7Rqqs_OFUCdnoOWdKSXwNtoduHozImiD_ZXe5GisxampeVlp_bmFak8tZO2cj1Bsp8osHi6nLrHH5ZNSUMpyYafxt9OW5Jnkrj_2Ae2QOabYVBZCLFcf6GmpwnvwgPj-ku7xNPC15O9yXJ_HYDgZhNuIHDoDQ");'>
+</div>
+<div class="absolute top-2 right-2 bg-black/80 px-2 py-0.5 rounded text-xs font-mono text-white">45:00</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-red-500 uppercase tracking-wider">Advanced</span>
+<span class="text-xs text-gray-500">3 weeks ago</span>
+</div>
+<p class="text-white text-lg font-bold leading-snug group-hover:text-primary transition-colors">Arduino Color Sorting Machine</p>
+<p class="text-[#9da6b9] text-sm font-normal line-clamp-2">Building a high-speed industrial style sorter using stepper motors and TCS3200 color sensors.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Featured Large Project -->
+<section class="w-full max-w-[1200px] px-6 lg:px-10 py-8">
+<div class="p-1 rounded-2xl bg-gradient-to-r from-primary/20 via-border-dark to-border-dark">
+<div class="flex flex-col lg:flex-row items-stretch rounded-xl bg-background-dark overflow-hidden">
+<div class="w-full lg:w-3/5 bg-center bg-no-repeat bg-cover min-h-[300px]" data-alt="Close up of a robotic dog head with camera eyes" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB_Pyvb4mlLsSAyklZyrBYqllgplBtBsQ0r8-IDweoqQW1diUeJvEzPJeIfjMZV95dSyhb8bJEEFGqsf7qRA12KplsVVl3NTU8omOGwwMbY12L-_0bBxRS2t98HT5KRWukgx2art_SpZTrRm86cZZClvSKIkSH99cG47BxYlNjU6P3uCSUnbe_fjHfs2-8lTdwFVr0nQoXzPw1g3xYXrMKFbQ36NJXvW4IDVKYHgBpISD29N7KpYZo_Peo7E3dGVvLTCdDfNvYlwA8");'>
+<div class="w-full h-full bg-black/30 hover:bg-transparent transition-colors duration-500"></div>
+</div>
+<div class="flex w-full lg:w-2/5 flex-col justify-center gap-6 p-8 relative overflow-hidden">
+<!-- Background accent -->
+<div class="absolute -right-10 -bottom-10 w-40 h-40 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+<div>
+<h3 class="text-primary text-sm font-bold tracking-widest uppercase mb-2">Project Spotlight</h3>
+<h2 class="text-white text-2xl lg:text-3xl font-bold leading-tight">AI Vision Robot Dog</h2>
+</div>
+<p class="text-[#9da6b9] text-base leading-relaxed">
+                                Our most ambitious project yet. This 12-DOF quadruped uses a Raspberry Pi 5 for high-level gait planning and OpenCV object tracking. Learn how to integrate inverse kinematics with real-time vision processing.
+                            </p>
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-1 rounded bg-surface-dark border border-border-dark text-xs font-mono text-gray-400">Python</span>
+<span class="px-2 py-1 rounded bg-surface-dark border border-border-dark text-xs font-mono text-gray-400">C++</span>
+<span class="px-2 py-1 rounded bg-surface-dark border border-border-dark text-xs font-mono text-gray-400">3D Printing</span>
+</div>
+<div class="flex gap-3 pt-2">
+<button class="flex-1 cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-primary hover:bg-blue-600 text-white text-sm font-bold shadow-lg shadow-primary/20 transition-all">
+                                    Watch Series
+                                </button>
+<button class="flex-1 cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-transparent border border-border-dark hover:border-primary text-white text-sm font-bold transition-all">
+                                    Get Blueprints
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Download Center / Resources -->
+<section class="w-full max-w-[1200px] px-6 lg:px-10 py-16">
+<div class="flex flex-col gap-6">
+<div class="flex items-end justify-between border-b border-border-dark pb-4">
+<div>
+<h2 class="text-white text-2xl font-bold">Download Center</h2>
+<p class="text-gray-400 text-sm mt-1">Access source code, STL files, and wiring diagrams.</p>
+</div>
+<a class="text-primary text-sm font-bold hover:underline" href="#">View all files</a>
+</div>
+<div class="flex flex-col gap-2">
+<!-- Resource Item 1 -->
+<div class="flex items-center justify-between p-4 rounded-lg bg-surface-dark border border-border-dark hover:border-gray-600 transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-blue-900/30 flex items-center justify-center text-blue-400">
+<span class="material-symbols-outlined">folder_zip</span>
+</div>
+<div>
+<h4 class="text-white font-medium group-hover:text-primary transition-colors">SpotMicro_STL_Files_v2.zip</h4>
+<p class="text-xs text-gray-500">142 MB • Updated yesterday</p>
+</div>
+</div>
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 text-gray-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+<!-- Resource Item 2 -->
+<div class="flex items-center justify-between p-4 rounded-lg bg-surface-dark border border-border-dark hover:border-gray-600 transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-green-900/30 flex items-center justify-center text-green-400">
+<span class="material-symbols-outlined">terminal</span>
+</div>
+<div>
+<h4 class="text-white font-medium group-hover:text-primary transition-colors">rover_navigation_stack.py</h4>
+<p class="text-xs text-gray-500">24 KB • Python Script</p>
+</div>
+</div>
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 text-gray-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+<!-- Resource Item 3 -->
+<div class="flex items-center justify-between p-4 rounded-lg bg-surface-dark border border-border-dark hover:border-gray-600 transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-purple-900/30 flex items-center justify-center text-purple-400">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div>
+<h4 class="text-white font-medium group-hover:text-primary transition-colors">Wiring_Schematic_Pro_V1.pdf</h4>
+<p class="text-xs text-gray-500">2.4 MB • PDF Document</p>
+</div>
+</div>
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 text-gray-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Newsletter CTA -->
+<section class="w-full max-w-[1200px] px-6 lg:px-10 py-16">
+<div class="rounded-2xl bg-[#1c1f27] border border-border-dark p-8 lg:p-12 text-center relative overflow-hidden">
+<!-- Decorative circles -->
+<div class="absolute top-0 left-0 w-64 h-64 bg-primary/5 rounded-full filter blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+<div class="absolute bottom-0 right-0 w-64 h-64 bg-primary/5 rounded-full filter blur-3xl translate-x-1/2 translate-y-1/2"></div>
+<div class="relative z-10 max-w-2xl mx-auto flex flex-col gap-6 items-center">
+<div class="w-16 h-16 rounded-full bg-surface-dark border border-border-dark flex items-center justify-center text-primary mb-2 shadow-lg shadow-black/20">
+<span class="material-symbols-outlined text-3xl">mail</span>
+</div>
+<h2 class="text-3xl font-bold text-white">Don't miss the next build</h2>
+<p class="text-gray-400">Get notified when we release new models, code updates, or tutorial videos. No spam, just engineering.</p>
+<div class="flex w-full max-w-md gap-2 flex-col sm:flex-row">
+<input class="flex-1 rounded-lg bg-background-dark border border-border-dark px-4 py-3 text-white placeholder:text-gray-600 focus:border-primary focus:ring-1 focus:ring-primary outline-none" placeholder="Enter your email" type="email"/>
+<button class="bg-primary hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition-colors shadow-lg shadow-primary/25">
+                                Join Labs
+                            </button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full border-t border-border-dark bg-[#0b0e14] py-12 px-6 lg:px-10">
+<div class="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-2 text-white">
+<span class="material-symbols-outlined text-primary">smart_toy</span>
+<span class="font-bold text-xl">Botronix Labs</span>
+</div>
+<p class="text-gray-500 text-sm leading-relaxed">
+                        Empowering the next generation of robotics engineers through open-source education and accessible design.
+                    </p>
+<div class="flex gap-4 mt-2">
+<a class="text-gray-400 hover:text-white" href="#"><span class="material-symbols-outlined">thumb_up</span></a> <!-- Placeholder for social -->
+<a class="text-gray-400 hover:text-white" href="#"><span class="material-symbols-outlined">photo_camera</span></a>
+<a class="text-gray-400 hover:text-white" href="#"><span class="material-symbols-outlined">code</span></a>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="text-white font-bold">Learn</h4>
+<a class="text-gray-500 hover:text-primary text-sm" href="#">Raspberry Pi Tutorials</a>
+<a class="text-gray-500 hover:text-primary text-sm" href="#">Arduino Projects</a>
+<a class="text-gray-500 hover:text-primary text-sm" href="#">ROS 2 Navigation</a>
+<a class="text-gray-500 hover:text-primary text-sm" href="#">Computer Vision</a>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="text-white font-bold">Resources</h4>
+<a class="text-gray-500 hover:text-primary text-sm" href="#">3D Models (STL)</a>
+<a class="text-gray-500 hover:text-primary text-sm" href="#">Source Code (GitHub)</a>
+<a class="text-gray-500 hover:text-primary text-sm" href="#">Parts List</a>
+<a class="text-gray-500 hover:text-primary text-sm" href="#">Community Forum</a>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="text-white font-bold">Company</h4>
+<a class="text-gray-500 hover:text-primary text-sm" href="../../about.html">About Us</a>
+<a class="text-gray-500 hover:text-primary text-sm" href="#">Contact</a>
+<a class="text-gray-500 hover:text-primary text-sm" href="#">Sponsorships</a>
+<div class="flex items-center gap-2 text-gray-500 text-sm mt-2">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<span>Toronto, Canada</span>
+</div>
+</div>
+</div>
+<div class="max-w-[1200px] mx-auto mt-12 pt-8 border-t border-border-dark flex flex-col md:flex-row justify-between items-center text-xs text-gray-600">
+<p>© 2023 Botronix Labs. All rights reserved.</p>
+<div class="flex gap-6 mt-4 md:mt-0">
+<a class="hover:text-gray-400" href="#">Privacy Policy</a>
+<a class="hover:text-gray-400" href="#">Terms of Service</a>
+</div>
+</div>
+</footer>
+</div>
+</body></html>
