@@ -120,6 +120,8 @@
     <a class="text-primary no-underline font-medium" href="#chapter-8">Chapter 8</a>
     <a class="text-primary no-underline font-medium" href="#chapter-9">Chapter 9</a>
     <a class="text-primary no-underline font-medium" href="#chapter-10">Chapter 10</a>
+    <a class="text-primary no-underline font-medium" href="#chapter-11">Chapter 11</a>
+    <a class="text-primary no-underline font-medium" href="#chapter-12">Chapter 12</a>
 </div>
 <!-- Page Heading & Actions -->
 <div class="flex flex-col md:flex-row justify-between gap-6 p-4 border-b border-[#232f48] pb-8 mb-8 relative overflow-hidden rounded-xl bg-surface-dark/50">
@@ -2154,6 +2156,417 @@ display.show()</code></pre>
         </button>
     </div>
 </section>
+
+<!-- Chapter 11: Wi-Fi Connectivity with Pico W and Pico 2 W -->
+<section id="chapter-11" class="pt-12">
+    <div class="flex items-center gap-4 mb-8">
+        <div class="size-12 rounded-lg bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center text-2xl">
+            <span class="material-symbols-outlined text-white">wifi</span>
+        </div>
+        <h2 class="text-3xl font-bold text-white">Chapter 11 — Wi-Fi Connectivity with Pico W and Pico 2 W</h2>
+    </div>
+    <p class="text-lg text-[#92a4c9] mb-6">Turn the Raspberry Pi Pico W / Pico 2 W into a network-connected IoT device, capable of connecting to Wi-Fi, making HTTP requests, hosting a web server, and controlling hardware remotely.</p>
+    <div class="bg-yellow-900/20 border border-yellow-700/50 rounded p-3 text-sm text-yellow-200 mb-6">
+        <strong>⚠️ This chapter requires a Pico W or Pico 2 W.</strong> Standard Pico boards do not have Wi-Fi.
+    </div>
+
+    <!-- Learning Points, Core Concepts, Hardware Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white font-bold mb-3 flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-xl">lightbulb</span>
+                1. Learning Points
+            </h3>
+            <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                <li>Understand the Wi-Fi hardware on Pico W / Pico 2 W</li>
+                <li>Configure country codes for legal radio operation</li>
+                <li>Connect Pico W to a 2.4 GHz Wi-Fi network</li>
+                <li>Handle Wi-Fi connection errors and status codes</li>
+                <li>Use HTTP requests to fetch online data</li>
+                <li>Create a simple HTTP web server</li>
+                <li>Serve dynamic data (temperature sensor)</li>
+                <li>Control on-board hardware (LED) via a browser</li>
+                <li>Understand private vs public IP addresses</li>
+                <li>Safely manage network sockets and memory</li>
+            </ul>
+        </div>
+
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white font-bold mb-3 flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-xl">school</span>
+                2. Core Concepts
+            </h3>
+            <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                <li><strong>Pico W Radio:</strong> Wi-Fi 4 (802.11n, 2.4 GHz) & Bluetooth 5.2.</li>
+                <li><strong>Firmware:</strong> Must use specific Pico W/Pico 2 W firmware.</li>
+                <li><strong>Country Code:</strong> Set with `rp2.country()` for legal compliance.</li>
+                <li><strong>Network:</strong> Requires 2.4 GHz Wi-Fi with SSID and password.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Hands-On Practice 1: Connecting to Wi-Fi -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-2">3. Hands-On Practice 1: Connecting to Wi-Fi</h4>
+        <p class="text-sm text-[#92a4c9] mb-3">Use the `network` library to enable the radio, connect, and handle status with a timeout.</p>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto"><code class="language-python">import time
+import network
+import rp2
+
+rp2.country("CA")  # Set your country code, e.g., "US", "GB"
+
+ssid = "Your_Network_Name"
+psk = "Your_Password"
+
+wlan = network.WLAN(network.STA_IF)
+wlan.active(True)
+wlan.connect(ssid, psk)
+
+max_wait = 30
+while max_wait > 0:
+    if wlan.status() < 0 or wlan.status() >= 3:
+        break
+    print("Waiting for Wi-Fi connection...")
+    time.sleep(1)
+    max_wait -= 1
+
+if wlan.status() != 3:
+    raise RuntimeError("Network connection failed")
+else:
+    print("Connected!")
+    print(wlan.ifconfig())</code></pre>
+        <p class="text-xs text-[#92a4c9] mt-2">📌 `wlan.ifconfig()` prints the Pico’s IP address.</p>
+    </div>
+    
+    <!-- Hands-On Practice 2: Making HTTP Requests -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-2">4. Hands-On Practice 2: Making HTTP Requests</h4>
+        <p class="text-sm text-[#92a4c9] mb-3">Use the `requests` library to fetch raw data from web URLs. Remember to always close the response.</p>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto"><code class="language-python">import requests
+
+# Example: Fetching plain text news from NPR
+response = requests.get("https://text.npr.org/")
+print(response.content)
+response.close() # IMPORTANT: Always close to free memory
+
+# Cleaner output
+# [print(line) for line in response.content.splitlines()]</code></pre>
+        <h5 class="text-white font-bold mt-4 mb-2">Suggested Practice URLs</h5>
+        <ul class="list-disc pl-5 text-sm text-primary font-mono">
+            <li>http://wttr.in/cambridge?format=3</li>
+            <li>http://ipecho.net/plain</li>
+            <li>https://earthquake.usgs.gov/fdsnws/event/1/query?format=text&limit=10</li>
+        </ul>
+    </div>
+    
+    <!-- Hands-On Practice 3: Hosting a Web Server -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-2">5. Hands-On Practice 3: Hosting a Web Server</h4>
+        <p class="text-sm text-[#92a4c9] mb-3">The Pico W can open a socket, listen on port 80, and respond to requests from a web browser.</p>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto"><code class="language-python">from connect import wlan # Assumes connect.py from previous step
+import socket
+
+address = socket.getaddrinfo("0.0.0.0", 80)[0][-1]
+s = socket.socket()
+s.bind(address)
+s.listen(1)
+
+print("Listening on", wlan.ifconfig()[0])
+
+while True:
+    client, addr = s.accept()
+    client.send("HTTP/1.0 200 OK\r\n")
+    client.send("Content-type: text/plain\r\n\r\n")
+    client.send("Hello from Pico W!\r\n")
+    client.close()</code></pre>
+        <p class="text-xs text-[#92a4c9] mt-2">Open a browser and navigate to the Pico’s IP address to see the message.</p>
+    </div>
+
+    <!-- Hands-On Practice 4: Sensor Data over Wi-Fi -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-2">6. Hands-On Practice 4: Sensor Data over Wi-Fi</h4>
+        <p class="text-sm text-[#92a4c9] mb-3">Serve live temperature data from the internal sensor by generating a dynamic HTTP response.</p>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto"><code class="language-python"># Inside the while True loop of the web server
+import machine
+sensor_temp = machine.ADC(machine.ADC.CORE_TEMP)
+conversion_factor = 3.3 / 65534
+
+reading = sensor_temp.read_u16() * conversion_factor
+temperature = 27 - (reading - 0.706) / 0.001721
+
+# client.send(f"Temperature: {temperature}°C")
+# client.close()</code></pre>
+    </div>
+
+    <!-- Hands-On Practice 5: Web-Controlled LED -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-2">7. Hands-On Practice 5: Web-Controlled LED</h4>
+        <p class="text-sm text-[#92a4c9] mb-3">The Pico W's onboard LED is controlled via `machine.Pin("LED", machine.Pin.OUT)`. Parse the browser request to control its state.</p>
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto"><code class="language-python"># Inside the while True loop of the web server
+led = machine.Pin("LED", machine.Pin.OUT)
+request = client.recv(1024).decode("UTF-8")
+
+led_state = "LED is OFF"
+if request.startswith("GET /led/on"):
+    led.value(1)
+    led_state = "LED is ON"
+elif request.startswith("GET /led/off"):
+    led.value(0)
+    led_state = "LED is OFF"
+
+html_response = f"""
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;&lt;title&gt;Pico W Control&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Pico W LED Control&lt;/h1&gt;
+  &lt;p&gt;{led_state}&lt;/p&gt;
+  &lt;a href="/led/on"&gt;Turn LED ON&lt;/a&gt; | 
+  &lt;a href="/led/off"&gt;Turn LED OFF&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+"""
+# client.send(...) with the html_response</code></pre>
+        <p class="text-xs text-[#92a4c9] mt-2">Access `/led/on` and `/led/off` in your browser to control the LED.</p>
+    </div>
+
+    <!-- Key Safety & Design Notes -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-2">8. Key Safety & Design Notes</h4>
+        <ul class="list-disc pl-5 space-y-2 text-sm text-[#92a4c9]">
+            <li><strong>Private IP:</strong> Pico W is only accessible on the local network. Port forwarding is complex and not recommended for beginners.</li>
+            <li><strong>Memory Management:</strong> Always close sockets (`client.close()`) and HTTP responses (`response.close()`) to avoid memory exhaustion.</li>
+            <li><strong>Lightweight Pages:</strong> Keep HTML simple as memory is limited.</li>
+        </ul>
+    </div>
+    <div class="mt-6 flex justify-center">
+        <button id="mark-ch11-complete" class="flex items-center justify-center gap-3 rounded-xl h-14 px-10 bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary text-white text-lg font-bold shadow-lg shadow-primary/30 transform transition-all hover:scale-105">
+            <span>Mark Chapter 11 Complete</span>
+            <span class="material-symbols-outlined">check_circle</span>
+        </button>
+    </div>
+</section>
+
+<!-- Chapter 12: Bluetooth Connectivity -->
+<section id="chapter-12" class="pt-12">
+    <div class="flex items-center gap-4 mb-8">
+        <div class="size-12 rounded-lg bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center text-2xl">
+            <span class="material-symbols-outlined text-white">bluetooth</span>
+        </div>
+        <h2 class="text-3xl font-bold text-white">Chapter 12 – Bluetooth Connectivity with Pico W and Pico 2 W</h2>
+    </div>
+    <p class="text-lg text-[#92a4c9] mb-6">Learn how to use Bluetooth Low Energy (BLE) on Raspberry Pi Pico W / Pico 2 W to transmit sensor data wirelessly.</p>
+
+    <!-- Chapter Goal, Learning Points, Hardware Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white font-bold mb-3 flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-xl">flag</span>
+                Chapter Goal
+            </h3>
+            <p class="text-sm text-[#92a4c9]">
+                Learn how to use Bluetooth Low Energy (BLE) on Raspberry Pi Pico W / Pico 2 W to transmit sensor data wirelessly to smartphones, tablets, or another Pico W. The chapter culminates in building a BLE temperature sensor using MicroPython.
+            </p>
+        </div>
+
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white font-bold mb-3 flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-xl">lightbulb</span>
+                Learning Points
+            </h3>
+            <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                <li>Understand Bluetooth vs Bluetooth Low Energy (BLE)</li>
+                <li>Explain BLE advertising and services</li>
+                <li>Use the aioble library to simplify BLE programming</li>
+                <li>Create a BLE temperature beacon</li>
+                <li>Read BLE data using a smartphone app and another Pico W</li>
+                <li>Use asyncio for concurrent BLE + sensor tasks</li>
+                <li>Encode and decode structured BLE data</li>
+            </ul>
+        </div>
+
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h3 class="text-white font-bold mb-3 flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-xl">settings</span>
+                Hardware Required
+            </h3>
+            <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                <li>1–2 × Raspberry Pi Pico W or Pico 2 W</li>
+                <li>Smartphone/tablet with BLE</li>
+                <li>LightBlue app (iOS / Android)</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Key Concepts Explained -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-4">Key Concepts Explained</h4>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Concept 1: BLE -->
+            <div class="bg-[#0d1117] border border-[#232f48] p-4 rounded-lg">
+                <h5 class="text-white font-bold mb-2">1. Bluetooth Low Energy (BLE)</h5>
+                <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                    <li>Designed for short-range, low-power communication</li>
+                    <li>Ideal for IoT sensors</li>
+                    <li>Uses advertising beacons instead of persistent connections</li>
+                    <li>Supported natively by Pico W and Pico 2 W radios</li>
+                </ul>
+            </div>
+            <!-- Concept 2: BLE Advertising -->
+            <div class="bg-[#0d1117] border border-[#232f48] p-4 rounded-lg">
+                <h5 class="text-white font-bold mb-2">2. BLE Advertising</h5>
+                <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                    <li>Devices broadcast what services they offer</li>
+                    <li>Other devices can scan and connect if interested</li>
+                    <li>No constant connection required → low power</li>
+                    <li>BLE devices advertise, they don’t “push data” like Wi-Fi</li>
+                </ul>
+            </div>
+            <!-- Concept 3: UUIDs -->
+            <div class="bg-[#0d1117] border border-[#232f48] p-4 rounded-lg">
+                <h5 class="text-white font-bold mb-2">3. UUIDs (Universally Unique Identifiers)</h5>
+                <p class="text-sm text-[#92a4c9] mb-2">Services and characteristics are identified using UUIDs:</p>
+                <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                    <li>Service UUID: What the device does (e.g., 0x181A)</li>
+                    <li>Characteristic UUID: What data it provides (e.g., 0x2A6E)</li>
+                </ul>
+            </div>
+            <!-- Concept 4: aioble -->
+            <div class="bg-[#0d1117] border border-[#232f48] p-4 rounded-lg">
+                <h5 class="text-white font-bold mb-2">4. aioble Library</h5>
+                <p class="text-sm text-[#92a4c9] mb-2">Wraps MicroPython’s bluetooth module and removes boilerplate code. Supports:</p>
+                <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                    <li>Advertising</li>
+                    <li>Services &amp; characteristics</li>
+                    <li>Notifications &amp; Async operations</li>
+                </ul>
+            </div>
+            <!-- Concept 5: asyncio -->
+            <div class="bg-[#0d1117] border border-[#232f48] p-4 rounded-lg">
+                <h5 class="text-white font-bold mb-2">5. Asynchronous Programming (asyncio)</h5>
+                 <p class="text-sm text-[#92a4c9] mb-2">Used to run tasks concurrently without blocking, like reading a sensor while transmitting BLE data.</p>
+                 <p class="text-sm text-[#92a4c9]">BLE broadcasting continues while sensor readings update.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hands-On Project: BLE Temperature Sensor -->
+    <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6 mb-6">
+        <h4 class="text-white font-bold mb-2">Hands-On Project: BLE Temperature Sensor</h4>
+        
+        <h5 class="text-white font-semibold mb-2 mt-4">Project 1 – BLE Temperature Beacon (Transmitter)</h5>
+        <p class="text-sm text-[#92a4c9] mb-3">This project reads the Pico's internal temperature sensor, encodes the temperature into a BLE payload, and advertises it every 2 seconds.</p>
+        
+        <pre class="text-sm font-mono bg-[#08101a] text-white p-3 rounded-md border border-[#232f48] overflow-x-auto code-scroll"><code class="language-python">
+import struct
+import asyncio
+import aioble
+import bluetooth
+import machine
+
+# Temperature Setup
+sensor_temp = machine.ADC(machine.ADC.CORE_TEMP)
+conversion_factor = 3.3 / 65535
+
+# BLE Configuration
+ble_name = "picow_ble"
+ble_svc_uuid = bluetooth.UUID(0x181A)
+ble_characteristic_uuid = bluetooth.UUID(0x2A6E)
+ble_appearance = 0x0300
+ble_advertising_interval = 2000
+
+# BLE Service &amp; Characteristic
+ble_service = aioble.Service(ble_svc_uuid)
+ble_characteristic = aioble.Characteristic(
+    ble_service,
+    ble_characteristic_uuid,
+    read=True,
+    notify=True
+)
+aioble.register_services(ble_service)
+
+# Temperature Encoding Helper
+def encode_temp(temp):
+    return struct.pack("&lt;h", int(temp * 100))
+
+# Sensor Task (Async)
+async def sensor_task():
+    while True:
+        reading = sensor_temp.read_u16() * conversion_factor
+        temperature = 27 - (reading - 0.706) / 0.001721
+        ble_characteristic.write(encode_temp(temperature))
+        print("Temperature:", temperature)
+        await asyncio.sleep_ms(2000)
+
+# BLE Advertising Task
+async def ble_task():
+    while True:
+        await aioble.advertise(
+            ble_advertising_interval,
+            name=ble_name,
+            services=[ble_svc_uuid],
+            appearance=ble_appearance
+        )
+
+# Main Event Loop
+async def main():
+    task1 = asyncio.create_task(ble_task())
+    task2 = asyncio.create_task(sensor_task())
+    await asyncio.gather(task1, task2)
+
+print("Launching Raspberry Pi Pico W BLE temperature sensor...")
+asyncio.run(main())
+</code></pre>
+    </div>
+
+    <!-- Project 2 & 3 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h5 class="text-white font-semibold mb-2">Project 2 – Receiving BLE Data with Smartphone</h5>
+            <p class="text-sm text-[#92a4c9] mb-3">Use the LightBlue app to receive the data:</p>
+            <ol class="list-decimal pl-5 space-y-1 text-sm text-[#92a4c9]">
+                <li>Scan for <code class="inline-code bg-[#08101a] text-white px-1 py-0.5 rounded text-xs font-mono">picow_ble</code>.</li>
+                <li>Connect → Environmental Sensing → Temperature.</li>
+                <li>Switch data format to Signed Little Endian.</li>
+                <li>Divide the received value by 100 to get the temperature in °C.</li>
+            </ol>
+        </div>
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h5 class="text-white font-semibold mb-2">Project 3 – BLE Client Using Another Pico W</h5>
+            <p class="text-sm text-[#92a4c9] mb-3">A second Pico W can be programmed to act as a client that automatically scans for the beacon, connects, reads the temperature every 2 seconds, and decodes the data back into a human-readable value.</p>
+        </div>
+    </div>
+
+
+    <!-- Challenges & Further Reading -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h4 class="text-white font-bold mb-2">Challenges &amp; Extensions</h4>
+            <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                <li>Change the beacon name and UUIDs.</li>
+                <li>Broadcast other sensor values (e.g., from a potentiometer).</li>
+                <li>Add battery-powered operation for a true wireless sensor.</li>
+                <li>Use notifications instead of reads for more efficient data transfer.</li>
+                <li>Combine BLE with Wi-Fi projects from Chapter 11.</li>
+            </ul>
+        </div>
+        <div class="bg-surface-dark border border-[#232f48] rounded-xl p-6">
+            <h4 class="text-white font-bold mb-2">Further Reading</h4>
+             <ul class="list-disc pl-5 space-y-1 text-sm text-[#92a4c9]">
+                <li>Connecting to the Internet with Raspberry Pi Pico W-series</li>
+                <li>aioble documentation and examples</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Completion Button -->
+    <div class="mt-6 flex justify-center">
+        <button id="mark-ch12-complete" class="flex items-center justify-center gap-3 rounded-xl h-14 px-10 bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary text-white text-lg font-bold shadow-lg shadow-primary/30 transform transition-all hover:scale-105">
+            <span>Mark Chapter 12 Complete</span>
+            <span class="material-symbols-outlined">check_circle</span>
+        </button>
+    </div>
+</section>
     </div>
     </div>
     </div>
@@ -2170,6 +2583,8 @@ display.show()</code></pre>
             const btn8 = document.getElementById('mark-ch8-complete');
             const btn9 = document.getElementById('mark-ch9-complete');
             const btn10 = document.getElementById('mark-ch10-complete');
+            const btn11 = document.getElementById('mark-ch11-complete');
+            const btn12 = document.getElementById('mark-ch12-complete');
             const progText = document.getElementById('course-progress-text');
             const progPercent = document.getElementById('course-progress-percent');
             const progBar = document.getElementById('course-progress-bar');
@@ -2215,6 +2630,8 @@ display.show()</code></pre>
             setBtnState(btn8, 'chapter8_complete', 'Chapter 8 Completed');
             setBtnState(btn9, 'chapter9_complete', 'Chapter 9 Completed');
             setBtnState(btn10, 'chapter10_complete', 'Chapter 10 Completed');
+            setBtnState(btn11, 'chapter11_complete', 'Chapter 11 Completed');
+            setBtnState(btn12, 'chapter12_complete', 'Chapter 12 Completed');
             updateProgressUI();
 
             if(btn1){
@@ -2293,6 +2710,20 @@ display.show()</code></pre>
                 btn10.addEventListener('click', function(){
                     localStorage.setItem('chapter10_complete','1');
                     setBtnState(btn10, 'chapter10_complete', 'Chapter 10 Completed');
+                    updateProgressUI();
+                });
+            }
+            if(btn11){
+                btn11.addEventListener('click', function(){
+                    localStorage.setItem('chapter11_complete','1');
+                    setBtnState(btn11, 'chapter11_complete', 'Chapter 11 Completed');
+                    updateProgressUI();
+                });
+            }
+            if(btn12){
+                btn12.addEventListener('click', function(){
+                    localStorage.setItem('chapter12_complete','1');
+                    setBtnState(btn12, 'chapter12_complete', 'Chapter 12 Completed');
                     updateProgressUI();
                 });
             }
