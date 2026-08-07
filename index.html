@@ -416,10 +416,11 @@
     </section>
 
 
-    <!-- Contact & FAQ Section -->
+<!-- Contact & FAQ Section -->
     <section id="contact" class="py-24 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid lg:grid-cols-2 gap-16">
+
                 <!-- Contact Form -->
                 <div>
                     <h2 class="text-primary font-bold uppercase tracking-widest text-sm mb-4">Get In Touch</h2>
@@ -444,28 +445,49 @@
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Subject</label>
-                            <select id="subject" name="subject" class="w-full px-6 py-4 rounded-2xl bg-white border border-gray-100 focus:border-primary focus:ring-4 focus:ring-blue-50 transition-all outline-none appearance-none">
-                                <option>General Inquiry</option>
-                                <option>Python Programming</option>
-                                <option>Physical Computing & Electronics</option>
-                                <option>VEX Robotics Training</option>
-                                <option>Seasonal Camps (March/Summer/Winter)</option>
-                                <option>After School Program</option>
-                                <option>R&D Lab / Innovation Partnership</option>
-                            </select>
+                            <div class="relative">
+                                <select id="subject" name="subject" class="w-full px-6 py-4 rounded-2xl bg-white border border-gray-100 focus:border-primary focus:ring-4 focus:ring-blue-50 transition-all outline-none appearance-none pr-12 cursor-pointer">
+                                    <option>General Inquiry</option>
+                                    <option>Python Programming</option>
+                                    <option>Physical Computing & Electronics</option>
+                                    <option>VEX Robotics Training</option>
+                                    <option>Seasonal Camps (March/Summer/Winter)</option>
+                                    <option>After School Program</option>
+                                    <option>R&D Lab / Innovation Partnership</option>
+                                </select>
+                                <i class="fas fa-chevron-down pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                            </div>
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Message</label>
                             <textarea id="message" name="message" rows="5" required class="w-full px-6 py-4 rounded-2xl bg-white border border-gray-100 focus:border-primary focus:ring-4 focus:ring-blue-50 transition-all outline-none" placeholder="Tell us how we can help..."></textarea>
                         </div>
-                        <button type="submit" class="w-full bg-primary text-white py-4 rounded-2xl font-bold hover:bg-blue-700 shadow-xl shadow-blue-100 transition-all">
+<button type="submit" class="w-full bg-primary text-white py-4 rounded-2xl font-bold hover:bg-blue-700 shadow-xl shadow-blue-100 transition-all">
                             Send Message <i class="fas fa-paper-plane ml-2 text-sm"></i>
-                        </button>
+</button>
                     </form>
+
+                    <!-- Our Lab & Contact (below the Send Message button) -->
+                    <div class="mt-12 grid grid-cols-2 gap-8">
+                        <div class="flex items-start gap-4">
+                            <div class="text-primary mt-1"><i class="fas fa-location-dot"></i></div>
+                            <div>
+                                <h6 class="font-bold text-gray-900 mb-1">Our Lab</h6>
+                                <p class="text-xs text-gray-500 leading-relaxed">9 Ashton Drive, Vaughan<br>ON, Canada L6A 2L4</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="text-primary mt-1"><i class="fas fa-envelope"></i></div>
+                            <div>
+                                <h6 class="font-bold text-gray-900 mb-1">Contact</h6>
+                                <p class="text-xs text-gray-500 leading-relaxed">info@botronixlabs.com<br>+1 (365)386-4518</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- FAQ & Info -->
-                <div class="space-y-12">
+<!-- FAQ & Info -->
+                <div class="space-y-4">
                     <div>
                         <h4 class="text-xl font-bold text-gray-900 mb-8">Frequently Asked Questions</h4>
                         <div class="space-y-6">
@@ -489,7 +511,7 @@
                                     For most beginner courses, we provide all kits. For advanced courses, we recommend having your own Raspberry Pi or VEX kit, which we can help you source.
                                 </p>
                             </div>
-                            <!-- FAQ Item 3 -->
+<!-- FAQ Item 3 -->
                             <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden p-8">
                                 <h5 class="font-bold text-gray-900 mb-4 flex items-center gap-3">
                                     <span class="w-2 h-2 rounded-full bg-primary"></span>
@@ -499,53 +521,37 @@
                                     Our fundamental courses require no prior experience. For Intermediate and VEX programs, basic computer literacy is helpful.
                                 </p>
                             </div>
+</div>
                         </div>
-                    </div>
-                    
-                    <div class="grid md:grid-cols-2 gap-8">
-                        <div class="flex items-start gap-4">
-                            <div class="text-primary mt-1"><i class="fas fa-location-dot"></i></div>
-                            <div>
-                                <h6 class="font-bold text-gray-900 mb-1">Our Lab</h6>
-                                <p class="text-xs text-gray-500 leading-relaxed">9 Ashton Drive, Vaughan<br>ON, Canada L6A 2L4</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-4">
-                            <div class="text-primary mt-1"><i class="fas fa-envelope"></i></div>
-                            <div>
-                                <h6 class="font-bold text-gray-900 mb-1">Contact</h6>
-                                <p class="text-xs text-gray-500 leading-relaxed">info@botronixlabs.com<br>+1 (365)386-4518</p>
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- QR Codes Section -->
-                    <div class="pt-8 border-t border-gray-100">
-                        <h6 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Connect & Review</h6>
-                        <div class="flex flex-wrap gap-8">
-                            <div class="text-center">
-                                <div class="w-28 h-28 bg-white p-2 rounded-2xl border border-gray-100 shadow-sm mb-3 overflow-hidden">
-                                    <img src="assets/Images/qr images/wechat qr.png" alt="WeChat QR Code" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all">
+<!-- QR Codes Section (below the FAQ section) -->
+                        <div class="pt-0 border-t border-gray-100">
+                            <h6 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Connect & Review</h6>
+                            <div class="flex flex-wrap justify-center gap-8">
+                                <div class="text-center">
+                                    <div class="w-28 h-28 bg-white p-2 rounded-2xl border border-gray-100 shadow-sm mb-3 overflow-hidden">
+                                        <img src="assets/Images/qr images/wechat qr.png" alt="WeChat QR Code" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all">
+                                    </div>
+                                    <span class="text-[10px] font-bold text-gray-400 uppercase tracking-tighter flex items-center justify-center gap-1">
+                                        <i class="fab fa-weixin text-[#07C160]"></i> WeChat
+                                    </span>
                                 </div>
-                                <span class="text-[10px] font-bold text-gray-400 uppercase tracking-tighter flex items-center justify-center gap-1">
-                                    <i class="fab fa-weixin text-[#07C160]"></i> WeChat
-                                </span>
-                            </div>
-                            <div class="text-center">
-                                <div class="w-28 h-28 bg-white p-2 rounded-2xl border border-gray-100 shadow-sm mb-3 overflow-hidden">
-                                    <img src="assets/Images/qr images/whatsapp qr.png" alt="WhatsApp QR Code" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all">
+                                <div class="text-center">
+                                    <div class="w-28 h-28 bg-white p-2 rounded-2xl border border-gray-100 shadow-sm mb-3 overflow-hidden">
+                                        <img src="assets/Images/qr images/whatsapp qr.png" alt="WhatsApp QR Code" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all">
+                                    </div>
+                                    <span class="text-[10px] font-bold text-gray-400 uppercase tracking-tighter flex items-center justify-center gap-1">
+                                        <i class="fab fa-whatsapp text-[#25D366]"></i> WhatsApp
+                                    </span>
                                 </div>
-                                <span class="text-[10px] font-bold text-gray-400 uppercase tracking-tighter flex items-center justify-center gap-1">
-                                    <i class="fab fa-whatsapp text-[#25D366]"></i> WhatsApp
-                                </span>
-                            </div>
-                            <div class="text-center">
-                                <div class="w-28 h-28 bg-white p-2 rounded-2xl border border-gray-100 shadow-sm mb-3 overflow-hidden">
-                                    <img src="assets/Images/qr images/review qr.png" alt="Google Review QR Code" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all">
+                                <div class="text-center">
+                                    <div class="w-28 h-28 bg-white p-2 rounded-2xl border border-gray-100 shadow-sm mb-3 overflow-hidden">
+                                        <img src="assets/Images/qr images/review qr.png" alt="Google Review QR Code" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all">
+                                    </div>
+                                    <span class="text-[10px] font-bold text-gray-400 uppercase tracking-tighter flex items-center justify-center gap-1">
+                                        <i class="fab fa-google text-[#4285F4]"></i> Review Us
+                                    </span>
                                 </div>
-                                <span class="text-[10px] font-bold text-gray-400 uppercase tracking-tighter flex items-center justify-center gap-1">
-                                    <i class="fab fa-google text-[#4285F4]"></i> Review Us
-                                </span>
                             </div>
                         </div>
                     </div>
